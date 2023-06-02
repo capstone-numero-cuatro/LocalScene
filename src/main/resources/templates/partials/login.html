@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+
+<div>
+  <dialog id="c">
+    <div class="container">
+      <div class="screen">
+        <div class="screen-content">
+          <div th:if="${param.error}">
+            Invalid Username and Password.
+          </div>
+          <div th:if="${param.logout}">
+            You have been logged out.
+          </div>
+          <form class="login" th:action="@{/login}" method="post" id="loginForm">
+            <i class="fa-solid fa-user"></i>
+            <label for="username"></label>
+            <input id="username" placeholder="Username" name="username" type="text" />
+            <label for="password"></label>
+            <i class="fa-solid fa-key"></i>
+            <input id="password" name="password" placeholder="Password" type="password" />
+            <input type="submit" value="Log In" style="display: none;" />
+            <button type="button" class="btn btn-info" onclick="submitForm()">Log In</button>
+            <p>Not a member? <a href="#sign-up" onclick="showForm('sign-up')">Sign up!</a></p>
+            <p><a href="#forgot-password" onclick="showForm('forgot-password')">Forgot Password?</a></p>
+          </form>
+
+          <form id="sign-up" th:action="@{/sign-up}" method="post" style="display: none;">
+            <label for="newUsername">Username</label>
+            <input id="newUsername" name="newUsername" type="text" />
+            <label for="newEmail">Email</label>
+            <input id="newEmail" name="newEmail" type="email" />
+            <label for="newPassword">Password</label>
+            <input id="newPassword" name="newPassword" type="password" />
+            <label for="confirmPassword">Confirm Password</label>
+            <input id="confirmPassword" name="confirmPassword" type="password" />
+            <input type="submit" value="Sign Up" />
+          </form>
+
+          <form id="forgot-password" th:action="@{/forgot-password}" method="post" style="display: none;">
+            <label for="forgotEmail">Email</label>
+            <input id="forgotEmail" name="forgotEmail" type="email" />
+            <input type="submit" value="Reset Password" />
+          </form>
+        </div>
+      </div>
+    </div>
+  </dialog>
+  <button onclick="c.showModal()" type="button" class="btn btn-info">Log In?</button>
+</div>
+
+<script>
+  function submitForm() {
+    document.getElementById("loginForm").submit();
+  }
+
+  function showForm(formId) {
+    document.getElementById("loginForm").style.display = "none";
+    document.getElementById("sign-up").style.display = "none";
+    document.getElementById("forgot-password").style.display = "none";
+
+    document.getElementById(formId).style.display = "block";
+  }
+</script>
+
+</body>
+</html>
