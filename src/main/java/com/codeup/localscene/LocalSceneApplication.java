@@ -1,4 +1,4 @@
-package com.example.localscene;
+package com.codeup.localscene;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
