@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<form th:action="@{/signup}" method="POST" th:object="${user}">
+  <label for="username">Username</label>
+  <input id="username" th:field="*{username}" />
+
+  <label for="email">Email</label>
+  <input id="email" th:field="*{email}" />
+
+  <label for="password">Password</label>
+  <input id="password" type="password" th:field="*{password}" />
+
+  <label for="confirmPassword">Confirm Password</label>
+  <input id="confirmPassword" type="password"  />
+
+  <label for="instrument">Instrument</label>
+  <input id="instrument" th:field="*{instrument}" />
+
+  <label for="bandMember">Are you a band member?</label>
+  <input id="bandMember" type="checkbox" th:field="*{band_member}" />
+
+  <div th:if="${#fields.hasErrors('username')}">
+    <p class="error-message" th:errors="*{username}">Username Error</p>
+  </div>
+
+  <div th:if="${#fields.hasErrors('email')}">
+    <p class="error-message" th:errors="*{email}">Email Error</p>
+  </div>
+
+  <div th:if="${#fields.hasErrors('password')}">
+    <p class="error-message" th:errors="*{password}">Password Error</p>
+  </div>
+
+  <div th:if="${#fields.hasErrors('confirmPassword')}">
+    <p class="error-message" >Confirm Password Error</p>
+  </div>
+
+  <div th:if="${#fields.hasErrors('instrument')}">
+    <p class="error-message" th:errors="*{instrument}">Instrument Error</p>
+  </div>
+
+  <input value="Sign me up!" type="submit" />
+</form>
+</body>
+</html>
