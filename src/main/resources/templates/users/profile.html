@@ -20,7 +20,7 @@
     <div><h4>Recent Activity Placeholder</h4></div>
 </div>
 <div class="container" id="blog-post">
-    <dialog id="postCreation">
+    <dialog id="postCreationDialog">
         <h5>Create a new post</h5>
         <form  th:method="post" th:action="@{/posts/create}" th:object="${post}">
             <div class="mb-3">
@@ -30,18 +30,71 @@
 
             <div class="mb-3">
                 <label for="BlogTextArea" class="form-label">Post Body</label>
-                <textarea class="form-control" id="BlogTextArea" name="content" rows="3" th:field="*{body}"></textarea>
-                <input type="hidden" th:field="*{id}">
+                <textarea class="form-control" id="BlogTextArea" name="content" rows="3" th:field="*{description}"></textarea>
+                <input type="hidden" th:field="*{post_id}">
             </div>
             <button type="submit" class="btn btn-primary">Submit!</button>
         </form>
     </dialog>
     <button onclick="postCreation.showModal()" type="button" class="btn btn-info">Create New Post</button>
 </div>
+<div class="container" id="bandCreate">
+    <dialog id="bandCreationDialog">
+        <h5>Create a new band?</h5>
+        <form  th:method="post" th:action="@{/posts/create}" th:object="${bands}">
+            <div class="mb-3">
+                <label for="BandName" class="form-label">Band Name</label>
+                <input type="text" class="form-control" id="BandName" name="title" placeholder="Band Name" th:field="*{bandname}">
+            </div>
 
+            <div class="mb-3">
+                <label for="BandDescription" class="form-label">Band Description</label>
+                <textarea class="form-control" id="BandDescription" name="content" rows="3" th:field="*{description}"></textarea>
+                <input type="hidden" th:field="*{band_id}">
+            </div>
+            <button type="submit" class="btn btn-success">Submit!</button>
+        </form>
+    </dialog>
+    <button onclick="bandCreationDialog.showModal()" type="button" class="btn btn-success">Create a Band?</button>
+</div>
+<div class="container">
+    <dialog id="bandPostDialog">
+        <h5>Shoutout to your fans!</h5>
+        <form th:method="post" th:action="@{}" th:object="${band_post}">
+            <div class="mb-3">
+                <label for="BandPostTitle" class="form-label">Title</label>
+                <input type="text" class="form-control" id="BandPostTitle" name="title" placeholder="Title"  th:field="*{band_posts}">
+            </div>
+            <div class="mb-3">
+                <label for="BandPostDescription" class="form-label">Body</label>
+                <textarea class="form-control" id="BandPostDescription" name="content" rows="3" th:field="*{description}"></textarea>
+                <input type="hidden" th:field="*{band_id}">
+            </div>
+            <button type="submit" class="btn btn-warning">Let it be known!</button>
+        </form>
 
+    </dialog>
+    <button onclick="bandPostDialog.showModal()" type="button" class="btn btn-warning">Band Post</button>
+</div>
+<div class="container">
+    <dialog id="bandEvent">
+        <h5>What are the deets?!</h5>
+        <form th:method="post" th:action="@{}" th:object="${events}">
+            <div class="mb-3">
+                <label for="EventsPostTitle" class="form-label">Title</label>
+                <input type="text" class="form-control" id="EventsPostTitle" name="title" placeholder="Title"  th:field="*{title}">
+            </div>
+            <div class="mb-3">
+                <label for="EventsDescription" class="form-label">Body</label>
+                <textarea class="form-control" id="EventsDescription" name="content" rows="3" th:field="*{description}"></textarea>
+                <input type="hidden" th:field="*{band_id}">
+            </div>
+            <button type="submit" class="btn btn-danger">Let it be known!</button>
+        </form>
 
-
+    </dialog>
+    <button onclick="bandEvent.showModal()" type="button" class="btn btn-outline-danger">Event Creation</button>
+</div>
 
 
 
