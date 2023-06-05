@@ -1,60 +1,70 @@
-package com.codeup.localscene.models;
-
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+package com.codeup.localscene.model;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
-@Table(name="users")
-public class User {
+@Table(name = "users")
+public class Users {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "user_id", nullable = false)
-    private Long user_id;
+    private long id;
+
+    @OneToMany(mappedBy = "user")
+    private List<BandUser> user;
 
     @Column(nullable = false, length = 45)
     private String username;
+
     @Column(nullable = false, length = 45)
     private String password;
-    @Column(nullable = false, unique = true, length = 200)
+
+    @Column(nullable = false, length = 200, unique = true)
     private String email;
+
     @Column(name = "verification_code", length = 64)
     private String verificationCode;
-    @Column
+
+    @Column()
     private boolean enabled;
+
     @Column(length = 45)
     private String instrument;
-    @Column
+
+    @Column()
     private boolean band_member;
 
-    private String confirmPassword;
-// Getter and Setter for confirmPassword
+    @Column()
+    private long user_image;
 
-    public User() {}
 
-    public User(User copy) {
-        user_id = copy.user_id;
-        email = copy.email;
+    public Users(Users copy) {
+        id = copy.id; // This line is SUPER important! Many things won't work if it's
+        // absent
         username = copy.username;
         password = copy.password;
+        email = copy.email;
         verificationCode = copy.verificationCode;
         enabled = copy.enabled;
         instrument = copy.instrument;
         band_member = copy.band_member;
+        user_image = copy.user_image;
     }
 
-    public Long getId() {
-        return user_id;
+    public Users() {
+
     }
 
-    public void setId(Long id) {
-        this.user_id = id;
+
+
+    public long getId(){
+        return id;
     }
 
-    public String getUsername() {
-        return username;
+    public void setId(long user_id){
+        this.id = id;
     }
 
     public void setUsername(String username) {
@@ -81,7 +91,7 @@ public class User {
         return verificationCode;
     }
 
-    public void setVerificationCode(String verificationCode) {
+    public void setVerificationCode(String verification_code) {
         this.verificationCode = verificationCode;
     }
 
@@ -109,11 +119,11 @@ public class User {
         this.band_member = band_member;
     }
 
-    public String getConfirmPassword() {
-        return confirmPassword;
+    public long getUserImage (){
+        return user_image;
     }
 
-    public void setConfirmPassword(String confirmPassword) {
-        this.confirmPassword = confirmPassword;
+    public void setUserImage(Long user_image) {
+        this.user_image = user_image;
     }
 }
