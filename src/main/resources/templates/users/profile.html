@@ -102,7 +102,25 @@
     </div>
 </div>
 
+<!--File Stack-->
+<script src="//static.filestackapi.com/filestack-js/3.x.x/filestack.min.js"></script>
 
+<script>
+    //apikey
+    const client = filestack.init("Abd5534iTviZyWy5jGpswz" );
+    const image = document.getElementById("profilePic");
+    const fileInput = document.getElementById("imageInput");
+
+    fileInput.addEventListener("change",(event)=>{
+        const file = event.target.files[0];
+
+        client.upload(file).then((response)=>{
+            image.src = response.url;
+        }).catch((error)=>{
+            console.log(error)
+        })
+    })
+</script>
 
 
 
