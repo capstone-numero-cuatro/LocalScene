@@ -15,7 +15,7 @@ import org.springframework.ui.Model;
 public class UserController {
 
     private final EmailService emailService;
-    private final UserService userService; // Assuming you have UserService to authenticate users
+    private final UserService userService;
 
     @Autowired
     public UserController(EmailService emailService, UserService userService) {
@@ -30,7 +30,7 @@ public class UserController {
     }
 
     @PostMapping("/sign-up")
-    public ResponseEntity<String> signUp(@ModelAttribute @Valid User user, BindingResult bindingResult) {
+    public ResponseEntity<String> signUp(@ModelAttribute User user) {
         try {
             emailService.registerUser(user);
             return ResponseEntity.ok("Registration successful. Please check your email for verification link.");

@@ -11,8 +11,9 @@ import org.springframework.stereotype.Service;
 
 import java.util.UUID;
 
-@Service("mailService")
+@Service("emailService")
 public class EmailService {
+
     @Autowired
     private UserRepository userRepository;
 
@@ -25,10 +26,6 @@ public class EmailService {
     public void registerUser(User user) {
         // encode the password
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-
-        // set instrument and bandMember
-        user.setInstrument(user.getInstrument());
-        user.setBand_member(user.isBand_member());
 
         // set an email verification token
         user.setVerificationCode(UUID.randomUUID().toString());

@@ -29,6 +29,7 @@ public class User {
     @Column
     private boolean band_member;
 
+    @Transient
     private String confirmPassword;
 // Getter and Setter for confirmPassword
 
