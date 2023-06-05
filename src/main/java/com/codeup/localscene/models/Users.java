@@ -7,7 +7,7 @@ import jakarta.persistence.*;
 
 @Entity
 @Table(name="users")
-public class User {
+public class Users {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -35,9 +35,9 @@ public class User {
     private String confirmPassword;
 // Getter and Setter for confirmPassword
 
-    public User() {}
+    public Users() {}
 
-    public User(User copy) {
+    public Users(com.codeup.localscene.models.Users copy) {
         user_id = copy.user_id;
         email = copy.email;
         username = copy.username;

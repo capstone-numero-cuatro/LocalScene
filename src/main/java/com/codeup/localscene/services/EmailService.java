@@ -1,8 +1,9 @@
 package com.codeup.localscene.services;
 
 
-import com.codeup.localscene.models.User;
+import com.codeup.localscene.models.Users;
 import com.codeup.localscene.repositories.UserRepository;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -23,7 +24,7 @@ public class EmailService {
     @Autowired
     private JavaMailSender mailSender;
 
-    public void registerUser(User user) {
+    public void registerUser(@Valid Users user) {
         // encode the password
         user.setPassword(passwordEncoder.encode(user.getPassword()));
 
@@ -38,7 +39,7 @@ public class EmailService {
     }
 
 
-    private void sendVerificationEmail(User user) {
+    private void sendVerificationEmail(Users user) {
         SimpleMailMessage mailMessage = new SimpleMailMessage();
         mailMessage.setTo(user.getEmail());
         mailMessage.setSubject("Email Verification");
@@ -49,7 +50,7 @@ public class EmailService {
     }
 
     public boolean verifyUser(String code) {
-        User user = userRepository.findByVerificationCode(code);
+        Users user = userRepository.findByVerificationCode(code);
 
         if (user != null) {
             // verify the user
@@ -63,7 +64,7 @@ public class EmailService {
         }
     }
     public void sendPasswordResetEmail(String email) {
-        User user = userRepository.findByEmail(email);
+        Users user = userRepository.findByEmail(email);
         if (user != null) {
             // Generate a password reset token and save it for the user
             String resetToken = UUID.randomUUID().toString();
