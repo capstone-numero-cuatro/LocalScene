@@ -25,7 +25,7 @@ public class Users {
     private String email;
 
     @Column(name = "verification_code", length = 64)
-    private String verification_code;
+    private String verificationCode;
 
     @Column()
     private boolean enabled;
@@ -46,7 +46,7 @@ public class Users {
         username = copy.username;
         password = copy.password;
         email = copy.email;
-        verification_code = copy.verification_code;
+        verificationCode = copy.verificationCode;
         enabled = copy.enabled;
         instrument = copy.instrument;
         band_member = copy.band_member;
@@ -87,12 +87,12 @@ public class Users {
         this.email = email;
     }
 
-    public String getVerification_code() {
-        return verification_code;
+    public String getVerificationCode() {
+        return verificationCode;
     }
 
     public void setVerificationCode(String verification_code) {
-        this.verification_code = verification_code;
+        this.verificationCode = verificationCode;
     }
 
     public boolean isEnabled() {
@@ -111,11 +111,11 @@ public class Users {
         this.instrument = instrument;
     }
 
-    public boolean getBandMember() {
+    public boolean isBand_member() {
         return band_member;
     }
 
-    public void setBandMember(boolean band_member) {
+    public void setBand_member(boolean band_member) {
         this.band_member = band_member;
     }
 

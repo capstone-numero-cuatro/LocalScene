@@ -1,6 +1,6 @@
 package com.codeup.localscene.services;
 
-import com.codeup.localscene.models.User;
+import com.codeup.localscene.model.Users;
 import com.codeup.localscene.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,7 +19,7 @@ public class UserService {
     }
 
     public boolean authenticateUser(String email, String password) {
-        User user = userRepository.findByEmail(email);
+        Users user = userRepository.findByEmail(email);
 
         if (user != null) {
             return passwordEncoder.matches(password, user.getPassword());
