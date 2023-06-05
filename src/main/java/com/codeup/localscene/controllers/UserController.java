@@ -1,9 +1,12 @@
 package com.codeup.localscene.controllers;
 import com.codeup.localscene.services.EmailService;
 import com.codeup.localscene.models.User;
+import com.codeup.localscene.services.UserService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.ui.Model;
 
@@ -12,10 +15,12 @@ import org.springframework.ui.Model;
 public class UserController {
 
     private final EmailService emailService;
+    private final UserService userService; // Assuming you have UserService to authenticate users
 
     @Autowired
-    public UserController(EmailService emailService) {
+    public UserController(EmailService emailService, UserService userService) {
         this.emailService = emailService;
+        this.userService = userService;
     }
 
     @GetMapping("/sign-up")
@@ -25,7 +30,7 @@ public class UserController {
     }
 
     @PostMapping("/sign-up")
-    public ResponseEntity<String> signUp(@ModelAttribute User user) {
+    public ResponseEntity<String> signUp(@ModelAttribute @Valid User user, BindingResult bindingResult) {
         try {
             emailService.registerUser(user);
             return ResponseEntity.ok("Registration successful. Please check your email for verification link.");
@@ -45,8 +50,32 @@ public class UserController {
             return "verification-failure";
         }
     }
+
     @GetMapping("/login")
     public String showLoginPage() {
         return "login";
     }
+
+    @PostMapping("/perform_login")
+    public String login(@RequestParam("email") String email,
+                        @RequestParam("password") String password,
+                        Model model) {
+        // Authenticate user using userService (or any other service you use for authentication)
+        boolean isAuthenticated = userService.authenticateUser(email, password);
+
+        // If authentication is successful, redirect to home page.
+        if (isAuthenticated) {
+            return "redirect:/home";
+        } else {
+            // add error message to the model
+            model.addAttribute("errorMessage", "Invalid login. Please try again.");
+            return "login";
+        }
+    }
+    @GetMapping("/home")
+    public String showHomePage() {
+        return "home";
+    }
+
 }
+

@@ -29,10 +29,13 @@ public class User {
     @Column
     private boolean band_member;
 
+    private String confirmPassword;
+// Getter and Setter for confirmPassword
+
     public User() {}
 
     public User(User copy) {
-        user_id = copy.user_id; // This line is SUPER important! Many things won't work if it's absent
+        user_id = copy.user_id;
         email = copy.email;
         username = copy.username;
         password = copy.password;
@@ -104,5 +107,13 @@ public class User {
 
     public void setBand_member(boolean band_member) {
         this.band_member = band_member;
+    }
+
+    public String getConfirmPassword() {
+        return confirmPassword;
+    }
+
+    public void setConfirmPassword(String confirmPassword) {
+        this.confirmPassword = confirmPassword;
     }
 }
