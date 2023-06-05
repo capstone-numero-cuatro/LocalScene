@@ -2,27 +2,34 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
       xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
 <head th:replace="partials/head :: head ('Post - Index')">
+    <script src='https://api.mapbox.com/mapbox-gl-js/v2.13.0/mapbox-gl.js'></script>
+    <link href='https://api.mapbox.com/mapbox-gl-js/v2.13.0/mapbox-gl.css' rel='stylesheet' />
+    <link rel="stylesheet" href="../static/css/map.css">
+    <link rel="stylesheet" href="../static/css/home.css">
+</head>
 <body>
     <nav th:insert="partials/navbar :: navbar" />
     <h1 th:inline="text">this is home page</h1>
     <form th:action="@{/logout}" method="post">
         <input type="submit" value="Sign Out"/>
     </form>
-
+    <div>
+        <div class="main-background">
+            <img src="../static/img/localscen.png" alt="">
+        </div>
     <h3>The Local Scene</h3>
     <button type="button">Posts</button>
     <button type="button">Events</button>
-    <p>ZIP Code: <input type="text"></p>
-    <h4>--TEXAS--</h4>
-
     <div id="map"></div>
-
+    <p id="inputContainer">City or Zip: <input type="text" id="cityInput"></p>
+    <button id="cityLocation" type="button">Find</button>
+    </div>
     <div id="PostsContainer">
         <div class="post">
             <p class="post-title">Post 1</p>
             <p class="post-description">Loading....</p>
             <div class="post-image">
-                <img src="../img/Localscene.png" alt="">
+                <img src="../static/img/fff.png" alt="">
             </div>
         </div>
         <div class="post">
@@ -67,5 +74,10 @@
             <button type="button">Button</button>
         </div>
     </div>
+    <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+    <script src="../static/js/keys.js"></script>
+    <script src="../static/js/mapbox-geocode-utils.js"></script>
+
 </body>
+
 </html>
