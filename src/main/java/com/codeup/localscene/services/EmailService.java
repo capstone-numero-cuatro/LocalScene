@@ -62,4 +62,25 @@ public class EmailService {
             throw new IllegalArgumentException("Invalid verification code");
         }
     }
+    public void sendPasswordResetEmail(String email) {
+        User user = userRepository.findByEmail(email);
+        if (user != null) {
+            // Generate a password reset token and save it for the user
+            String resetToken = UUID.randomUUID().toString();
+            user.setResetPasswordToken(resetToken);
+            userRepository.save(user);
+
+            // Send the password reset email
+            SimpleMailMessage mailMessage = new SimpleMailMessage();
+            mailMessage.setTo(user.getEmail());
+            mailMessage.setSubject("Password Reset");
+            mailMessage.setText("To reset your password, please click the following link: "
+                    + "http://localhost:8080/reset-password?token=" + resetToken);
+
+            mailSender.send(mailMessage);
+        } else {
+            // throw an exception or show an error
+            throw new IllegalArgumentException("Invalid email address");
+        }
+    }
 }

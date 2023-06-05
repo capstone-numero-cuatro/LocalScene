@@ -16,12 +16,14 @@ public class User {
 
     @Column(nullable = false, length = 45)
     private String username;
-    @Column(nullable = false, length = 45)
+    @Column(nullable = false, length = 100)
     private String password;
     @Column(nullable = false, unique = true, length = 200)
     private String email;
     @Column(name = "verification_code", length = 64)
     private String verificationCode;
+    @Column(name = "reset_password_token", length = 64)
+    private String resetPasswordToken;
     @Column
     private boolean enabled;
     @Column(length = 45)
@@ -116,5 +118,13 @@ public class User {
 
     public void setConfirmPassword(String confirmPassword) {
         this.confirmPassword = confirmPassword;
+    }
+
+    public String getResetPasswordToken() {
+        return resetPasswordToken;
+    }
+
+    public void setResetPasswordToken(String resetPasswordToken) {
+        this.resetPasswordToken = resetPasswordToken;
     }
 }

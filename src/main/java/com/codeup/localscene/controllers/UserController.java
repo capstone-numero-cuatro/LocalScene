@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.ui.Model;
 
 
@@ -16,11 +17,13 @@ public class UserController {
 
     private final EmailService emailService;
     private final UserService userService;
+    private final BCryptPasswordEncoder passwordEncoder;
 
     @Autowired
-    public UserController(EmailService emailService, UserService userService) {
+    public UserController(EmailService emailService, UserService userService, BCryptPasswordEncoder passwordEncoder) {
         this.emailService = emailService;
         this.userService = userService;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @GetMapping("/sign-up")
@@ -77,5 +80,48 @@ public class UserController {
         return "home";
     }
 
+    @GetMapping("/forgot-password")
+    public String showForgotPasswordForm() {
+        return "forgot-password";
+    }
+
+    @PostMapping("/forgot-password")
+    public ResponseEntity<String> handleForgotPassword(@RequestParam("email") String email) {
+        try {
+            emailService.sendPasswordResetEmail(email);
+            return ResponseEntity.ok("Password reset email sent. Please check your email.");
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("Error during sending password reset email. Please try again.");
+        }
+    }
+
+    @GetMapping("/reset-password")
+    public String showResetPasswordForm(@RequestParam("token") String token, Model model) {
+        User user = userService.findByResetPasswordToken(token);
+        if (user != null) {
+            model.addAttribute("token", token);
+            return "reset-password";
+        } else {
+            model.addAttribute("message", "Invalid password reset token. Please try again.");
+            return "message";
+        }
+    }
+
+    @PostMapping("/reset-password")
+    public String handleResetPassword(@RequestParam("token") String token,
+                                      @RequestParam("password") String newPassword,
+                                      Model model) {
+        User user = userService.findByResetPasswordToken(token);
+        if (user == null) {
+            model.addAttribute("message", "Invalid token. Please try again.");
+            return "message";
+        }
+
+        String encodedPassword = passwordEncoder.encode(newPassword);
+        userService.updatePassword(encodedPassword, user);
+        model.addAttribute("message", "Your password has been updated successfully. Please log in.");
+        return "login";
+    }
 }
+
 
