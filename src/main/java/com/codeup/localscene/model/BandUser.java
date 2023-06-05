@@ -8,38 +8,40 @@ import jakarta.persistence.*;
 public class BandUser {
 
     @Id
-    private Long id;
-    public void setId(Long id) {
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
+
+    @ManyToOne
+    @JoinColumn(name = "users_id")
+    private Users user;
+
+    @ManyToOne
+    @JoinColumn(name = "band_id")
+    private Bands band;
+
+
+    public void setId(long id) {
         this.id = id;
     }
-    public Long getId() {
+
+    public long getId() {
         return id;
     }
 
-    @OneToMany
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @JoinColumn(name = "users_id")
-    private Long user_id;
-
-    @OneToMany
-    @JoinColumn(name = "band_id")
-    private Long band_id;
-
-
-
-    public Long getUserId(){
-        return user_id;
+    public Users getUser(){
+        return user;
     }
 
-    public void setUserId(Long user_id){
-        this.user_id = user_id;
+    public void setUser(Users user_id){
+        this.user = user;
     }
 
-    public Long getBandId(){
-        return band_id;
+    public Bands getBand(){
+        return band;
     }
 
-    public void setBandId(Long band_id) {
-        this.band_id = band_id;
+    public void setBand(Bands band_id) {
+        this.band = band;
     }
+
 }

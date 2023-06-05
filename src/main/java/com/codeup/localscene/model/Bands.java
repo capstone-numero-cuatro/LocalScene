@@ -2,13 +2,18 @@ package com.codeup.localscene.model;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 @Table(name = "bands")
 public class Bands {
 
     @Id
     @Column(name = "band_id")
-    private long band_id;
+    private long id;
+
+    @OneToMany(mappedBy = "band")
+    private List<BandUser> band;
 
     @Column(nullable = false, length = 45)
     private String bandname;
@@ -24,7 +29,7 @@ public class Bands {
     private Users user_id;
 
     public Bands(Bands copy){
-        band_id = copy.band_id;
+        id = copy.id;
         bandname = copy.bandname;
         description = copy.description;
         band_image = copy.band_image;
@@ -35,12 +40,12 @@ public class Bands {
     }
 
 
-    public long getBandId() {
-        return band_id;
+    public long getId() {
+        return id;
     }
 
-    public void setBandId(long band_id) {
-        this.band_id = band_id;
+    public void setId(long band_id) {
+        this.id = id;
     }
 
     public String getBandname() {

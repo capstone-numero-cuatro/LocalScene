@@ -2,14 +2,18 @@ package com.codeup.localscene.model;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 @Table(name = "users")
 public class Users {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "user_id", nullable = false)
-    private long user_id;
+    private long id;
+
+    @OneToMany(mappedBy = "user")
+    private List<BandUser> user;
 
     @Column(nullable = false, length = 45)
     private String username;
@@ -37,7 +41,7 @@ public class Users {
 
 
     public Users(Users copy) {
-        user_id = copy.user_id; // This line is SUPER important! Many things won't work if it's
+        id = copy.id; // This line is SUPER important! Many things won't work if it's
         // absent
         username = copy.username;
         password = copy.password;
@@ -55,12 +59,12 @@ public class Users {
 
 
 
-    public long getUser_id(){
-        return user_id;
+    public long getId(){
+        return id;
     }
 
-    public void setUser_id(long user_id){
-        this.user_id = user_id;
+    public void setId(long user_id){
+        this.id = id;
     }
 
     public void setUsername(String username) {
