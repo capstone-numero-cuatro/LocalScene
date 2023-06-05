@@ -1,0 +1,19 @@
+<div class="container" id="blog-post">
+  <dialog id="postCreation">
+    <h5>Create a new post</h5>
+    <form  th:method="post" th:action="@{/posts/create}" th:object="${post}">
+      <div class="mb-3">
+        <label for="BlogTitle" class="form-label">Title</label>
+        <input type="text" class="form-control" id="BlogTitle" name="title" placeholder="Title" th:field="*{title}">
+      </div>
+
+      <div class="mb-3">
+        <label for="BlogTextArea" class="form-label">Post Body</label>
+        <textarea class="form-control" id="BlogTextArea" name="content" rows="3" th:field="*{body}"></textarea>
+        <input type="hidden" th:field="*{id}">
+      </div>
+      <button type="submit" class="btn btn-primary">Submit!</button>
+    </form>
+  </dialog>
+  <button onclick="postCreation.showModal()" type="button" class="btn btn-info">Create New Post</button>
+</div>
