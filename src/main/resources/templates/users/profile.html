@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Profile</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <link rel="stylesheet" href="static/css/profile.css">
+</head>
+<body style="background-color: lightblue">
+<div th:include="Navbar.html"></div>
+
+
+
+<div class="container text-center" style="border: solid plum 2px">
+    <div >
+        <div style="position: relative">
+            <input type="file" id="imageInput">
+            <img src="" alt="image" id="profilePic" style="background-color: darkgrey; color:white; padding:5px; border:none;outline:none; height: 30vh; width: auto">
+        </div>
+        <h2>UserName Place Holder</h2>
+    </div>
+</div>
+<div class="container" id="recent-activity" style="border: solid yellow 2px">
+    <div><h4>Recent Activity Placeholder</h4></div>
+</div>
+<div style="border: solid 2px red">
+    <div class="container" id="blog-post">
+        <dialog id="postCreationDialog">
+            <h5>Create a new post</h5>
+            <form  th:method="post" th:action="@{/posts/create}" th:object="${post}">
+                <div class="mb-3">
+                    <label for="BlogTitle" class="form-label">Title</label>
+                    <input type="text" class="form-control" id="BlogTitle" name="title" placeholder="Title" th:field="*{title}">
+                </div>
+
+                <div class="mb-3">
+                    <label for="BlogTextArea" class="form-label">Post Body</label>
+                    <textarea class="form-control" id="BlogTextArea" name="content" rows="3" th:field="*{description}"></textarea>
+                    <input type="hidden" th:field="*{post_id}">
+                </div>
+                <button type="submit" class="btn btn-primary">Submit!</button>
+            </form>
+        </dialog>
+        <button onclick="postCreationDialog.showModal()" type="button" class="btn btn-info">Create New Post</button>
+    </div>
+    <div class="container" id="bandCreate">
+        <dialog id="bandCreationDialog">
+            <h5>Create a new band?</h5>
+            <form  th:method="post" th:action="@{/posts/create}" th:object="${bands}">
+                <div class="mb-3">
+                    <label for="BandName" class="form-label">Band Name</label>
+                    <input type="text" class="form-control" id="BandName" name="title" placeholder="Band Name" th:field="*{bandname}">
+                </div>
+
+                <div class="mb-3">
+                    <label for="BandDescription" class="form-label">Band Description</label>
+                    <textarea class="form-control" id="BandDescription" name="content" rows="3" th:field="*{description}"></textarea>
+                    <input type="hidden" th:field="*{band_id}">
+                </div>
+                <button type="submit" class="btn btn-success">Submit!</button>
+            </form>
+        </dialog>
+        <button onclick="bandCreationDialog.showModal()" type="button" class="btn btn-success">Create a Band?</button>
+    </div>
+    <div class="container">
+        <dialog id="bandPostDialog">
+            <h5>Shoutout to your fans!</h5>
+            <form th:method="post" th:action="@{}" th:object="${band_post}">
+                <div class="mb-3">
+                    <label for="BandPostTitle" class="form-label">Title</label>
+                    <input type="text" class="form-control" id="BandPostTitle" name="title" placeholder="Title"  th:field="*{band_posts}">
+                </div>
+                <div class="mb-3">
+                    <label for="BandPostDescription" class="form-label">Body</label>
+                    <textarea class="form-control" id="BandPostDescription" name="content" rows="3" th:field="*{description}"></textarea>
+                    <input type="hidden" th:field="*{band_id}">
+                </div>
+                <button type="submit" class="btn btn-warning">Let it be known!</button>
+            </form>
+
+        </dialog>
+        <button onclick="bandPostDialog.showModal()" type="button" class="btn btn-warning">Band Post</button>
+    </div>
+    <div class="container">
+        <dialog id="bandEvent">
+            <h5>What are the deets?!</h5>
+            <form th:method="post" th:action="@{}" th:object="${events}">
+                <div class="mb-3">
+                    <label for="EventsPostTitle" class="form-label">Title</label>
+                    <input type="text" class="form-control" id="EventsPostTitle" name="title" placeholder="Title"  th:field="*{title}">
+                </div>
+                <div class="mb-3">
+                    <label for="EventsDescription" class="form-label">Body</label>
+                    <textarea class="form-control" id="EventsDescription" name="content" rows="3" th:field="*{description}"></textarea>
+                    <input type="hidden" th:field="*{band_id}">
+                </div>
+                <button type="submit" class="btn btn-danger">Let it be known!</button>
+            </form>
+
+        </dialog>
+        <button onclick="bandEvent.showModal()" type="button" class="btn btn-outline-danger">Event Creation</button>
+    </div>
+</div>
+
+<!--File Stack-->
+<script src="//static.filestackapi.com/filestack-js/3.x.x/filestack.min.js"></script>
+
+<script>
+    //apikey
+    const client = filestack.init("Abd5534iTviZyWy5jGpswz" );
+    const image = document.getElementById("profilePic");
+    const fileInput = document.getElementById("imageInput");
+
+    fileInput.addEventListener("change",(event)=>{
+        const file = event.target.files[0];
+
+        client.upload(file).then((response)=>{
+            image.src = response.url;
+        }).catch((error)=>{
+            console.log(error)
+        })
+    })
+</script>
+
+
+
+
+<!--Bootstrap-->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+</body>
+</html>
