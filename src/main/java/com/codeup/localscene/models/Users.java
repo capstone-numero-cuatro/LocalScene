@@ -22,7 +22,7 @@ public class Users {
     private String email;
     @Column(name = "verification_code", length = 64)
     private String verificationCode;
-    @Column(name = "reset_password_token", length = 64)
+    @Column(name = "reset_password_token", length = 100)
     private String resetPasswordToken;
     @Column
     private boolean enabled;
