@@ -27,7 +27,7 @@ public class UserService {
         return false;
     }
 
-    public User findUserByResetPasswordToken(String token) {
+    public User findByResetPasswordToken(String token) {
         return userRepository.findByResetPasswordToken(token);
     }
 

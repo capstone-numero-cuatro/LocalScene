@@ -82,7 +82,7 @@ public class UserController {
 
     @GetMapping("/forgot-password")
     public String showForgotPasswordForm() {
-        return "forgot-password";
+        return "users/forgot-password";
     }
 
     @PostMapping("/forgot-password")
@@ -100,10 +100,10 @@ public class UserController {
         User user = userService.findByResetPasswordToken(token);
         if (user != null) {
             model.addAttribute("token", token);
-            return "reset-password";
+            return "users/reset-password";
         } else {
             model.addAttribute("message", "Invalid password reset token. Please try again.");
-            return "message";
+            return "users/message";
         }
     }
 
@@ -114,13 +114,12 @@ public class UserController {
         User user = userService.findByResetPasswordToken(token);
         if (user == null) {
             model.addAttribute("message", "Invalid token. Please try again.");
-            return "message";
+            return "users/message";
         }
 
-        String encodedPassword = passwordEncoder.encode(newPassword);
-        userService.updatePassword(encodedPassword, user);
+        userService.updatePassword(user, newPassword);
         model.addAttribute("message", "Your password has been updated successfully. Please log in.");
-        return "login";
+        return "users/message";
     }
 }
 

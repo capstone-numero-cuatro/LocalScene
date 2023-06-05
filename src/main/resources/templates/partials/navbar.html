@@ -47,14 +47,9 @@
                                     <input type="submit" value="Log In" style="display: none;" />
                                     <button type="button" class="btn btn-info" onclick="submitForm()">Log In</button>
                                     <p>Not a member? <a th:href="@{/sign-up}">Sign up!</a></p>
-                                    <p><a href="#forgot-password" onclick="showForm('forgot-password')">Forgot Password?</a></p>
+                                    <p><a th:href="@{/forgot-password}">Forgot Password?</a></p>
                                 </form>
 
-                                <form id="forgot-password" style="display: none;">
-                                    <label for="forgotEmail">Email</label>
-                                    <input id="forgotEmail" name="forgotEmail" type="email" />
-                                    <input type="submit" value="Reset Password" />
-                                </form>
                             </div>
                         </div>
                     </div>
@@ -77,10 +72,6 @@
                 .then(html => {
                     document.querySelector('.screen-content').innerHTML = html;
                 });
-        } else {
-            document.getElementById("loginForm").style.display = "none";
-            document.getElementById("forgot-password").style.display = "none";
-            document.getElementById(formId).style.display = "block";
         }
     }
 </script>
