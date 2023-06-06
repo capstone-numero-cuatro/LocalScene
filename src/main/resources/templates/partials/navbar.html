@@ -47,7 +47,9 @@
                                     <input type="submit" value="Log In" style="display: none;" />
                                     <button type="button" class="btn btn-info" onclick="submitForm()">Log In</button>
                                     <p>Not a member? <a th:href="@{/sign-up}">Sign up!</a></p>
-                                    <p><a th:href="@{/forgot-password}">Forgot Password?</a></p>
+
+                                    <p><a href="#forgot-password" onclick="showForm('forgot-password')">Forgot Password?</a></p>
+
                                 </form>
 
                             </div>
