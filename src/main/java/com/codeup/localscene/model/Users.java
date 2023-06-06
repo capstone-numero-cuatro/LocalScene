@@ -27,6 +27,9 @@ public class Users {
     @Column(name = "verification_code", length = 64)
     private String verificationCode;
 
+    @Column(name = "reset_password_token", length = 64)
+    private String resetPasswordToken;
+
     @Column()
     private boolean enabled;
 
@@ -39,25 +42,40 @@ public class Users {
     @Column()
     private long user_image;
 
+    @Column()
+    private String instagram;
+
+    @Column()
+    private String facebook;
+
+    @Column()
+    private String twitter;
+
+
+
+    @Transient
+    private String confirmPassword;
+
 
     public Users(Users copy) {
-        id = copy.id; // This line is SUPER important! Many things won't work if it's
-        // absent
+        id = copy.id;
         username = copy.username;
         password = copy.password;
         email = copy.email;
         verificationCode = copy.verificationCode;
+        resetPasswordToken = copy.resetPasswordToken;
         enabled = copy.enabled;
         instrument = copy.instrument;
         band_member = copy.band_member;
         user_image = copy.user_image;
+        instagram = copy.instagram;
+        facebook = copy.facebook;
+        twitter = copy.twitter;
     }
 
     public Users() {
 
     }
-
-
 
     public long getId(){
         return id;
@@ -77,6 +95,14 @@ public class Users {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getConfirmPassword() {
+        return confirmPassword;
+    }
+
+    public void setConfirmPassword(String confirmPassword) {
+        this.confirmPassword = confirmPassword;
     }
 
     public String getEmail() {
@@ -125,5 +151,37 @@ public class Users {
 
     public void setUserImage(Long user_image) {
         this.user_image = user_image;
+    }
+
+    public String getResetPasswordToken() {
+        return resetPasswordToken;
+    }
+
+    public void setResetPasswordToken(String resetPasswordToken) {
+        this.resetPasswordToken = resetPasswordToken;
+    }
+
+    public String getInstagram() {
+        return instagram;
+    }
+
+    public void setInstagram(String instagram) {
+        this.instagram = instagram;
+    }
+
+    public String getFacebook() {
+        return facebook;
+    }
+
+    public void setFacebook(String facebook) {
+        this.facebook = facebook;
+    }
+
+    public String getTwitter() {
+        return twitter;
+    }
+
+    public void setTwitter(String twitter) {
+        this.twitter = twitter;
     }
 }
