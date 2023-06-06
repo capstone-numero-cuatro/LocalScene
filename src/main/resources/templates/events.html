@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+<head th:replace="partials/head :: head ('Post - Index')">
+  <link rel="stylesheet" href="../static/css/map.css">
+  <link rel="stylesheet" href="../static/css/home.css">
+</head>
+<body>
+<div>
+  <div class="main-background">
+    <img src="../static/img/localscen.png" alt="">
+  </div>
+  <h3>The Local Scene</h3>
+  <button type="button">Posts</button>
+  <button type="button">Events</button>
+  <p id="inputContainer">Search: <input type="text" id="postsInput"></p>
+  <button id="cityLocation" type="button">Find</button>
+</div>
+<div id="PostsContainer">
+  <div class="post">
+    <p class="post-title">Post 1</p>
+    <p class="post-description">Loading....</p>
+    <div class="post-image">
+      <img src="../static/img/fff.png" alt="">
+    </div>
+  </div>
+  <div class="post">
+    <p class="post-title">Post 2</p>
+    <p class="post-description">Loading....</p>
+    <div class="post-image">
+      <img src="img/Localscene.png" alt="">
+    </div>
+  </div>
+  <div class="post">
+    <p class="post-title">Post 3</p>
+    <p class="post-description">Loading....</p>
+    <div class="post-image">
+      <img src="img/01d.png" alt="">
+    </div>
+  </div>
+</div>
+
+<div id="EventsContainer">
+  <div class="event">
+    <p class="Event-title">Event 1</p>
+    <p class="Event-description">Loading....</p>
+    <div class="Event-image">
+      <img src="img/Localscene.jpg" alt="">
+    </div>
+    <button type="button">Button</button>
+  </div>
+  <div class="event">
+    <p class="Event-title">Event 2</p>
+    <p class="Event-description">Loading....</p>
+    <div class="Event-image">
+      <img src="img/Localscene.jpg" alt="">
+    </div>
+    <button type="button">Button</button>
+  </div>
+  <div class="event">
+    <p class="Event-title">Event 3</p>
+    <p class="Event-description">Loading....</p>
+    <div class="Event-image">
+      <img src="img/Localscene.jpg" alt="">
+    </div>
+    <button type="button">Button</button>
+  </div>
+</div>
+<script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+
+
+</body>
+
+</html>
