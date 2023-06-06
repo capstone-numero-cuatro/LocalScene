@@ -14,7 +14,7 @@ public class Users {
     @Column(name = "user_id", nullable = false)
     private Long user_id;
 
-    @Column(nullable = false, length = 45)
+    @Column(nullable = false, unique = true, length = 45)
     private String username;
     @Column(nullable = false, length = 100)
     private String password;
@@ -37,13 +37,11 @@ public class Users {
 
     public Users() {}
 
-    public Users(com.codeup.localscene.models.Users copy) {
+    public Users(Users copy) {
         user_id = copy.user_id;
         email = copy.email;
         username = copy.username;
         password = copy.password;
-        verificationCode = copy.verificationCode;
-        enabled = copy.enabled;
         instrument = copy.instrument;
         band_member = copy.band_member;
     }
