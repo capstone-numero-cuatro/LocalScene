@@ -36,15 +36,8 @@
     };
 
     // Perform the search
-    $.ajax({
-      type: "GET",
-      url: "https://api.corsbridge.com/api?url=https://app.ticketmaster.com/discovery/v2/events.json?apikey=UdZ8l4XkAoz0AEQZV9sRX2cOqvZL1Atw",
-      success: function(response) {
-        displayVenues(response._embedded.venues);
-      },
-      error: function(error) {
-        console.log('Error:', error);
-      }
+    const key = TMConnect.init({
+      apikey: 'UdZ8l4XkAoz0AEQZV9sRX2cOqvZL1Atw'
     });
   }
 
