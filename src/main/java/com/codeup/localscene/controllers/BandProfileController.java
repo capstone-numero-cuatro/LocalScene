@@ -1,6 +1,7 @@
 package com.codeup.localscene.controllers;
 
 import com.codeup.localscene.models.Bands;
+import com.codeup.localscene.models.Posts;
 import com.codeup.localscene.repositories.BandRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,8 +20,10 @@ public class BandProfileController {
         if (band == null){
             return "redirect:/404";
         }
+
+        model.addAttribute("post", new Posts());
         model.addAttribute("band", band);
-        return "/users/profile";
+        return "users/profile";
     }
 
     @GetMapping("/band-profile/{band_id}/edit")

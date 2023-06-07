@@ -46,13 +46,15 @@ public class ProfileController {
         model.addAttribute("post", new Posts()); // Add this line
 
         // suppose Bands is your another entity
-        model.addAttribute("bands", new Bands()); // Add this line
+        model.addAttribute("band", new Bands()); // Add this line
 
         return "users/profile";
     }
 
     @PostMapping("/bands/create")
     public String createBand(@ModelAttribute Bands band) {
+        Users testUser = userRepository.getReferenceById(1L);
+        band.setUser(testUser);
         bandRepository.save(band);
 
         // Redirect to the newly created band's URL
