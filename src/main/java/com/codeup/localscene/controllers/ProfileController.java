@@ -1,19 +1,54 @@
 package com.codeup.localscene.controllers;
 
+import com.codeup.localscene.models.Bands;
+import com.codeup.localscene.models.Posts;
+import com.codeup.localscene.models.Users;
+import com.codeup.localscene.repositories.BandRepository;
+import com.codeup.localscene.repositories.PostRepository;
+import com.codeup.localscene.repositories.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.web.bind.annotation.PathVariable;
+
+import java.security.Principal;
+import java.util.List;
 
 @Controller
 public class ProfileController {
 
-    @GetMapping("/{user_id}/profile")
-    public String showProfilePage(Model model, @AuthenticationPrincipal UserDetails currentUser) {
-        model.addAttribute("username", currentUser.getUsername());
-        // add other user attributes to model as needed
-        return "user/profile";
+    private final UserRepository userRepository;
+    private final PostRepository postRepository;
+    // suppose you have a BandsRepository
+    private final BandRepository bandRepository;
+
+    @Autowired
+    public ProfileController(UserRepository userRepository, PostRepository postRepository, BandRepository bandRepository) {
+        this.userRepository = userRepository;
+        this.postRepository = postRepository;
+        this.bandRepository = bandRepository;
     }
 
+    @GetMapping("/profile/{id}")
+    public String showProfile(@PathVariable long id, Model model) {
+        Users user = userRepository.findById(id).orElse(null);
+        if (user == null) {
+            return "redirect:/login";
+        }
+
+        List<Posts> posts = postRepository.findByUser(user);
+        model.addAttribute("posts", posts);
+        model.addAttribute("post", new Posts()); // Add this line
+
+        // suppose Bands is your another entity
+        model.addAttribute("bands", new Bands()); // Add this line
+
+        return "users/profile";
+    }
 }
+
+
+

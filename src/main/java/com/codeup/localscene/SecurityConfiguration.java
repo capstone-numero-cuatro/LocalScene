@@ -39,23 +39,20 @@ public class SecurityConfiguration {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
-                .authorizeHttpRequests((requests) -> requests
-                        .requestMatchers("/",
-                                "/home",
-                                "/sign-up",
-                                "/verify"
-                                ).permitAll()
-                        .anyRequest().authenticated()
-                )
-                .formLogin((form) -> form
+                .formLogin(formLogin -> formLogin
                         .loginPage("/login")
                         .usernameParameter("email")
                         .passwordParameter("password")
-                        .defaultSuccessUrl("/profile", true)
+                        .defaultSuccessUrl("/home")
                         .permitAll()
                 )
-                .logout((logout) -> logout.permitAll());
-
+                .logout(logout -> logout
+                        .logoutSuccessUrl("/")
+                )
+                .authorizeRequests(authorize -> authorize
+                        .requestMatchers("/", "/sign-up", "/verify", "/home").permitAll()
+                        .requestMatchers("/profile/{id}").authenticated()
+                );
         return http.build();
     }
 

@@ -122,17 +122,6 @@ public class UserController {
         model.addAttribute("message", "Your password has been updated successfully. Please log in.");
         return "users/message";
     }
-    @GetMapping("/profile/{id}")
-    public String showProfile(@PathVariable Long id, Model model){
-        Users user = userDao.findById(id).orElse(null);
-        // If the post doesn't exist, redirect to a 404 page or similar
-        if (user == null) {
-            return "redirect:/404";
-        }
-        // Add the post to the model
-        model.addAttribute("user",user);
-        // Return the view
-        return "users/profile";
-    }
+
 }
 
