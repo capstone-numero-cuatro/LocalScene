@@ -11,7 +11,7 @@ public class Users {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false)
+    @Column(name = "user_id", nullable = false)
     private Long id;
 
     @Column(nullable = false, unique = true, length = 45)
@@ -175,5 +175,13 @@ public class Users {
 
     public void setTwitter(String twitter) {
         this.twitter = twitter;
+    }
+
+    public long getUser_image() {
+        return user_image;
+    }
+
+    public void setUser_image(long user_image) {
+        this.user_image = user_image;
     }
 }

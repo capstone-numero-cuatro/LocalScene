@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="../static/css/home.css">
 </head>
 <body>
-    <nav th:insert="partials/navbar :: navbar" />
+<div th:replace="partials/navbar :: navbar"></div>
     <h1 th:inline="text">this is home page</h1>
     <form th:action="@{/logout}" method="post">
         <input type="submit" value="Sign Out"/>
@@ -74,6 +74,7 @@
             <button type="button">Button</button>
         </div>
     </div>
+    <th:block th:replace="partials/navbar-scripts :: navbar-scripts"></th:block>
     <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
     <script src="../static/js/keys.js"></script>
     <script src="../static/js/mapbox-geocode-utils.js"></script>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+<script th:fragment="navbar-scripts">
+
+    var csrfToken = /*[[${_csrf.token}]]*/ 'default';
+    var csrfHeader = /*[[${_csrf.headerName}]]*/ 'default';
+  function submitForm() {
+    document.getElementById("loginForm").submit();
+  }
+
+  function showForm(formId) {
+    if (formId === 'sign-up') {
+      fetch('sign-up')
+              .then(response => response.text())
+              .then(html => {
+                document.querySelector('.screen-content').innerHTML = html;
+              });
+    } else if (formId === 'forgot-password') {
+      document.getElementById('forgot-password').style.display = 'block';
+    }
+  }
+
+  document.querySelector('#forgot-password button').addEventListener('click', function() {
+    var email = document.querySelector('#forgot-password input').value;
+    fetch('/forgot-password', {
+      method: 'POST',
+      body: JSON.stringify({ 'email': email }),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    }).then(function(response) {
+      if (response.ok) {
+        alert('An email with password reset instructions has been sent to ' + email);
+      } else {
+        response.text().then(alert);
+      }
+    });
+  });
+</script>
+</body>
+</html>

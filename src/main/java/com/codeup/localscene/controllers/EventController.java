@@ -12,33 +12,33 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.List;
 
-@Controller
-public class EventController {
-
-    @Autowired
-    private EventRepository eventRepository;
-
-    //retrieves list of events
-    @GetMapping("/profile/{id}/events")
-    public String getEvents(Model model) {
-        List<Events> events = eventRepository.findAll();
-        model.addAttribute("events", events);
-        model.addAttribute("event", new Events());
-        return "events";
-    }
-
-    //create event, saves event, redirects to list of events
-    @PostMapping("/profile/{id}/events/create")
-    public String createEvents(@ModelAttribute("event") Events event) {
-        eventRepository.save(event);
-        return "redirect:/events";
-    }
-
-    //delete
-    @PostMapping("/profile/{id}/events/delete")
-    public String deleteEvents(@ModelAttribute("event") Events event){
-        eventRepository.delete(event);
-        return "redirect:/events";
-    }
-
-}
+//@Controller
+//public class EventController {
+//
+//    @Autowired
+//    private EventRepository eventRepository;
+//
+//    //retrieves list of events
+//    @GetMapping("/profile/{id}/events")
+//    public String getEvents(Model model) {
+//        List<Events> events = eventRepository.findAll();
+//        model.addAttribute("events", events);
+//        model.addAttribute("event", new Events());
+//        return "events";
+//    }
+//
+//    //create event, saves event, redirects to list of events
+//    @PostMapping("/profile/{id}/events/create")
+//    public String createEvents(@ModelAttribute("event") Events event) {
+//        eventRepository.save(event);
+//        return "redirect:/events";
+//    }
+//
+//    //delete
+//    @PostMapping("/profile/{id}/events/delete")
+//    public String deleteEvents(@ModelAttribute("event") Events event){
+//        eventRepository.delete(event);
+//        return "redirect:/events";
+//    }
+//
+//}

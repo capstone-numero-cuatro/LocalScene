@@ -50,7 +50,7 @@ public class SecurityConfiguration {
                         .logoutSuccessUrl("/")
                 )
                 .authorizeRequests(authorize -> authorize
-                        .requestMatchers("/", "/sign-up", "/verify", "/home").permitAll()
+                        .requestMatchers("/", "/sign-up", "/verify", "/home","/forgot-password").permitAll()
                         .requestMatchers("/profile/{id}").authenticated()
                 );
         return http.build();

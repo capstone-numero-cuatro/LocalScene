@@ -3,12 +3,17 @@ import com.codeup.localscene.repositories.UserRepository;
 import com.codeup.localscene.services.EmailService;
 import com.codeup.localscene.models.Users;
 import com.codeup.localscene.services.UserDetailsLoader;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.mail.SimpleMailMessage;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.ui.Model;
+
+import java.util.Map;
+import java.util.UUID;
 
 
 @Controller
@@ -81,15 +86,13 @@ public class UserController {
         return "home";
     }
 
-    @GetMapping("/forgot-password")
-    public String showForgotPasswordForm() {
-        return "users/forgot-password";
-    }
 
     @PostMapping("/forgot-password")
-    public ResponseEntity<String> handleForgotPassword(@RequestParam("email") String email) {
+    public ResponseEntity<String> handleForgotPassword(@RequestBody Map<String, String> body) {
+        String email = body.get("email");
         try {
-            emailService.sendPasswordResetEmail(email);
+            String token = UUID.randomUUID().toString();
+            emailService.sendPasswordResetEmail(email, token);
             return ResponseEntity.ok("Password reset email sent. Please check your email.");
         } catch (Exception e) {
             return ResponseEntity.badRequest().body("Error during sending password reset email. Please try again.");
