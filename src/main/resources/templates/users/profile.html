@@ -78,14 +78,26 @@
     </div>
 </div>
 <div class="container" id="recent-activity" style="border: solid yellow 2px">
-    <div><h4>Recent Activity Placeholder</h4></div>
+    <div><h4>Recent Activity Placeholder</h4>
+        <div th:each="post : ${posts}">
+            <div class="card" style="width: 18rem">
+                <div class="card-body">
+                    <h5 class="card-title" th:text="${post.title}"></h5>
+                    <h6 class="card-body" th:text="${post.description}"></h6>
+                    <img th:src="@{'/images/' + ${post.image}}" alt="postImage">
+                </div>
+            </div>
+        </div>
+
+    </div>
 </div>
 <div style="border: solid 2px red">
     <div class="container" id="blog-post">
         <dialog id="postCreationDialog">
             <h5>Create a new post</h5>
-            <form  th:method="post" th:action="@{/posts/create}" th:object="${post}">
-                <div class="mb-3">
+            <form th:action="@{/posts/create}" th:method="post" th:object="${post}" th:action="@{/posts/create}">
+
+            <div class="mb-3">
                     <label for="BlogTitle" class="form-label">Title</label>
                     <input type="text" class="form-control" id="BlogTitle" name="title" placeholder="Title" th:field="*{title}">
 
@@ -101,39 +113,41 @@
                         <img src="" alt="image" id="postFile" style="background-color: darkgrey; color:white; padding:5px; border:none;outline:none; height: 30vh; width: auto">
                     </div>
                 </div>
-                <button type="submit" class="btn btn-primary">Submit!</button>
+                <button th:type="submit" class="btn btn-primary">Submit!</button>
             </form>
         </dialog>
         <button onclick="postCreationDialog.showModal()" type="button" class="btn btn-info">Create New Post</button>
     </div>
     <div class="container" id="bandCreate">
         <dialog id="bandCreationDialog">
-            <h5>Create a new band?</h5>
-            <form  th:method="post" th:action="@{/posts/create}" th:object="${bands}">
+            <h5>Create a new band</h5>
+            <form th:method="post" th:action="@{/bands/create}" th:object="${band}">
                 <div class="mb-3">
                     <label for="BandName" class="form-label">Band Name</label>
-                    <input type="text" class="form-control" id="BandName" name="title" placeholder="Band Name" th:field="*{bandname}">
+                    <input type="text" class="form-control" id="BandName" name="bandName" placeholder="Band Name"
+                           th:field="*{bandname}">
                 </div>
 
                 <div class="mb-3">
                     <label for="BandDescription" class="form-label">Band Description</label>
-                    <textarea class="form-control" id="BandDescription" name="content" rows="3" th:field="*{description}"></textarea>
-                    <input type="hidden" th:field="*{id}">
+                    <textarea class="form-control" id="BandDescription" name="description" rows="3"
+                              th:field="*{description}"></textarea>
+<!--                    <input type="hidden" th:field="*{id}">-->
                     <div style="position: relative">
                         <input type="file" id="bandCreateImg">
-                        <img src="" alt="image" id="bandImg" style="background-color: darkgrey; color:white; padding:5px; border:none;outline:none; height: 30vh; width: auto">
+                        <img src="" alt="image" id="bandImg"
+                             style="background-color: darkgrey; color:white; padding:5px; border:none;outline:none; height: 30vh; width: auto">
                     </div>
                 </div>
-                <button type="submit"
-                        class="btn btn-success"
-                        th:onclick="'window.location.href = \‘/band-profile?band_id=\’ + ${band_id}'">Submit!
-                </button>
+                <button type="submit" class="btn btn-success">Submit!</button>
             </form>
         </dialog>
-        <button onclick="bandCreationDialog.showModal()" type="button" class="btn btn-success">Create a Band?</button>
+        <button onclick="bandCreationDialog.showModal()" type="button" class="btn btn-success">Create a Band</button>
     </div>
 
+
 </div>
+
 
 <!--File Stack-->
 <script src="//static.filestackapi.com/filestack-js/3.x.x/filestack.min.js"></script>

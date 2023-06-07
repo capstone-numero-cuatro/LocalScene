@@ -12,7 +12,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import java.security.Principal;
 import java.util.List;
@@ -47,6 +49,14 @@ public class ProfileController {
         model.addAttribute("bands", new Bands()); // Add this line
 
         return "users/profile";
+    }
+
+    @PostMapping("/bands/create")
+    public String createBand(@ModelAttribute Bands band) {
+        bandRepository.save(band);
+
+        // Redirect to the newly created band's URL
+        return "redirect:/band-profile?band_id=" + band.getId();
     }
 }
 
