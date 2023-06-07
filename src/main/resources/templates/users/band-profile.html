@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Band Profile</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+  <link rel="stylesheet" href="static/css/profile.css">
+
+  <!--    Font awesome-->
+  <script src="https://kit.fontawesome.com/3d0b015fdb.js" crossorigin="anonymous"></script>
+</head>
+<body>
+<div class="container text-center" style="border: solid plum 2px">
+  <div>
+    <div style="position: relative">
+      <input type="file" id="imageInput">
+      <img src="" alt="image" id="profilePic" style="background-color: darkgrey; color:white; padding:5px; border:none;outline:none; height: 30vh; width: auto">
+    </div>
+    <h2 th:text="${bandname}">Band Name Placeholder</h2>
+
+    <h3>Social Media Links</h3>
+    <form action="/submit" method="post">
+      <label for="facebook"><i class="fa-brands fa-facebook"></i>Facebook</label>
+      <input type="text" id="facebook" name="facebook" th:value="${facebook}">
+
+      <label for="twitter"><i class="fa-brands fa-twitter"></i>Twitter</label>
+      <input type="text" id="twitter" name="twitter" th:value="${twitter}">
+
+      <label for="instagram"><i class="fa-brands fa-instagram"></i>Instagram</label>
+      <input type="text" id="instagram" name="instagram" th:value="${instagram}">
+
+      <button type="submit">Save</button>
+    </form>
+  </div>
+
+</div>
+
+<div class="container">
+    <div>
+      <h3>Band Members</h3>
+        <ul>
+          <li th:each="member : ${userid}">
+            <span th:text="${userid}"></span>
+          </li>
+        </ul>
+    </div>
+  <div>
+    <h3>Add Band Member</h3>
+    <form th:action="@{/addMember}" method="post">
+      <input type="text" name="username" placeholder="Username" required>
+      <button class="btn  btn-success" type="submit">Add</button>
+    </form>
+  </div>
+</div>
+
+
+<div class="container" id="recent-activity" style="border: solid yellow 2px">
+  <div><h4>Recent Activity Placeholder</h4></div>
+</div>
+<div class="container">
+  <dialog id="bandPostDialog">
+    <h5>Shoutout to your fans!</h5>
+    <form th:method="post" th:action="@{}" th:object="${band_post}">
+      <div class="mb-3">
+        <label for="BandPostTitle" class="form-label">Title</label>
+        <input type="text" class="form-control" id="BandPostTitle" name="title" placeholder="Title"  th:field="*{band_posts}">
+      </div>
+      <div class="mb-3">
+        <label for="BandPostDescription" class="form-label">Body</label>
+        <textarea class="form-control" id="BandPostDescription" name="content" rows="3" th:field="*{description}"></textarea>
+        <input type="hidden" th:field="*{band_id}">
+        <div style="position: relative">
+          <input type="file" id="bandPostImgInput">
+          <img src="" alt="image" id="bandPostImg" style="background-color: darkgrey; color:white; padding:5px; border:none;outline:none; height: 30vh; width: auto">
+        </div>
+
+      </div>
+      <button type="submit" class="btn btn-warning">Let it be known!</button>
+    </form>
+
+  </dialog>
+  <button onclick="bandPostDialog.showModal()" type="button" class="btn btn-warning">Band Post</button>
+</div>
+<div class="container">
+  <dialog id="bandEvent">
+    <h5>What are the deets?!</h5>
+    <form th:method="post" th:action="@{}" th:object="${events}">
+      <div class="mb-3">
+        <label for="EventsPostTitle" class="form-label">Title</label>
+        <input type="text" class="form-control" id="EventsPostTitle" name="title" placeholder="Title"  th:field="*{title}">
+      </div>
+      <div class="mb-3">
+        <label for="EventsDescription" class="form-label">Body</label>
+        <textarea class="form-control" id="EventsDescription" name="content" rows="3" th:field="*{description}"></textarea>
+        <input type="hidden" th:field="*{band_id}">
+        <div style="position: relative">
+          <input type="file" id="bandEventInput">
+          <img src="" alt="image" id="bandEventFlyer" style="background-color: darkgrey; color:white; padding:5px; border:none;outline:none; height: 30vh; width: auto">
+        </div>
+      </div>
+      <button type="submit" class="btn btn-danger">Let it be known!</button>
+    </form>
+
+  </dialog>
+  <button onclick="bandEvent.showModal()" type="button" class="btn btn-outline-danger">Event Creation</button>
+</div>
+
+
+
+
+
+
+
+
+<script>
+
+  const client = filestack.init("Abd5534iTviZyWy5jGpswz");
+
+  // Band post image
+  const bandPostImg = document.getElementById("bandPostImg");
+  const bandPostImgInput = document.getElementById("bandPostImgInput");
+
+  bandPostImgInput.addEventListener("change", (event) => {
+    const file = event.target.files[0];
+
+    client.upload(file).then((response) => {
+      bandPostImg.src = response.url;
+    }).catch((error) => {
+      console.log(error);
+    });
+  });
+
+  // Band event flyer
+  const bandEventFlyer = document.getElementById("bandEventFlyer");
+  const bandEventInput = document.getElementById("bandEventInput");
+
+  bandEventInput.addEventListener("change", (event) => {
+    const file = event.target.files[0];
+
+    client.upload(file).then((response) => {
+      bandEventFlyer.src = response.url;
+    }).catch((error) => {
+      console.log(error);
+    });
+  });
+</script>
+
+
+
+
+
+<!--Bootstrap-->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+</body>
+</html>
