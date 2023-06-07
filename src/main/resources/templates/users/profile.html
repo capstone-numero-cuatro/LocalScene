@@ -12,7 +12,7 @@
 <body style="background-color: lightblue">
 
 
-<div th:include="Navbar.html"></div>
+<nav th:insert="partials/navbar :: navbar" />
 
 
 
@@ -94,7 +94,7 @@
                 <div class="mb-3">
                     <label for="BlogTextArea" class="form-label">Post Body</label>
                     <textarea class="form-control" id="BlogTextArea" name="content" rows="3" th:field="*{description}"></textarea>
-                    <input type="hidden" th:field="*{post_id}">
+                    <input type="hidden" th:field="*{id}">
 
                     <div style="position: relative">
                         <input type="file" id="postFileInput">
@@ -118,7 +118,7 @@
                 <div class="mb-3">
                     <label for="BandDescription" class="form-label">Band Description</label>
                     <textarea class="form-control" id="BandDescription" name="content" rows="3" th:field="*{description}"></textarea>
-                    <input type="hidden" th:field="*{band_id}">
+                    <input type="hidden" th:field="*{id}">
                     <div style="position: relative">
                         <input type="file" id="bandCreateImg">
                         <img src="" alt="image" id="bandImg" style="background-color: darkgrey; color:white; padding:5px; border:none;outline:none; height: 30vh; width: auto">
