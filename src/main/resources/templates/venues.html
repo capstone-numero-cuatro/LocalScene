@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity6" xmlns="http://www.w3.org/1999/html">
+<head>
+  <meta charset="UTF-8">
+  <title>Venue Search</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="../static/css/venues.css">
+</head>
+<body>
+<div class="container">
+  <h1>Venue Search</h1>
+  <div class="row">
+    <div class="col-md-3">
+      <form id="search-form">
+        <div class="input-group mb-3">
+          <label for="search-input"></label><input type="text" id="search-input" class="form-control" placeholder="Enter your location">
+          <div class="input-group-append">
+            <button class="btn btn-primary" type="submit">Search</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+  <div id="venues-container" class="row">
+    <div class="venue-card"></div>
+  </div>
+
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+
+<script src="../static/js/keyTM.js"></script>
+
+
+
+
+</body>
+</html>
+
+
+
+

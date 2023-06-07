@@ -11,7 +11,10 @@
 </head>
 <body style="background-color: lightblue">
 
-<nav th:insert="partials/navbar :: navbar" />
+
+<div th:include="Navbar.html"></div>
+
+
 
 <div class="container text-center" style="border: solid plum 2px">
     <div>
@@ -20,6 +23,17 @@
             <img src="" alt="image" id="profilePic" style="background-color: darkgrey; color:white; padding:5px; border:none;outline:none; height: 30vh; width: auto">
         </div>
         <h2 th:text="${username}">UserName Place Holder</h2>
+
+        <div>
+            <div th:if="${not #lists.isEmpty(bands)}">
+                <h4>Bands:</h4>
+                <ul>
+                    <li th:each="band : ${bands}">[[${band.bandname}]]</li>
+                    <!-- Add more list items for each band -->
+                </ul>
+            </div>
+        </div>
+
 
         <h3>Social Media Links</h3>
         <form action="/submit" method="post">
@@ -80,7 +94,7 @@
                 <div class="mb-3">
                     <label for="BlogTextArea" class="form-label">Post Body</label>
                     <textarea class="form-control" id="BlogTextArea" name="content" rows="3" th:field="*{description}"></textarea>
-                    <input type="hidden" th:field="*{id}">
+                    <input type="hidden" th:field="*{post_id}">
 
                     <div style="position: relative">
                         <input type="file" id="postFileInput">
@@ -104,13 +118,16 @@
                 <div class="mb-3">
                     <label for="BandDescription" class="form-label">Band Description</label>
                     <textarea class="form-control" id="BandDescription" name="content" rows="3" th:field="*{description}"></textarea>
-                    <input type="hidden" th:field="*{id}">
+                    <input type="hidden" th:field="*{band_id}">
                     <div style="position: relative">
                         <input type="file" id="bandCreateImg">
                         <img src="" alt="image" id="bandImg" style="background-color: darkgrey; color:white; padding:5px; border:none;outline:none; height: 30vh; width: auto">
                     </div>
                 </div>
-                <button type="submit" class="btn btn-success">Submit!</button>
+                <button type="submit"
+                        class="btn btn-success"
+                        th:onclick="'window.location.href = \‘/band-profile?band_id=\’ + ${band_id}'">Submit!
+                </button>
             </form>
         </dialog>
         <button onclick="bandCreationDialog.showModal()" type="button" class="btn btn-success">Create a Band?</button>
@@ -179,6 +196,8 @@
             field.type = "password";
         }
     }
+
+
 </script>
 
 
