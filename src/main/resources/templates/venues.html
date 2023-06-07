@@ -1,9 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity6" xmlns="http://www.w3.org/1999/html">
 <head>
   <meta charset="UTF-8">
   <title>Venue Search</title>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="../static/css/venues.css">
 </head>
 <body>
 <div class="container">
@@ -21,10 +23,12 @@
     </div>
   </div>
   <div id="venues-container" class="row"></div>
+  <div class="venue-card"></div>
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<<<<<<< HEAD
 <script>
   function searchVenues(location) {
     let options = {
@@ -67,8 +71,14 @@
     searchVenues(location);
   });
 </script>
+=======
+<!--<script src="https://developer.ticketmaster.com/assets/sdk/ticketmaster-connector.min.js"></script>-->
+<!--<script src="https://app.ticketmaster.com/discovery/v2/events.json?apikey=UdZ8l4XkAoz0AEQZV9sRX2cOqvZL1Atw"></script>-->
+<script src="../static/js/keyTM.js"></script>
+>>>>>>> 04b66f8016c05fa9fed54ca571159677b7f0f4b6
 </body>
 </html>
+
 
 
 
