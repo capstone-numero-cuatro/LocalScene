@@ -8,7 +8,7 @@ public class Posts {
 
     @Id
     @Column(name = "post_id")
-    private long id;
+    private long post_id;
 
     @Column(nullable = false, length = 45)
     private String title;
@@ -24,7 +24,7 @@ public class Posts {
     private Users user;
 
     public Posts(Posts copy){
-        id = copy.id;
+        post_id = copy.post_id;
         title = copy.title;
         description = copy.description;
         post_image = copy.post_image;
@@ -34,11 +34,11 @@ public class Posts {
     }
 
     public long getId() {
-        return id;
+        return post_id;
     }
 
     public void setId(long id) {
-        this.id = id;
+        this.post_id = id;
     }
 
 

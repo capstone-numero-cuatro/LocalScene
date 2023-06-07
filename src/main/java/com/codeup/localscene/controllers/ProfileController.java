@@ -36,7 +36,7 @@ public class ProfileController {
 
     @GetMapping("/profile/{id}")
     public String showProfile(@PathVariable long id, Model model) {
-        Users user = userRepository.findById(id).orElse(null);
+        Users user = userRepository.findById(id);
         if (user == null) {
             return "redirect:/login";
         }
@@ -58,7 +58,17 @@ public class ProfileController {
         // Redirect to the newly created band's URL
         return "redirect:/band-profile?band_id=" + band.getId();
     }
+
+    @PostMapping("/posts/create")
+    public String createPost(@ModelAttribute Posts post) {
+
+        postRepository.save(post);
+
+        return "redirect:/profile/posts";
+    }
 }
+
+
 
 
 
