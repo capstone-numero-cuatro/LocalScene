@@ -11,7 +11,7 @@
 <div class="container">
   <h1>Venue Search</h1>
   <div class="row">
-    <div class="col-md-6">
+    <div class="col-md-3">
       <form id="search-form">
         <div class="input-group mb-3">
           <label for="search-input"></label><input type="text" id="search-input" class="form-control" placeholder="Enter your location">
@@ -22,60 +22,15 @@
       </form>
     </div>
   </div>
-  <div id="venues-container" class="row"></div>
-  <div class="venue-card"></div>
+  <div id="venues-container" class="row">
+    <div class="venue-card"></div>
+  </div>
+
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-<<<<<<< HEAD
-<script>
-  function searchVenues(location) {
-    let options = {
-      keyword: 'music',
-      locale: 'en-us',
-      size: 10,
-      city: location,
-      radius: 100 // Set the radius in miles (adjust as needed)
-    };
-
-    // Perform the search
-    const key = TMConnect.init({
-      apikey: 'UdZ8l4XkAoz0AEQZV9sRX2cOqvZL1Atw'
-    });
-  }
-
-  // Function to display the venues
-  function displayVenues(venues) {
-    let container = $('#venues-container');
-    container.empty();
-
-    $.each(venues, function (index, venue) {
-      let venueCard = $('<div>').addClass('col-md-4');
-      let card = $('<div>').addClass('card venue-card');
-      let cardBody = $('<div>').addClass('card-body');
-      let title = $('<h5>').addClass('card-title').text(venue.name);
-      let address = $('<p>').addClass('card-text').text(venue.address.line1);
-
-      cardBody.append(title, address);
-      card.append(cardBody);
-      venueCard.append(card);
-      container.append(venueCard);
-    });
-  }
-
-  // Handle form submission
-  $('#search-form').submit(function (event) {
-    event.preventDefault();
-    let location = $('#search-input').val();
-    searchVenues(location);
-  });
-</script>
-=======
-<!--<script src="https://developer.ticketmaster.com/assets/sdk/ticketmaster-connector.min.js"></script>-->
-<!--<script src="https://app.ticketmaster.com/discovery/v2/events.json?apikey=UdZ8l4XkAoz0AEQZV9sRX2cOqvZL1Atw"></script>-->
 <script src="../static/js/keyTM.js"></script>
->>>>>>> 04b66f8016c05fa9fed54ca571159677b7f0f4b6
 </body>
 </html>
 

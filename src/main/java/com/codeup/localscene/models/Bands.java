@@ -30,6 +30,7 @@ public class Bands {
 
     public Bands(Bands copy){
         id = copy.id;
+        band = copy.band;
         bandname = copy.bandname;
         description = copy.description;
         band_image = copy.band_image;
