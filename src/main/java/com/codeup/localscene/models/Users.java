@@ -14,7 +14,7 @@ public class Users {
     @Column(name = "id", nullable = false)
     private Long id;
 
-    @Column(nullable = false, length = 45)
+    @Column(nullable = false, unique = true, length = 45)
     private String username;
 
     @Column(nullable = false, length = 100)

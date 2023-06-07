@@ -26,7 +26,7 @@ public class Bands {
 
     @ManyToOne
     @JoinColumn(name = "user_id")
-    private Users user_id;
+    private Users user;
 
     public Bands(Bands copy){
         id = copy.id;
@@ -34,7 +34,7 @@ public class Bands {
         bandname = copy.bandname;
         description = copy.description;
         band_image = copy.band_image;
-        user_id = copy.user_id;
+        user = copy.user;
     }
 
     public Bands() {
@@ -45,9 +45,10 @@ public class Bands {
         return id;
     }
 
-    public void setId(long band_id) {
+    public void setId(long id) {
         this.id = id;
     }
+
 
     public String getBandname() {
         return bandname;

@@ -1,12 +1,11 @@
 package com.codeup.localscene.controllers;
+import com.codeup.localscene.repositories.UserRepository;
 import com.codeup.localscene.services.EmailService;
 import com.codeup.localscene.models.Users;
-import com.codeup.localscene.services.UserService;
-import jakarta.validation.Valid;
+import com.codeup.localscene.services.UserDetailsLoader;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.ui.Model;
@@ -14,15 +13,16 @@ import org.springframework.ui.Model;
 
 @Controller
 public class UserController {
-
+    private final UserRepository userDao;
     private final EmailService emailService;
-    private final UserService userService;
+    private final UserDetailsLoader userDetailsLoader;
     private final BCryptPasswordEncoder passwordEncoder;
 
     @Autowired
-    public UserController(EmailService emailService, UserService userService, BCryptPasswordEncoder passwordEncoder) {
+    public UserController(UserRepository userDao, EmailService emailService, UserDetailsLoader userDetailsLoader, BCryptPasswordEncoder passwordEncoder) {
+        this.userDao = userDao;
         this.emailService = emailService;
-        this.userService = userService;
+        this.userDetailsLoader = userDetailsLoader;
         this.passwordEncoder = passwordEncoder;
     }
 
@@ -59,12 +59,13 @@ public class UserController {
         return "login";
     }
 
+
     @PostMapping("/perform_login")
     public String login(@RequestParam("email") String email,
                         @RequestParam("password") String password,
                         Model model) {
         // Authenticate user using userService (or any other service you use for authentication)
-        boolean isAuthenticated = userService.authenticateUser(email, password);
+        boolean isAuthenticated = emailService.authenticateUser(email, password);
 
         // If authentication is successful, redirect to home page.
         if (isAuthenticated) {
@@ -97,7 +98,7 @@ public class UserController {
 
     @GetMapping("/reset-password")
     public String showResetPasswordForm(@RequestParam("token") String token, Model model) {
-        Users user = userService.findByResetPasswordToken(token);
+        Users user = emailService.findByResetPasswordToken(token);
         if (user != null) {
             model.addAttribute("token", token);
             return "users/reset-password";
@@ -111,15 +112,16 @@ public class UserController {
     public String handleResetPassword(@RequestParam("token") String token,
                                       @RequestParam("password") String newPassword,
                                       Model model) {
-        Users user = userService.findByResetPasswordToken(token);
+        Users user = emailService.findByResetPasswordToken(token);
         if (user == null) {
             model.addAttribute("message", "Invalid token. Please try again.");
             return "users/message";
         }
 
-        userService.updatePassword(user, newPassword);
+        emailService.updatePassword(user, newPassword);
         model.addAttribute("message", "Your password has been updated successfully. Please log in.");
         return "users/message";
     }
+
 }
 

@@ -8,7 +8,7 @@ public class Posts {
 
     @Id
     @Column(name = "post_id")
-    private long post_id;
+    private long id;
 
     @Column(nullable = false, length = 45)
     private String title;
@@ -21,26 +21,26 @@ public class Posts {
 
     @ManyToOne
     @JoinColumn(name = "user_id")
-    private Users user_id;
+    private Users user;
 
     public Posts(Posts copy){
-        post_id = copy.post_id;
+        id = copy.id;
         title = copy.title;
         description = copy.description;
         post_image = copy.post_image;
-        user_id = copy.user_id;
     }
 
     public Posts() {
     }
 
-    public long getPostId() {
-        return post_id;
+    public long getId() {
+        return id;
     }
 
-    public void setPostId(long post_id) {
-        this.post_id = post_id;
+    public void setId(long id) {
+        this.id = id;
     }
+
 
     public String getTitle() {
         return title;
@@ -64,6 +64,14 @@ public class Posts {
 
     public void setPostImage(long post_image) {
         this.post_image = post_image;
+    }
+
+    public Users getUser() {
+        return user;
+    }
+
+    public void setUser(Users user) {
+        this.user = user;
     }
 
 }
