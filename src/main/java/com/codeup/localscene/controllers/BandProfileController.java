@@ -43,9 +43,5 @@ public class BandProfileController {
         return "redirect:/profile";
     }
 
-    @GetMapping("/home")
-    public String showHomePage() {
-        return "home";
-    }
 
 }
