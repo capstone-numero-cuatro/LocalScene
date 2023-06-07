@@ -120,30 +120,31 @@
     </div>
     <div class="container" id="bandCreate">
         <dialog id="bandCreationDialog">
-            <h5>Create a new band?</h5>
-            <form  th:method="post" th:action="@{/posts/create}" th:object="${bands}">
+            <h5>Create a new band</h5>
+            <form th:method="post" th:action="@{/bands/create}" th:object="${band}">
                 <div class="mb-3">
                     <label for="BandName" class="form-label">Band Name</label>
-                    <input type="text" class="form-control" id="BandName" name="title" placeholder="Band Name" th:field="*{bandname}">
+                    <input type="text" class="form-control" id="BandName" name="bandName" placeholder="Band Name"
+                           th:field="*{bandname}">
                 </div>
 
                 <div class="mb-3">
                     <label for="BandDescription" class="form-label">Band Description</label>
-                    <textarea class="form-control" id="BandDescription" name="content" rows="3" th:field="*{description}"></textarea>
+                    <textarea class="form-control" id="BandDescription" name="description" rows="3"
+                              th:field="*{description}"></textarea>
                     <input type="hidden" th:field="*{id}">
                     <div style="position: relative">
                         <input type="file" id="bandCreateImg">
-                        <img src="" alt="image" id="bandImg" style="background-color: darkgrey; color:white; padding:5px; border:none;outline:none; height: 30vh; width: auto">
+                        <img src="" alt="image" id="bandImg"
+                             style="background-color: darkgrey; color:white; padding:5px; border:none;outline:none; height: 30vh; width: auto">
                     </div>
                 </div>
-                <button type="submit"
-                        class="btn btn-success"
-                        th:onclick="'window.location.href = \‘/band-profile?band_id=\’ + ${band_id}'">Submit!
-                </button>
+                <button type="submit" class="btn btn-success">Submit!</button>
             </form>
         </dialog>
-        <button onclick="bandCreationDialog.showModal()" type="button" class="btn btn-success">Create a Band?</button>
+        <button onclick="bandCreationDialog.showModal()" type="button" class="btn btn-success">Create a Band</button>
     </div>
+
 
 </div>
 
