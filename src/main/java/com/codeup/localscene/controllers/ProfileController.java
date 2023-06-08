@@ -49,6 +49,7 @@ public class ProfileController {
         // suppose Bands is your another entity
         model.addAttribute("band", new Bands()); // Add this line
 
+
         return "users/profile";
     }
 
@@ -62,7 +63,7 @@ public class ProfileController {
         return "redirect:/band-profile/" + band.getId();
     }
 
-    @PostMapping("/submit")
+    @PostMapping("/saveSocialMediaLink")
     public String saveSocialMediaLink(@ModelAttribute Users user) {
         // Retrieve the currently authenticated user
         // Assuming you have implemented user authentication and have UserDetails available
@@ -83,6 +84,7 @@ public class ProfileController {
         // Redirect back to the profile page
         return "redirect:/profile/" + currentUser.getId();
     }
+
     @PostMapping("/saveFacebook")
     public String saveFacebook(@ModelAttribute Users facebook){
         userRepository.save(facebook);
