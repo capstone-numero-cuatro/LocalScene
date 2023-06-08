@@ -56,10 +56,9 @@
                     <input type="password" id="currentPW" name="currentPW" placeholder="Enter current password" required><br><br>
 
                 </div>
-                <input type="hidden" name="token" th:value="${token}">
                 <div>
-                    <label for="password">New Password</label>
-                    <input type="password" id="password" name="password" placeholder="Enter new password" required><br><br>
+                    <label for="newPW">New Password</label>
+                    <input type="password" id="newPW" name="newPW" placeholder="Enter new password" required><br><br>
                     <input type="checkbox" id="showNewPW" onclick="togglePasswordVisibility('newPW', 'showNewPW')">
                     <label for="showNewPW">Show Password</label>
                 </div>

@@ -53,33 +53,24 @@ public class ProfileController {
 
         return "users/profile";
     }
-    @GetMapping("/profile/reset-password")
-    public String showResetPasswordForm(@RequestParam("token") String token, Model model) {
-        Users user = passwordResetService.findByResetPasswordToken(token);
-        if (user != null) {
-            model.addAttribute("token", token);
-            return "/home";
-        } else {
-            model.addAttribute("message", "Invalid password reset token. Please try again.");
-            return "/home";
-        }
-    }
-
-    @PostMapping("/profile/reset-password")
-    public String handleResetPassword(@RequestParam("token") String token,
-                                      @RequestParam("password") String newPassword,
-                                      Model model) {
-        Users user = passwordResetService.findByResetPasswordToken(token);
-        if (user == null) {
-            model.addAttribute("message", "Invalid token. Please try again.");
-            return "/home";
-        }
-
-        passwordResetService.updatePassword(user, newPassword);
-        model.addAttribute("message", "Your password has been updated successfully. Please log in.");
-        return "/home";
-    }
-
+//    @PostMapping("/profile/reset-password")
+//    public String handlePasswordChange(@ModelAttribute PasswordChangeRequest passwordChangeRequest, Model model) {
+//        Long userId = passwordChangeRequest.getId();
+//        Users user = userRepository.findById(userId).orElse(null);
+//        if (user != null) {
+//            String currentPassword = passwordChangeRequest.getCurrentPassword();
+//            String newPassword = passwordChangeRequest.getNewPassword();
+//            if (passwordResetService.authenticateUser(user.getEmail(), currentPassword)) {
+//                passwordResetService.updatePassword(user, newPassword);
+//                model.addAttribute("message", "Password changed successfully!");
+//            } else {
+//                model.addAttribute("error", "The current password is incorrect. Please try again.");
+//            }
+//        } else {
+//            model.addAttribute("error", "The user does not exist.");
+//        }
+//        return "/home";
+//    }
 
 }
 

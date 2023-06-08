@@ -54,8 +54,7 @@
 
                                 </form>
 
-                                <form id="forgot-password" style="display: none;">
-                                    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+                                <form id="forgot-password" th:action="@{/forgot-password}" method="post" style="display: none;">
                                     <h4>Forgot Password</h4>
                                     <p>Enter your email to reset your password:</p>
                                     <input type="email" placeholder="Email" name="email" required>

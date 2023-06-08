@@ -63,17 +63,25 @@ public class EmailService {
             throw new IllegalArgumentException("Invalid verification code");
         }
     }
-    public void sendPasswordResetEmail(String toEmail, String token) {
-        Users user = userRepository.findByEmail(toEmail);
+    public void sendPasswordResetEmail(String email) {
+        Users user = userRepository.findByEmail(email);
         if (user != null) {
-            user.setResetPasswordToken(token);
+            // Generate a password reset token and save it for the user
+            String resetToken = UUID.randomUUID().toString();
+            user.setResetPasswordToken(resetToken);
             userRepository.save(user);
 
-            SimpleMailMessage message = new SimpleMailMessage();
-            message.setTo(toEmail);
-            message.setSubject("Password Reset Request");
-            message.setText("To reset your password, click the link below:\n" + "http://localhost:8080/reset-password?token=" + token);
-            mailSender.send(message);
+            // Send the password reset email
+            SimpleMailMessage mailMessage = new SimpleMailMessage();
+            mailMessage.setTo(user.getEmail());
+            mailMessage.setSubject("Password Reset");
+            mailMessage.setText("To reset your password, please click the following link: "
+                    + "http://localhost:8080/reset-password?token=" + resetToken);
+
+            mailSender.send(mailMessage);
+        } else {
+            // throw an exception or show an error
+            throw new IllegalArgumentException("Invalid email address");
         }
     }
     public boolean authenticateUser(String email, String password) {
@@ -90,7 +98,8 @@ public class EmailService {
     }
 
     public void updatePassword(Users user, String newPassword) {
-        user.setPassword(newPassword);
+        String encodedPassword = passwordEncoder.encode(newPassword);
+        user.setPassword(encodedPassword);
         user.setResetPasswordToken(null);
         userRepository.save(user);
     }

@@ -31,14 +31,9 @@ public class PasswordResetService {
         return false;
     }
 
-    public Users findByResetPasswordToken(String token) {
-        return userRepository.findByResetPasswordToken(token);
-    }
-
     public void updatePassword(Users user, String newPassword) {
         String encodedPassword = passwordEncoder.encode(newPassword);
         user.setPassword(encodedPassword);
-        user.setResetPasswordToken(null);
         userRepository.save(user);
     }
 }
