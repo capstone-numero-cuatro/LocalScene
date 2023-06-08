@@ -23,7 +23,7 @@ public class BandProfileController {
 
         model.addAttribute("post", new Posts());
         model.addAttribute("band", band);
-        return "users/profile";
+        return "band-profile";
     }
 
     @GetMapping("/band-profile/{band_id}/edit")

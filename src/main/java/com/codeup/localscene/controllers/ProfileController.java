@@ -7,6 +7,7 @@ import com.codeup.localscene.repositories.BandRepository;
 import com.codeup.localscene.repositories.PostRepository;
 import com.codeup.localscene.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -60,6 +61,29 @@ public class ProfileController {
         // Redirect to the newly created band's URL
         return "redirect:/band-profile?band_id=" + band.getId();
     }
+
+    @PostMapping("/submit")
+    public String saveSocialMediaLink(@ModelAttribute Users user)
+    // Retrieve the currently authenticated user
+    // Assuming you have implemented user authentication and have UserDetails available
+    UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+    String username = userDetails.getUsername();
+
+    // Retrieve the user from the database using the username
+    Users currentUser = userRepository.findByUsername(username);
+
+    // Update the social media links
+    currentUser.setFacebook(user.getFacebook());
+    currentUser.setTwitter(user.getTwitter());
+    currentUser.setInstagram(user.getInstagram());
+
+    // Save the updated user
+    userRepository.save(currentUser);
+
+    // Redirect back to the profile page
+    return "redirect:/profile/" + currentUser.getId();
+
+
 }
 
 
