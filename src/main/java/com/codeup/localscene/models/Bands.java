@@ -9,7 +9,7 @@ import java.util.List;
 public class Bands {
 
     @Id
-    @Column(name = "band_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     @OneToMany(mappedBy = "band")

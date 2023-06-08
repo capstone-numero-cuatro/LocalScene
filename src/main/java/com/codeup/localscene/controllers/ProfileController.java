@@ -54,34 +54,46 @@ public class ProfileController {
 
     @PostMapping("/bands/create")
     public String createBand(@ModelAttribute Bands band) {
-        Users testUser = userRepository.getReferenceById(1L);
-        band.setUser(testUser);
+
+
         bandRepository.save(band);
 
         // Redirect to the newly created band's URL
-        return "redirect:/band-profile?band_id=" + band.getId();
+        return "redirect:/band-profile/" + band.getId();
     }
 
     @PostMapping("/submit")
-    public String saveSocialMediaLink(@ModelAttribute Users user)
-    // Retrieve the currently authenticated user
-    // Assuming you have implemented user authentication and have UserDetails available
-    UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-    String username = userDetails.getUsername();
+    public String saveSocialMediaLink(@ModelAttribute Users user) {
+        // Retrieve the currently authenticated user
+        // Assuming you have implemented user authentication and have UserDetails available
+        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String username = userDetails.getUsername();
 
-    // Retrieve the user from the database using the username
-    Users currentUser = userRepository.findByUsername(username);
+        // Retrieve the user from the database using the username
+        Users currentUser = userRepository.findByUsername(username);
 
-    // Update the social media links
-    currentUser.setFacebook(user.getFacebook());
-    currentUser.setTwitter(user.getTwitter());
-    currentUser.setInstagram(user.getInstagram());
+        // Update the social media links
+        currentUser.setFacebook(user.getFacebook());
+        currentUser.setTwitter(user.getTwitter());
+        currentUser.setInstagram(user.getInstagram());
 
-    // Save the updated user
-    userRepository.save(currentUser);
+        // Save the updated user
+        userRepository.save(currentUser);
 
-    // Redirect back to the profile page
-    return "redirect:/profile/" + currentUser.getId();
+        // Redirect back to the profile page
+        return "redirect:/profile/" + currentUser.getId();
+    }
+    @PostMapping("/saveFacebook")
+    public String saveFacebook(@ModelAttribute Users facebook){
+        userRepository.save(facebook);
+        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String username = userDetails.getUsername();
+
+        // Retrieve the user from the database using the username
+        Users currentUser = userRepository.findByUsername(username);
+
+        return "redirect:/profile/" + currentUser.getId();
+    }
 
 
 }

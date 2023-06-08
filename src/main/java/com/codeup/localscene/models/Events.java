@@ -7,7 +7,7 @@ import jakarta.persistence.*;
 public class Events {
 
     @Id
-    @Column(name = "event_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long event_id;
 
     @Column(nullable = false, length = 45)
