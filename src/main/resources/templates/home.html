@@ -9,6 +9,7 @@
 </head>
 <body>
 <div th:replace="partials/navbar :: navbar"></div>
+<div th:if="${message}" th:class="${alertClass}" th:text="${message}"></div>
     <h1 th:inline="text">this is home page</h1>
     <form th:action="@{/logout}" method="post">
         <input type="submit" value="Sign Out"/>

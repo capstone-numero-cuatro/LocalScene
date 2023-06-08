@@ -99,32 +99,32 @@ public class UserController {
         }
     }
 
-    @GetMapping("/reset-password")
-    public String showResetPasswordForm(@RequestParam("token") String token, Model model) {
-        Users user = emailService.findByResetPasswordToken(token);
-        if (user != null) {
-            model.addAttribute("token", token);
-            return "users/reset-password";
-        } else {
-            model.addAttribute("message", "Invalid password reset token. Please try again.");
-            return "users/message";
-        }
-    }
+//    @GetMapping("/reset-password")
+//    public String showResetPasswordForm(@RequestParam("token") String token, Model model) {
+//        Users user = emailService.findByResetPasswordToken(token);
+//        if (user != null) {
+//            model.addAttribute("token", token);
+//            return "users/reset-password";
+//        } else {
+//            model.addAttribute("message", "Invalid password reset token. Please try again.");
+//            return "users/message";
+//        }
+//    }
 
-    @PostMapping("/reset-password")
-    public String handleResetPassword(@RequestParam("token") String token,
-                                      @RequestParam("password") String newPassword,
-                                      Model model) {
-        Users user = emailService.findByResetPasswordToken(token);
-        if (user == null) {
-            model.addAttribute("message", "Invalid token. Please try again.");
-            return "users/message";
-        }
-
-        emailService.updatePassword(user, newPassword);
-        model.addAttribute("message", "Your password has been updated successfully. Please log in.");
-        return "users/message";
-    }
+//    @PostMapping("/reset-password")
+//    public String handleResetPassword(@RequestParam("token") String token,
+//                                      @RequestParam("password") String newPassword,
+//                                      Model model) {
+//        Users user = emailService.findByResetPasswordToken(token);
+//        if (user == null) {
+//            model.addAttribute("message", "Invalid token. Please try again.");
+//            return "users/message";
+//        }
+//
+//        emailService.updatePassword(user, newPassword);
+//        model.addAttribute("message", "Your password has been updated successfully. Please log in.");
+//        return "users/message";
+//    }
 
 }
 

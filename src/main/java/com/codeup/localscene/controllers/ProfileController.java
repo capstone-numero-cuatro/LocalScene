@@ -1,20 +1,21 @@
 package com.codeup.localscene.controllers;
 
 import com.codeup.localscene.models.Bands;
+import com.codeup.localscene.models.PasswordChangeRequest;
 import com.codeup.localscene.models.Posts;
 import com.codeup.localscene.models.Users;
 import com.codeup.localscene.repositories.BandRepository;
 import com.codeup.localscene.repositories.PostRepository;
 import com.codeup.localscene.repositories.UserRepository;
+import com.codeup.localscene.services.EmailService;
+import com.codeup.localscene.services.PasswordResetService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.security.Principal;
 import java.util.List;
 
 @Controller
@@ -22,14 +23,18 @@ public class ProfileController {
 
     private final UserRepository userRepository;
     private final PostRepository postRepository;
-    // suppose you have a BandsRepository
+
     private final BandRepository bandRepository;
+    private final PasswordResetService passwordResetService;
+    private final EmailService emailService;
 
     @Autowired
-    public ProfileController(UserRepository userRepository, PostRepository postRepository, BandRepository bandRepository) {
+    public ProfileController(UserRepository userRepository, PostRepository postRepository, BandRepository bandRepository, PasswordResetService passwordResetService, EmailService emailService) {
         this.userRepository = userRepository;
         this.postRepository = postRepository;
         this.bandRepository = bandRepository;
+        this.passwordResetService = passwordResetService;
+        this.emailService = emailService;
     }
 
     @GetMapping("/profile/{id}")
@@ -48,6 +53,34 @@ public class ProfileController {
 
         return "users/profile";
     }
+    @GetMapping("/profile/reset-password")
+    public String showResetPasswordForm(@RequestParam("token") String token, Model model) {
+        Users user = passwordResetService.findByResetPasswordToken(token);
+        if (user != null) {
+            model.addAttribute("token", token);
+            return "/home";
+        } else {
+            model.addAttribute("message", "Invalid password reset token. Please try again.");
+            return "/home";
+        }
+    }
+
+    @PostMapping("/profile/reset-password")
+    public String handleResetPassword(@RequestParam("token") String token,
+                                      @RequestParam("password") String newPassword,
+                                      Model model) {
+        Users user = passwordResetService.findByResetPasswordToken(token);
+        if (user == null) {
+            model.addAttribute("message", "Invalid token. Please try again.");
+            return "/home";
+        }
+
+        passwordResetService.updatePassword(user, newPassword);
+        model.addAttribute("message", "Your password has been updated successfully. Please log in.");
+        return "/home";
+    }
+
+
 }
 
 
