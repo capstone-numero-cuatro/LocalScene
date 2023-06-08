@@ -14,8 +14,8 @@ public class BandProfileController {
     @Autowired
     private BandRepository bandRepository;
 
-    @GetMapping("/band-profile")
-    public String showBandProfile(@RequestParam Long band_id, Model model){
+    @GetMapping("/band-profile/{band_id}")
+    public String showBandProfile( Model model, @PathVariable("band_id") Long band_id){
         Bands band = bandRepository.findById(band_id).orElse(null);
         if (band == null){
             return "redirect:/404";
@@ -23,7 +23,7 @@ public class BandProfileController {
 
         model.addAttribute("post", new Posts());
         model.addAttribute("band", band);
-        return "band-profile";
+        return "users/band-profile";
     }
 
     @GetMapping("/band-profile/{band_id}/edit")
