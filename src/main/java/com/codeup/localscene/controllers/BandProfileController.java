@@ -14,9 +14,9 @@ public class BandProfileController {
     private BandRepository bandRepository;
 
     @GetMapping("/band-profile")
-    public String showBandProfile(@RequestParam Long band_id, Model model){
+    public String showBandProfile(@RequestParam Long band_id, Model model) {
         Bands band = bandRepository.findById(band_id).orElse(null);
-        if (band == null){
+        if (band == null) {
             return "redirect:/404";
         }
         model.addAttribute("band", band);
@@ -42,10 +42,11 @@ public class BandProfileController {
         bandRepository.delete(band);
         return "redirect:/profile";
     }
-
-    @GetMapping("/home")
-    public String showHomePage() {
-        return "home";
-    }
-
 }
+
+//    @GetMapping("/home")
+//    public String showHomePage() {
+//        return "home";
+//    }
+//
+//}

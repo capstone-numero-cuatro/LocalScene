@@ -6,6 +6,8 @@
     <link href='https://api.mapbox.com/mapbox-gl-js/v2.13.0/mapbox-gl.css' rel='stylesheet' />
     <link rel="stylesheet" href="../static/css/map.css">
     <link rel="stylesheet" href="../static/css/home.css">
+    <link rel="stylesheet" href="../static/css/venues.css">
+
 </head>
 <body>
     <nav th:insert="partials/navbar :: navbar" />
@@ -20,64 +22,44 @@
     <h3>The Local Scene</h3>
     <button type="button">Posts</button>
     <button type="button">Events</button>
-    <div id="map"></div>
-    <p id="inputContainer">City or Zip: <input type="text" id="cityInput"></p>
-    <button id="cityLocation" type="button">Find</button>
-    </div>
-    <div id="PostsContainer">
-        <div class="post">
-            <p class="post-title">Post 1</p>
-            <p class="post-description">Loading....</p>
-            <div class="post-image">
-                <img src="../static/img/fff.png" alt="">
+        <div class="container">
+            <h1>Venue Search</h1>
+            <div class="row">
+                <div class="col-md-6">
+                    <form id="search-form">
+                        <div class="input-group mb-3">
+                            <input type="text" id="search-input" class="form-control" placeholder="Enter your location">
+                            <div class="input-group-append">
+                                <button class="btn btn-primary" type="submit">Find</button>
+                                <div id="map"></div>
+                                <p id="inputContainer">City or Zip: <input type="text" id="cityInput"></p>
+                                <button id="cityLocation" type="button">Find</button>
+                            </div>
+                            </div>
+                    </form>
+                </div>
+            </div>
+            <div id="venues-container" class="row row-venues"></div>
+            <div id="see-more-container">
+                <button id="see-more-button" class="btn btn-primary">See More</button>
             </div>
         </div>
-        <div class="post">
-            <p class="post-title">Post 2</p>
-            <p class="post-description">Loading....</p>
-            <div class="post-image">
-                <img src="img/Localscene.png" alt="">
+                </div>
             </div>
         </div>
-        <div class="post">
-            <p class="post-title">Post 3</p>
-            <p class="post-description">Loading....</p>
-            <div class="post-image">
-                <img src="img/01d.png" alt="">
-            </div>
-        </div>
-    </div>
 
-    <div id="EventsContainer">
-        <div class="event">
-            <p class="Event-title">Event 1</p>
-            <p class="Event-description">Loading....</p>
-            <div class="Event-image">
-                <img src="img/Localscene.jpg" alt="">
-            </div>
-            <button type="button">Button</button>
-        </div>
-        <div class="event">
-            <p class="Event-title">Event 2</p>
-            <p class="Event-description">Loading....</p>
-            <div class="Event-image">
-                <img src="img/Localscene.jpg" alt="">
-            </div>
-            <button type="button">Button</button>
-        </div>
-        <div class="event">
-            <p class="Event-title">Event 3</p>
-            <p class="Event-description">Loading....</p>
-            <div class="Event-image">
-                <img src="img/Localscene.jpg" alt="">
-            </div>
-            <button type="button">Button</button>
-        </div>
-    </div>
-    <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+
+
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="../static/js/keyTM.js"></script>
+    <script src="https://api.mapbox.com/mapbox-gl-js/v2.13.0/mapbox-gl.js"></script>
     <script src="../static/js/keys.js"></script>
     <script src="../static/js/mapbox-geocode-utils.js"></script>
+    </div>
 
 </body>
+
 
 </html>

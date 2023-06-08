@@ -1,3 +1,4 @@
+
 .venue-card {
     margin-bottom: 50px;
     padding: 50px;
@@ -13,7 +14,8 @@
 .card-text {
     margin-bottom: 10px;
 }
-#venues-container{
+
+#venues-container {
     margin-bottom: 20px;
     padding: 20px;
     background-color: #f5f5f5;
@@ -23,3 +25,60 @@
     width: 20%;
     height: 20%;
 }
+
+.card {
+    width: calc(25% - 20px); /* Adjusted to show one row of four cards */
+    margin-right: 20px;
+    margin-bottom: 20px;
+}
+
+.row-venues {
+    display: flex;
+    flex-wrap: wrap;
+    margin-left: -20px;
+    margin-right: -20px;
+}
+
+#see-more-container {
+    margin-top: 20px;
+    display: none;
+}
+
+#see-more-button {
+    padding: 10px 20px;
+    font-size: 16px;
+}
+
+#events-container {
+    margin-bottom: 20px;
+    padding: 20px;
+    background-color: #f5f5f5;
+}
+.event-card {
+    margin-bottom: 50px;
+    padding: 50px;
+    background-color: #f5f5f5;
+}
+
+.event-card-title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.event-card-text {
+    margin-bottom: 10px;
+}
+
+.event-image {
+    width: 100%;
+    height: auto;
+}
+
+.row-events {
+    display: flex;
+    flex-wrap: wrap;
+    margin-left: -15px;
+    margin-right: -15px;
+}
+

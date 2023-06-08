@@ -14,45 +14,59 @@
             });
     }
 
+    var venuesData; // Global variable to store all venues data
+    var currentPage = 1;
+    var venuesPerPage = 4;
+
     function displayVenues(data) {
+        venuesData = data._embedded.venues; // Store all venues data in the global variable
         var venuesContainer = document.getElementById('venues-container');
         venuesContainer.innerHTML = ''; // Clear previous content
 
-        var venues = data._embedded.venues;
-        venues.forEach(function (venue) {
+        var startIndex = (currentPage - 1) * venuesPerPage;
+        var endIndex = startIndex + venuesPerPage;
+        var visibleVenues = venuesData.slice(startIndex, endIndex);
+
+        visibleVenues.forEach(function (venue) {
             var venueCard = createVenueCard(venue);
             venuesContainer.appendChild(venueCard);
         });
+
+        if (venuesData.length > endIndex) {
+            document.getElementById('see-more-container').style.display = 'block';
+        } else {
+            document.getElementById('see-more-container').style.display = 'none';
+        }
     }
 
     function createVenueCard(venue) {
+        // Create card element
         var card = document.createElement('div');
-        card.classList.add('card', 'col-md-6', 'mb-4');
+        card.classList.add('card');
 
+        // Create card body
         var cardBody = document.createElement('div');
         cardBody.classList.add('card-body');
 
+        // Create card title
         var name = document.createElement('h5');
         name.classList.add('card-title');
         name.textContent = venue.name;
 
+        // Create card address
         var address = document.createElement('p');
         address.classList.add('card-text');
-        address.textContent = venue.address.line1 + ', '+ venue.city.name + ', ' + venue.state.name + ', ' + venue.postalCode;
+        address.textContent = venue.address.line1 + ', ' + venue.city.name + ', ' + venue.state.name + ', ' + venue.postalCode;
 
+        // Create card description
         var description = document.createElement('p');
         description.classList.add('card-text');
         description.textContent = venue.description;
 
-        // var image = document.createElement('img');
-        // image.classList.add('card-img-top');
-        // image.src = venue.images[0].url;
-        // image.alt = venue.name;
-
+        // Append elements to card
         cardBody.appendChild(name);
         cardBody.appendChild(address);
         cardBody.appendChild(description);
-        // card.appendChild(image);
         card.appendChild(cardBody);
 
         return card;
@@ -63,3 +77,11 @@
         var keyword = document.getElementById('search-input').value;
         fetchVenues(keyword);
     });
+
+    document.getElementById('see-more-button').addEventListener('click', function () {
+        currentPage++;
+        displayVenues();
+    });
+
+
+
