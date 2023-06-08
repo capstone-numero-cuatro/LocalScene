@@ -2,9 +2,11 @@ package com.codeup.localscene.controllers;
 
 import com.codeup.localscene.models.BandPosts;
 import com.codeup.localscene.models.Bands;
+import com.codeup.localscene.models.Events;
 import com.codeup.localscene.models.Posts;
 import com.codeup.localscene.repositories.BandPostRepository;
 import com.codeup.localscene.repositories.BandRepository;
+import com.codeup.localscene.repositories.EventRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -16,14 +18,21 @@ import org.springframework.web.bind.annotation.*;
 public class BandProfileController {
 
     private final BandPostRepository bandPostRepository;
+    private EventRepository eventRepository;
 
     @Autowired
     private BandRepository bandRepository;
 
-    @Autowired
-    public BandProfileController(BandPostRepository bandPostRepository) {
+    public BandProfileController(BandPostRepository bandPostRepository, BandRepository bandRepository, EventRepository eventRepository) {
         this.bandPostRepository = bandPostRepository;
+        this.bandRepository = bandRepository;
+        this.eventRepository = eventRepository;
     }
+
+//    @Autowired
+//    public BandProfileController(BandPostRepository bandPostRepository) {
+//        this.bandPostRepository = bandPostRepository;
+//    }
 
     @GetMapping("/band-profile/{band_id}")
     public String showBandProfile( Model model, @PathVariable("band_id") Long band_id){
@@ -32,10 +41,16 @@ public class BandProfileController {
             return "redirect:/404";
         }
 
-
+        model.addAttribute("events", new Events());
         model.addAttribute("bandPost", new BandPosts());
         model.addAttribute("band", band);
         return "users/band-profile";
+    }
+    @PostMapping("/band-profile/{band_id}")
+    public String createPostBandProfile(@ModelAttribute Events events){
+
+        eventRepository.save(events);
+        return "redirect:/home";
     }
 
     @GetMapping("/band-profile/{band_id}/edit")
@@ -62,7 +77,14 @@ public class BandProfileController {
         bandPostRepository.save(bandPost);
 
 
-        return "redirect:/band-profile/";
+        return "redirect:/home";
+    }
+
+    @PostMapping("/bandEventCreate")
+    public String createEventPost(@ModelAttribute Events events){
+        eventRepository.save(events);
+
+        return "redirect:/home";
     }
 
 
