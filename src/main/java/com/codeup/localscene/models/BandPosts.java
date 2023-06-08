@@ -7,7 +7,7 @@ import jakarta.persistence.*;
 public class BandPosts {
 
     @Id
-    @Column(name = "band_post_id")
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private long band_post_id;
 
     @Column(nullable = false, length = 45)
