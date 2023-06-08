@@ -60,15 +60,15 @@
 <div class="container">
     <dialog id="bandPostDialog">
         <h5>Shoutout to your fans!</h5>
-        <form th:method="post" th:action="@{}" th:object="${band_post}">
+        <form th:method="post" th:action="@{/profile/{id}/band-posts/create}" th:object="${band_posts}">
             <div class="mb-3">
                 <label for="BandPostTitle" class="form-label">Title</label>
-                <input type="text" class="form-control" id="BandPostTitle" name="title" placeholder="Title"  th:field="*{band_posts}">
+                <input type="text" class="form-control" id="BandPostTitle" name="title" placeholder="Title"  th:field="*{title}">
             </div>
             <div class="mb-3">
                 <label for="BandPostDescription" class="form-label">Body</label>
                 <textarea class="form-control" id="BandPostDescription" name="content" rows="3" th:field="*{description}"></textarea>
-                <input type="hidden" th:field="*{band_id}">
+<!--                <input type="hidden" th:field="*{band_id}">-->
                 <div style="position: relative">
                     <input type="file" id="bandPostImgInput">
                     <img src="" alt="image" id="bandPostImg" style="background-color: darkgrey; color:white; padding:5px; border:none;outline:none; height: 30vh; width: auto">
@@ -84,7 +84,7 @@
 <div class="container">
     <dialog id="bandEvent">
         <h5>What are the deets?!</h5>
-        <form th:method="post" th:action="@{}" th:object="${events}">
+        <form th:method="post" th:action="@{/profile/{id}/events/create}" th:object="${events}">
             <div class="mb-3">
                 <label for="EventsPostTitle" class="form-label">Title</label>
                 <input type="text" class="form-control" id="EventsPostTitle" name="title" placeholder="Title"  th:field="*{title}">

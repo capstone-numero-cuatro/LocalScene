@@ -9,7 +9,7 @@ import java.util.List;
 public class Bands {
 
     @Id
-    @Column(name = "band_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     @OneToMany(mappedBy = "band")
@@ -56,6 +56,30 @@ public class Bands {
 
     public void setBandname(String bandname) {
         this.bandname = bandname;
+    }
+
+    public List<BandUser> getBand() {
+        return band;
+    }
+
+    public void setBand(List<BandUser> band) {
+        this.band = band;
+    }
+
+    public long getBand_image() {
+        return band_image;
+    }
+
+    public void setBand_image(long band_image) {
+        this.band_image = band_image;
+    }
+
+    public Users getUser() {
+        return user;
+    }
+
+    public void setUser(Users user) {
+        this.user = user;
     }
 
     public String getDescription(){
