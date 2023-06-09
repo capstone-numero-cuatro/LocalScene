@@ -39,49 +39,40 @@ public class ProfileController {
     public String showProfile(@PathVariable long id, Model model) {
         Users user = userRepository.findById(id).orElse(null);
         if (user == null) {
-            return "redirect:/login";
+            return "redirect:/404";
         }
 
-        List<Posts> posts = postRepository.findByUser(user);
-        model.addAttribute("posts", posts);
-        model.addAttribute("post", new Posts()); // Add this line
-
-        // suppose Bands is your another entity
-        model.addAttribute("band", new Bands()); // Add this line
-
+        model.addAttribute("posts", new Posts());
+        model.addAttribute("band", new Bands());
 
         return "users/profile";
     }
 
+    @PostMapping("/profile/posts/create")
+    public String createPost(@ModelAttribute Posts posts) {
+        postRepository.save(posts);
+        return "redirect:/profile";
+    }
+
     @PostMapping("/bands/create")
     public String createBand(@ModelAttribute Bands band) {
-
-
         bandRepository.save(band);
-
-        // Redirect to the newly created band's URL
         return "redirect:/band-profile/" + band.getId();
     }
 
     @PostMapping("/saveSocialMediaLink")
     public String saveSocialMediaLink(@ModelAttribute Users user) {
-        // Retrieve the currently authenticated user
-        // Assuming you have implemented user authentication and have UserDetails available
         UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         String username = userDetails.getUsername();
 
-        // Retrieve the user from the database using the username
         Users currentUser = userRepository.findByUsername(username);
 
-        // Update the social media links
         currentUser.setFacebook(user.getFacebook());
         currentUser.setTwitter(user.getTwitter());
         currentUser.setInstagram(user.getInstagram());
 
-        // Save the updated user
         userRepository.save(currentUser);
 
-        // Redirect back to the profile page
         return "redirect:/profile/" + currentUser.getId();
     }
 
