@@ -38,7 +38,7 @@ public class Users {
     private boolean band_member;
 
     @Column()
-    private long user_image;
+    private String user_image;
 
     @Column()
     private String instagram;

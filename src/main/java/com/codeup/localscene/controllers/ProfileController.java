@@ -51,7 +51,7 @@ public class ProfileController {
     @PostMapping("/profile/posts/create")
     public String createPost(@ModelAttribute Posts posts) {
         postRepository.save(posts);
-        return "redirect:/profile";
+        return "redirect:/home";
     }
 
     @PostMapping("/bands/create")

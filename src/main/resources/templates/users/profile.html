@@ -70,15 +70,16 @@
 </div>
 <div class="container" id="recent-activity" style="border: solid yellow 2px">
     <div><h4>Recent Activity Placeholder</h4>
-        <div th:each="post : ${posts}">
-            <div class="card" style="width: 18rem">
-                <div class="card-body">
-                    <h5 class="card-title" th:text="${post.title}"></h5>
-                    <h6 class="card-body" th:text="${post.description}"></h6>
-                    <img th:src="@{'/images/' + ${post.image}}" alt="postImage" src="">
-                </div>
-            </div>
-        </div>
+<!--        Below here - we need ot start with "IF THERE ARE POSTS" then render POSTS-->
+<!--        <div th:each="post : ${posts}">-->
+<!--            <div class="card" style="width: 18rem">-->
+<!--                <div class="card-body">-->
+<!--                    <h5 class="card-title" th:text="${post.title}"></h5>-->
+<!--                    <h6 class="card-body" th:text="${post.description}"></h6>-->
+<!--                    <img th:src="@{'/images/' + ${post.image}}" alt="postImage" src="">-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
 
     </div>
 </div>
@@ -86,7 +87,7 @@
     <div class="container" id="blog-post">
         <dialog id="postCreationDialog">
             <h5>Create a new post</h5>
-            <form th:action="@{/posts/create}" th:method="posts" th:object="${posts}">
+            <form th:action="@{/profile/{id}/posts/create}" th:method="post" th:object="${posts}">
                 <div class="mb-3">
                     <label for="BlogTitle" class="form-label">Title</label>
                     <input type="text" class="form-control" id="BlogTitle" name="title" placeholder="Title" th:field="*{title}">

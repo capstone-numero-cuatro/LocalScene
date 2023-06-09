@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Posts</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
     <style>
         .post-card {
             margin-bottom: 20px;
@@ -32,71 +32,47 @@
     </style>
 </head>
 <body>
-<nav>
-    <!-- Your navigation code here -->
-</nav>
+
+<nav th:insert="partials/navbar :: navbar"></nav>
+
 <h1>Posts</h1>
-<form method="post" action="/logout">
-    <input type="submit" value="Sign Out"/>
-</form>
+<!--<div>-->
+<!--    <div class="container" id="blog-post">-->
+<!--        <dialog id="postCreation">-->
+<!--            <h5>Create a new post</h5>-->
+<!--            <form method="post" action="/posts/create">-->
+<!--                <div class="mb-3">-->
+<!--                    <label for="BlogTitle" class="form-label">Title</label>-->
+<!--                    <input type="text" class="form-control" id="BlogTitle" name="title" placeholder="Title">-->
+<!--                </div>-->
+<!--    -->
+<!--                <div class="mb-3">-->
+<!--                    <label for="BlogTextArea" class="form-label">Post Body</label>-->
+<!--                    <textarea class="form-control" id="BlogTextArea" name="content" rows="3"></textarea>-->
+<!--                </div>-->
+<!--                <button type="submit" class="btn btn-primary">Submit!</button>-->
+<!--            </form>-->
+<!--        </dialog>-->
+<!--        <button onclick="document.getElementById('postCreation').showModal()" type="button" class="btn btn-info">Create New Post</button>-->
+<!--    </div>-->
+<!--</div>-->
 
-<div class="container" id="blog-post">
-    <dialog id="postCreation">
-        <h5>Create a new post</h5>
-        <form method="post" action="/posts/create">
-            <div class="mb-3">
-                <label for="BlogTitle" class="form-label">Title</label>
-                <input type="text" class="form-control" id="BlogTitle" name="title" placeholder="Title">
-            </div>
-
-            <div class="mb-3">
-                <label for="BlogTextArea" class="form-label">Post Body</label>
-                <textarea class="form-control" id="BlogTextArea" name="content" rows="3"></textarea>
-            </div>
-            <button type="submit" class="btn btn-primary">Submit!</button>
-        </form>
-    </dialog>
-    <button onclick="document.getElementById('postCreation').showModal()" type="button" class="btn btn-info">Create New Post</button>
-</div>
-<br>
-<br>
-
-<div class="container">
-    <div class="row">
-        <!-- Pre-existing cards -->
-        <div class="col-md-4">
-            <div class="card post-card">
-                <img class="post-image" src="path/to/image1.jpg" alt="Image 1">
+<div class="container" id="recent-activity" style="border: solid yellow 2px">
+    <div><h4>Recent Activity Placeholder</h4>
+<!--        Below here - we need ot start with "IF THERE ARE POSTS" then render POSTS-->
+        <div th:each="post : ${posts}">
+            <div class="card" style="width: 18rem">
                 <div class="card-body">
-                    <h2 class="card-title">Card 1</h2>
-                    <p class="card-text">Description.</p>
+                    <h5 class="card-title" th:text="${post.title}"></h5>
+                    <h6 class="card-body" th:text="${post.description}"></h6>
+                    <img th:src="@{'/images/' + ${post.postImage}}" alt="postImage" src="">
                 </div>
             </div>
         </div>
-        <div class="col-md-4">
-            <div class="card post-card">
-                <img class="post-image" src="path/to/image2.jpg" alt="Image 2">
-                <div class="card-body">
-                    <h2 class="card-title">Card 2</h2>
-                    <p class="card-text">Description..</p>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-4">
-            <div class="card post-card">
-                <img class="post-image" src="path/to/image3.jpg" alt="Image 3">
-                <div class="card-body">
-                    <h2 class="card-title">Card 3</h2>
-                    <p class="card-text">Description...</p>
-                </div>
-            </div>
-        </div>
-        <!-- New cards will be dynamically added here -->
     </div>
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <script>
     // Handle form submission
     let form = document.querySelector("form");
