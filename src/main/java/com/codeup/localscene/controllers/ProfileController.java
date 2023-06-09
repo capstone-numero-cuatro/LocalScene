@@ -10,6 +10,9 @@ import com.codeup.localscene.repositories.UserRepository;
 import com.codeup.localscene.services.EmailService;
 import com.codeup.localscene.services.PasswordResetService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.Authentication;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -28,6 +31,10 @@ public class ProfileController {
     private final PasswordResetService passwordResetService;
     private final EmailService emailService;
 
+    @GetMapping("/home")
+    public String homePage(Model model) {
+        return "home";
+    }
     @Autowired
     public ProfileController(UserRepository userRepository, PostRepository postRepository, BandRepository bandRepository, PasswordResetService passwordResetService, EmailService emailService) {
         this.userRepository = userRepository;
@@ -51,12 +58,13 @@ public class ProfileController {
         // suppose Bands is your another entity
         model.addAttribute("bands", new Bands());
         model.addAttribute("passwordResetForm", new PasswordResetForm());
+        model.addAttribute("user", user);
 
         return "users/profile";
     }
     @PostMapping("/profile/reset-password")
     public String handlePasswordReset(@ModelAttribute("passwordResetForm") PasswordResetForm form, Model model, Principal principal, RedirectAttributes redirectAttributes) {
-        String username = principal.getName(); // get email of the currently logged in user
+        String username = principal.getName();
 
         Users user = userRepository.findByUsername(username);
         if (user == null) {

@@ -4,9 +4,11 @@ import com.codeup.localscene.services.EmailService;
 import com.codeup.localscene.models.Users;
 import com.codeup.localscene.services.UserDetailsLoader;
 import jakarta.servlet.http.HttpServletRequest;
+import org.apache.tomcat.util.net.openssl.ciphers.Authentication;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mail.SimpleMailMessage;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -81,11 +83,6 @@ public class UserController {
             return "login";
         }
     }
-    @GetMapping("/home")
-    public String showHomePage() {
-        return "home";
-    }
-
 
     @PostMapping("/forgot-password")
     public ResponseEntity<String> handleForgotPassword(@RequestParam("email") String email) {
