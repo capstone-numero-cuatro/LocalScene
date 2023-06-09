@@ -65,7 +65,7 @@ public class UserController {
     }
 
 
-    @PostMapping("/perform_login")
+    @PostMapping("/login")
     public String login(@RequestParam("email") String email,
                         @RequestParam("password") String password,
                         Model model) {

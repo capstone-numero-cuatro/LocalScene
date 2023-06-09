@@ -50,22 +50,21 @@
     <div>
         <dialog id="pwreset">
             <h1>Reset Password</h1>
-            <form th:action="@{/profile/reset-password}" method="post">
-            <div>
-                    <label for="currentPW">Current Password</label>
-                    <input type="password" id="currentPW" name="currentPW" placeholder="Enter current password" required><br><br>
-
+            <form th:action="@{/profile/reset-password}" th:object="${passwordResetForm}" method="post">
+                <div class="form-group">
+                    <label for="currentPassword">Current password</label>
+                    <input type="password" class="form-control" id="currentPassword" th:field="*{currentPassword}" required />
                 </div>
-                <div>
-                    <label for="newPW">New Password</label>
-                    <input type="password" id="newPW" name="newPW" placeholder="Enter new password" required><br><br>
-                    <input type="checkbox" id="showNewPW" onclick="togglePasswordVisibility('newPW', 'showNewPW')">
+                <div class="form-group">
+                    <label for="newPassword">New password</label>
+                    <input type="password" class="form-control" id="newPassword" th:field="*{newPassword}" required />
+                    <input type="checkbox" id="showNewPW" onclick="togglePasswordVisibility('newPassword', 'showNewPW')">
                     <label for="showNewPW">Show Password</label>
                 </div>
-                <div>
-                    <label for="confirmNewPW">Confirm New Password</label>
-                    <input type="password" id="confirmNewPW" name="confirmNewPW" placeholder="Re-enter new password" required><br><br>
-                    <input type="checkbox" id="showConfirmNewPW" onclick="togglePasswordVisibility('confirmNewPW', 'showConfirmNewPW')">
+                <div class="form-group">
+                    <label for="confirmPassword">Confirm New Password</label>
+                    <input type="password" class="form-control" id="confirmPassword" th:field="*{confirmPassword}" required />
+                    <input type="checkbox" id="showConfirmNewPW" onclick="togglePasswordVisibility('confirmNewPassword', 'showConfirmNewPW')">
                     <label for="showConfirmNewPW">Show Password</label>
                 </div>
                 <button class="btn btn-info" type="submit">Reset Password</button>
@@ -84,14 +83,14 @@
             <form  th:method="post" th:action="@{/posts/create}" th:object="${post}">
                 <div class="mb-3">
                     <label for="BlogTitle" class="form-label">Title</label>
-                    <input type="text" class="form-control" id="BlogTitle" name="title" placeholder="Title" th:field="*{title}">
+                    <input type="text" class="form-control" id="BlogTitle" name="title" placeholder="Title" >
 
                 </div>
 
                 <div class="mb-3">
                     <label for="BlogTextArea" class="form-label">Post Body</label>
-                    <textarea class="form-control" id="BlogTextArea" name="content" rows="3" th:field="*{description}"></textarea>
-                    <input type="hidden" th:field="*{id}">
+                    <textarea class="form-control" id="BlogTextArea" name="content" rows="3" ></textarea>
+                    <input type="hidden" >
 
                     <div style="position: relative">
                         <input type="file" id="postFileInput">
@@ -109,13 +108,13 @@
             <form  th:method="post" th:action="@{/posts/create}" th:object="${bands}">
                 <div class="mb-3">
                     <label for="BandName" class="form-label">Band Name</label>
-                    <input type="text" class="form-control" id="BandName" name="title" placeholder="Band Name" th:field="*{bandname}">
+                    <input type="text" class="form-control" id="BandName" name="title" placeholder="Band Name" >
                 </div>
 
                 <div class="mb-3">
                     <label for="BandDescription" class="form-label">Band Description</label>
-                    <textarea class="form-control" id="BandDescription" name="content" rows="3" th:field="*{description}"></textarea>
-                    <input type="hidden" th:field="*{id}">
+                    <textarea class="form-control" id="BandDescription" name="content" rows="3" ></textarea>
+                    <input type="hidden" >
                     <div style="position: relative">
                         <input type="file" id="bandCreateImg">
                         <img src="" alt="image" id="bandImg" style="background-color: darkgrey; color:white; padding:5px; border:none;outline:none; height: 30vh; width: auto">
