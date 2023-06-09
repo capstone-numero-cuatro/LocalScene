@@ -94,29 +94,29 @@
     </dialog>
     <button onclick="bandPostDialog.showModal()" type="button" class="btn btn-warning">Band Post</button>
 </div>
-<!--<div class="container">-->
-<!--    <dialog id="bandEvent">-->
-<!--        <h5>What are the deets?!</h5>-->
-<!--        <form th:method="post" th:action="@{/profile/{id}/events/create}" th:object="${events}">-->
-<!--            <div class="mb-3">-->
-<!--                <label for="EventsPostTitle" class="form-label">Title</label>-->
-<!--                <input type="text" class="form-control" id="EventsPostTitle" name="title" placeholder="Title"  th:field="*{title}">-->
-<!--            </div>-->
-<!--            <div class="mb-3">-->
-<!--                <label for="EventsDescription" class="form-label">Body</label>-->
-<!--                <textarea class="form-control" id="EventsDescription" name="content" rows="3" th:field="*{description}"></textarea>-->
-<!--                <input type="hidden" th:field="*{band_id}">-->
-<!--                <div style="position: relative">-->
-<!--                    <input type="file" id="bandEventInput">-->
-<!--                    <img src="" alt="image" id="bandEventFlyer" style="background-color: darkgrey; color:white; padding:5px; border:none;outline:none; height: 30vh; width: auto">-->
-<!--                </div>-->
-<!--            </div>-->
-<!--            <button type="submit" class="btn btn-danger">Let it be known!</button>-->
-<!--        </form>-->
+<div class="container">
+    <dialog id="bandEvent">
+        <h5>What are the deets?!</h5>
+        <form th:object="${events}" th:method="post" th:action="@{/band-profile/{id}(id=${band.getId()})}">
+            <div class="mb-3">
+                <label for="EventsPostTitle" class="form-label">Title</label>
+                <input type="text" class="form-control" id="EventsPostTitle" name="title" placeholder="Title" th:field="*{title}">
+            </div>
+            <div class="mb-3">
+                <label for="EventsDescription" class="form-label">Body</label>
+                <textarea class="form-control" id="EventsDescription" name="content" rows="3" th:field="*{description}"></textarea>
+<!--                <input type="hidden">-->
+                <div style="position: relative">
+                    <input type="file" id="bandEventInput">
+                    <img src="" alt="image" id="bandEventFlyer" style="background-color: darkgrey; color:white; padding:5px; border:none;outline:none; height: 30vh; width: auto">
+                </div>
+            </div>
+            <button type="submit" class="btn btn-danger">Let it be known!</button>
+        </form>
 
-<!--    </dialog>-->
-<!--    <button onclick="bandEvent.showModal()" type="button" class="btn btn-outline-danger">Event Creation</button>-->
-<!--</div>-->
+    </dialog>
+    <button onclick="bandEvent.showModal()" type="button" class="btn btn-outline-danger">Event Creation</button>
+</div>
 
 
 <script>
