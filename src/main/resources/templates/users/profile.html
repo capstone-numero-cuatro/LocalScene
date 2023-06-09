@@ -18,10 +18,18 @@
 
 <div class="container text-center" style="border: solid plum 2px">
     <div>
-        <div style="position: relative">
-            <input type="file" id="imageInput">
-            <img src="" alt="image" id="profilePic" style="background-color: darkgrey; color:white; padding:5px; border:none;outline:none; height: 30vh; width: auto">
-        </div>
+        <img src="" alt="image" id="profilePic" style="background-color: darkgrey; color:white; padding:5px; border:none;outline:none; height: 30vh; width: auto">
+
+        <dialog id="changePicture">
+            <div style="position: relative">
+                <input type="file" id="imageInput" onchange="handleProfilePictureUpload()">
+                <img src="" alt="image" id="profilePic" style="background-color: darkgrey; color:white; padding:5px; border:none;outline:none; height: 30vh; width: auto">
+                <button type="submit" class="btn btn-success">Submit!</button>
+            </div>
+        </dialog>
+
+        <button onclick="openProfilePicturePicker()" type="button" class="btn btn-warning">Change Profile Picture</button>
+
         <h2 th:text="${username}">UserName Place Holder</h2>
 
         <div>
@@ -100,8 +108,9 @@
                     <input type="hidden" th:field="*{id}">
 
                     <div style="position: relative">
-                        <input type="file" id="postFileInput">
+                        <input type="file" id="postFileInput" onchange="handlePostImageUpload()">
                         <img src="" alt="image" id="postFile" style="background-color: darkgrey; color:white; padding:5px; border:none;outline:none; height: 30vh; width: auto">
+
                     </div>
                 </div>
                 <button th:type="submit" class="btn btn-primary">Submit!</button>
@@ -125,9 +134,8 @@
                               th:field="*{description}"></textarea>
 <!--                    <input type="hidden" th:field="*{id}">-->
                     <div style="position: relative">
-                        <input type="file" id="bandCreateImg">
-                        <img src="" alt="image" id="bandImg"
-                             style="background-color: darkgrey; color:white; padding:5px; border:none;outline:none; height: 30vh; width: auto">
+                        <input type="file" id="bandCreateImg" onchange="handleBandImageUpload()">
+                        <img src="" alt="image" id="bandImg" style="background-color: darkgrey; color:white; padding:5px; border:none;outline:none; height: 30vh; width: auto">
                     </div>
                 </div>
                 <button type="submit" class="btn btn-success">Submit!</button>
@@ -147,47 +155,73 @@
     //apikey
     const client = filestack.init("Abd5534iTviZyWy5jGpswz");
 
-    // Profile picture
-    const profilePic = document.getElementById("profilePic");
-    const profileFileInput = document.getElementById("imageInput");
 
-    profileFileInput.addEventListener("change", (event) => {
-        const file = event.target.files[0];
+
+    // Function to open the profile picture picker dialog
+    function openProfilePicturePicker() {
+        const dialog = document.getElementById("changePicture");
+        dialog.showModal();
+    }
+
+    // Function to handle file picker and upload for profile picture
+    function handleProfilePictureUpload() {
+        const profilePic = document.getElementById("profilePic");
+        const profileFileInput = document.getElementById("imageInput");
+        const file = profileFileInput.files[0];
 
         client.upload(file).then((response) => {
+            console.log("Filestack api response: " , response);
             profilePic.src = response.url;
+            // Save the file to the user's profile using a callback or by making an API request
+            saveProfilePicture(response.url);
+            closeProfilePicturePicker();
         }).catch((error) => {
             console.log(error);
         });
-    });
+    }
 
-    // Post image
-    const postFile = document.getElementById("postFile");
-    const postFileInput = document.getElementById("postFileInput");
 
-    postFileInput.addEventListener("change", (event) => {
-        const file = event.target.files[0];
+    // Function to close the profile picture picker dialog
+    function closeProfilePicturePicker() {
+        const dialog = document.getElementById("changePicture");
+        dialog.close();
+    }
 
-        client.upload(file).then((response) => {
-            postFile.src = response.url;
-        }).catch((error) => {
-            console.log(error);
+
+
+    // Function to handle file picker and upload for post image
+    function handlePostImageUpload() {
+        const postFile = document.getElementById("postFile");
+        const postFileInput = document.getElementById("postFileInput");
+
+        postFileInput.addEventListener("change", (event) => {
+            const file = event.target.files[0];
+
+            client.upload(file).then((response) => {
+                postFile.src = response.url;
+            }).catch((error) => {
+                console.log(error);
+            });
         });
-    });
+    }
 
-    // Band image
-    const bandImg = document.getElementById("bandImg");
-    const bandCreateImgInput = document.getElementById("bandCreateImg");
 
-    bandCreateImgInput.addEventListener("change", (event) => {
-        const file = event.target.files[0];
 
-        client.upload(file).then((response) => {
-            bandImg.src = response.url;
-        }).catch((error) => {
-            console.log(error);
+    // Function to handle file picker and upload for band image
+    function handleBandImageUpload() {
+        const bandImg = document.getElementById("bandImg");
+        const bandCreateImgInput = document.getElementById("bandCreateImg");
+
+        bandCreateImgInput.addEventListener("change", (event) => {
+            const file = event.target.files[0];
+
+            client.upload(file).then((response) => {
+                bandImg.src = response.url;
+            }).catch((error) => {
+                console.log(error);
+            });
         });
-    });
+    }
 
 
 
