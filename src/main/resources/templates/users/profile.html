@@ -155,6 +155,8 @@
     //apikey
     const client = filestack.init("Abd5534iTviZyWy5jGpswz");
 
+
+
     // Function to open the profile picture picker dialog
     function openProfilePicturePicker() {
         const dialog = document.getElementById("changePicture");
@@ -168,6 +170,7 @@
         const file = profileFileInput.files[0];
 
         client.upload(file).then((response) => {
+            console.log("Filestack api response: " , response);
             profilePic.src = response.url;
             // Save the file to the user's profile using a callback or by making an API request
             saveProfilePicture(response.url);

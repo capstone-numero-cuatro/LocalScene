@@ -37,8 +37,10 @@ public class Users {
     @Column
     private boolean band_member;
 
+
+
     @Column()
-    private long user_image;
+    private String user_image;
 
     @Column()
     private String instagram;
@@ -48,6 +50,8 @@ public class Users {
 
     @Column()
     private String twitter;
+
+
 
 
     @Transient
@@ -174,5 +178,13 @@ public class Users {
 
     public void setTwitter(String twitter) {
         this.twitter = twitter;
+    }
+
+    public String getUser_image() {
+        return user_image;
+    }
+
+    public void setUser_image(String user_image) {
+        this.user_image = user_image;
     }
 }
