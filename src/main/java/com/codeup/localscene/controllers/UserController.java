@@ -76,10 +76,7 @@ public class UserController {
             return "login";
         }
     }
-    @GetMapping("/home")
-    public String showHomePage() {
-        return "home";
-    }
+
 
     @GetMapping("/forgot-password")
     public String showForgotPasswordForm() {

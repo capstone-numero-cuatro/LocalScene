@@ -25,14 +25,7 @@ public class PostController {
     };
 
 
-    @GetMapping("/posts")
-    public String showPosts(Model model){
-        List<Posts> posts =postRepository.findAll();
-        model.addAttribute("posts", posts);
 
-        return "posts";
-
-    }
 
     @GetMapping("/profile/{id}/posts")
     public String getPosts(Model model) {
