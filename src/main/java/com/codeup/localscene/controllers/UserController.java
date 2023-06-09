@@ -6,6 +6,7 @@ import com.codeup.localscene.services.UserDetailsLoader;
 import jakarta.servlet.http.HttpServletRequest;
 import org.apache.tomcat.util.net.openssl.ciphers.Authentication;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -32,10 +33,13 @@ public class UserController {
         this.userDetailsLoader = userDetailsLoader;
         this.passwordEncoder = passwordEncoder;
     }
+    @Value("${filestack.api.key}")
+    private String filestackApiKey;
 
     @GetMapping("/sign-up")
     public String showRegistrationForm(Model model) {
         model.addAttribute("user", new Users());
+        model.addAttribute("filestackKey", filestackApiKey);
         return "sign-up";
     }
 
