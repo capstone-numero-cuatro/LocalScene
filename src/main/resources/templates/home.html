@@ -12,11 +12,10 @@
 </head>
 <body>
 <div>
-    <nav th:insert="partials/navbar :: navbar" />
-    <h1 th:inline="text">this is home page</h1>
-    <form th:action="@{/logout}" method="post">
-        <input type="submit" value="Sign Out"/>
-    </form>
+    <div th:fragment="navbar">
+        <div th:replace="partials/navbar"></div>
+    </div>
+
     <div>
         <div class="main-background">
             <img src="../static/img/localscen.png" alt="">
@@ -48,11 +47,11 @@
                     <h2>Posts Content</h2>
                     <div id="PostsContainer">
                         <div th:each="post : ${posts}">
-                            <div class="card" style="width:20rem;">
+                            <div class="card" style="width:20rem; margin: 1.5em;">
 
                                 <div class="card-body">
-                                    <h5 class="card-title" th:text="${title}"></h5>
-
+                                    <h5 class="card-title" th:text="${post.getTitle()}"></h5>
+<!--                                    <p th:text="${posts.id}"></p>-->
                                     <p class="card-text" th:text="${post.description}"></p>
                                 </div>
                             </div>
@@ -96,56 +95,56 @@
 
 
 
-<div id="PostsContainer">
-        <div class="post">
-            <p class="post-title">Post 1</p>
-            <p class="post-description">Loading....</p>
-            <div class="post-image">
-                <img src="../static/img/fff.png" alt="">
-            </div>
-            <button onclick="showModal()">Venue infos</button>
+<!--<div id="PostsContainer2">-->
+<!--        <div class="post">-->
+<!--            <p class="post-title">Post 1</p>-->
+<!--            <p class="post-description">Loading....</p>-->
+<!--            <div class="post-image">-->
+<!--                <img src="../static/img/fff.png" alt="">-->
+<!--            </div>-->
+<!--            <button onclick="showModal()">Venue infos</button>-->
 
-            <div class="modal" id="modal">
-                <div class="modal-content">
-                    <span class="close" onclick="hideModal()">&times;</span>
-                    <h2>Modal Dialog</h2>
-                    <p>This is the content of the modal dialog.</p>
-                </div>
-            </div>
-        </div>
-        <div class="post">
-            <p class="post-title">Post 2</p>
-            <p class="post-description">Loading....</p>
-            <div class="post-image">
-                <img src="img/Localscene.png" alt="">
-            </div>
-            <button onclick="showModal()">Mission Statement</button>
+<!--            <div class="modal" id="modal2">-->
+<!--                <div class="modal-content">-->
+<!--                    <span class="close" onclick="hideModal()">&times;</span>-->
+<!--                    <h2>Modal Dialog</h2>-->
+<!--                    <p>This is the content of the modal dialog.</p>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--        <div class="post">-->
+<!--            <p class="post-title">Post 2</p>-->
+<!--            <p class="post-description">Loading....</p>-->
+<!--            <div class="post-image">-->
+<!--                <img src="img/Localscene.png" alt="">-->
+<!--            </div>-->
+<!--            <button onclick="showModal()">Mission Statement</button>-->
 
-            <div class="modal" id="modal">
-                <div class="modal-content">
-                    <span class="close" onclick="hideModal()">&times;</span>
-                    <h2>Modal Dialog</h2>
-                    <p>This is the content of the modal dialog.</p>
-                </div>
-            </div>
-        </div>
-        <div class="post">
-            <p class="post-title">Post 3</p>
-            <p class="post-description">Loading....</p>
-            <div class="post-image">
-                <img src="img/01d.png" alt="">
-            </div>
-            <button onclick="showModal()">Bands list</button>
+<!--            <div class="modal" id="modal3">-->
+<!--                <div class="modal-content">-->
+<!--                    <span class="close" onclick="hideModal()">&times;</span>-->
+<!--                    <h2>Modal Dialog</h2>-->
+<!--                    <p>This is the content of the modal dialog.</p>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--        <div class="post">-->
+<!--            <p class="post-title">Post 3</p>-->
+<!--            <p class="post-description">Loading....</p>-->
+<!--            <div class="post-image">-->
+<!--                <img src="img/01d.png" alt="">-->
+<!--            </div>-->
+<!--            <button onclick="showModal()">Bands list</button>-->
 
-            <div class="modal" id="modal">
-                <div class="modal-content">
-                    <span class="close" onclick="hideModal()">&times;</span>
-                    <h2>Modal Dialog</h2>
-                    <p>This is the content of the modal dialog.</p>
-                </div>
-            </div>
-        </div>
-    </div>
+<!--            <div class="modal" id="modal">-->
+<!--                <div class="modal-content">-->
+<!--                    <span class="close" onclick="hideModal()">&times;</span>-->
+<!--                    <h2>Modal Dialog</h2>-->
+<!--                    <p>This is the content of the modal dialog.</p>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
 
     <div id="EventsContainer">
         <div class="event">
