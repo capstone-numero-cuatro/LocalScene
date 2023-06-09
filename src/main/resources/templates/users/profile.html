@@ -58,16 +58,16 @@
                 <div class="form-group">
                     <label for="newPassword">New password</label>
                     <input type="password" class="form-control" id="newPassword" th:field="*{newPassword}" required />
-                    <input type="checkbox" id="showNewPW" onclick="togglePasswordVisibility('newPassword', 'showNewPW')">
-                    <label for="showNewPW">Show Password</label>
                 </div>
                 <div class="form-group">
                     <label for="confirmPassword">Confirm New Password</label>
                     <input type="password" class="form-control" id="confirmPassword" th:field="*{confirmPassword}" required />
-                    <input type="checkbox" id="showConfirmNewPW" onclick="togglePasswordVisibility('confirmNewPassword', 'showConfirmNewPW')">
-                    <label for="showConfirmNewPW">Show Password</label>
                 </div>
-                <button class="btn btn-info" type="submit">Reset Password</button>
+                <input type="checkbox" id="showPasswords" onclick="togglePasswordVisibility()">
+                <label for="showPasswords">Show Passwords</label>
+                <div>
+                    <button class="btn btn-info" type="submit">Reset Password</button>
+                </div>
             </form>
         </dialog>
         <button onclick="pwreset.showModal()" type="button" class="btn btn-info">Reset Password?</button>
@@ -186,14 +186,19 @@
 
 
 
-    function togglePasswordVisibility(fieldId, checkboxId) {
-        var field = document.getElementById(fieldId);
-        var checkbox = document.getElementById(checkboxId);
+    function togglePasswordVisibility() {
+        const newPassword = document.getElementById('newPassword');
+        const confirmPassword = document.getElementById('confirmPassword');
+        const checkbox = document.getElementById('showPasswords');
 
         if (checkbox.checked) {
-            field.type = "text";
+            // Show the password
+            newPassword.type = 'text';
+            confirmPassword.type = 'text';
         } else {
-            field.type = "password";
+            // Hide the password
+            newPassword.type = 'password';
+            confirmPassword.type = 'password';
         }
     }
     function submitForm() {
