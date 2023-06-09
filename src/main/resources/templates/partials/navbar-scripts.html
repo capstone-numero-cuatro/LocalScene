@@ -35,6 +35,14 @@
             }
         });
     });
+
+    window.addEventListener('click', function(e) {
+        var dialog = document.getElementById('c');
+        if (e.target == dialog) {
+        dialog.close();
+    }
+    });
+
 </script>
 </body>
 </html>

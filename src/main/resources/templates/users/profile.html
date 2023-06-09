@@ -211,6 +211,12 @@
             document.getElementById('forgot-password').style.display = 'block';
         }
     }
+    window.addEventListener('click', function(e) {
+        var dialog = document.getElementById('pwreset');
+        if (e.target == dialog) {
+            dialog.close();
+        }
+    });
 
 
 </script>
