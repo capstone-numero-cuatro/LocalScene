@@ -24,19 +24,29 @@ public class PostController {
         this.postRepository = postRepository;
     };
 
+
+    @GetMapping("/posts")
+    public String showPosts(Model model){
+        List<Posts> posts =postRepository.findAll();
+        model.addAttribute("posts", posts);
+
+        return "posts";
+
+    }
+
     @GetMapping("/profile/{id}/posts")
     public String getPosts(Model model) {
         List<Posts> posts = postRepository.findAll();
         model.addAttribute("posts", posts);
         model.addAttribute("posts", new Posts());
-        return "redirect:/home";
+        return "redirect:/posts";
     }
 
     //create post, saves post, redirects to list of posts
     @PostMapping("/profile/{id}/posts/create")
     public String createPosts(@ModelAttribute("posts") Posts posts) {
         postRepository.save(posts);
-        return "redirect:/home";
+        return "redirect:/posts";
     }
 
     //delete
