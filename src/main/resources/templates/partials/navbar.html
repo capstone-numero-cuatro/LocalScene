@@ -18,6 +18,7 @@
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <img sec:authorize="isFullyAuthenticated()" th:src="${#authentication.principal.profileImage}" height="24" class="rounded-circle" />
                         <span sec:authorize="isFullyAuthenticated()" th:text="${#authentication.principal.username}"></span>
                         <span sec:authorize="!isFullyAuthenticated()">Guest</span>
                     </a>
