@@ -21,6 +21,7 @@
         Choose your profile image
     </label>
     <input type="file" id="profileImageInput" style="display: none;"/>
+    <img src="" th:src="${user.profileImage}" alt="image" id="profileImage" style="background-color: darkgrey; color:white; padding:5px; border:none;outline:none; height: 30vh; width: auto">
     <input type="hidden" id="profileImageUrl" name="profileImage">
 
     <div sec:authorize="isAuthenticated()">
