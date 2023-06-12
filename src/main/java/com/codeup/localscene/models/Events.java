@@ -17,7 +17,7 @@ public class Events {
     private String description;
 
     @Column
-    private long event_image;
+    private String event_image;
 
     @ManyToOne
     @JoinColumn(name = "band_id")
@@ -58,11 +58,11 @@ public class Events {
         this.description = description;
     }
 
-    public long getEventImage(){
+    public String getEventImage(){
         return event_image;
     }
 
-    public void setEventImage(long event_image) {
+    public void setEventImage(String event_image) {
         this.event_image = event_image;
     }
 

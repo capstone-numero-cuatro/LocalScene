@@ -1,3 +1,7 @@
-.body{
-    background-color: lightblue;
+body{
+    background-color:lightgray;
+}
+#changeProfilePic{
+    size: 40px;
+    width: 100px;
 }

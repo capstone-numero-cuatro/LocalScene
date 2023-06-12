@@ -24,12 +24,13 @@ public class HomeController {
     private PostRepository postRepository;
 
     @GetMapping("/home")
-
     public String welcome(Model model){
-    List<Posts> posts =postRepository.findAll();
+        List<Posts> posts =postRepository.findAll();
         model.addAttribute("posts", posts);
 
-    return"home";}
+        return"home";}
+
+
 
 //    @GetMapping("/posts")
 //    public String showPosts(Model model){

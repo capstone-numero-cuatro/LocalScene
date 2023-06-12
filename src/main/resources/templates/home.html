@@ -12,21 +12,21 @@
 </head>
 <body>
 <div>
-    <nav th:insert="partials/navbar :: navbar" />
-    <h1 th:inline="text">this is home page</h1>
-    <form th:action="@{/logout}" method="post">
-        <input type="submit" value="Sign Out"/>
-    </form>
+    <div th:fragment="navbar">
+        <div th:replace="partials/navbar"></div>
+    </div>
+    <div th:if="${message}" th:class="${alertClass}" th:text="${message}"></div>
+
     <div>
         <div class="main-background">
             <img src="../static/img/localscen.png" alt="">
         </div>
-    <h3>The Local Scene</h3>
-    <button type="button">Posts</button>
-    <button type="button">Events</button>
-    <div id="map"></div>
-    <p id="inputContainer">City or Zip: <input type="text" id="cityInput"></p>
-    <button id="cityLocation" type="button">Find</button>
+        <h3>The Local Scene</h3>
+        <button type="button">Posts</button>
+        <button type="button">Events</button>
+        <div id="map"></div>
+        <p id="inputContainer">City or Zip: <input type="text" id="cityInput"></p>
+        <button id="cityLocation" type="button">Find</button>
     </div>
 </div>
 <div>
@@ -48,19 +48,19 @@
                     <h2>Posts Content</h2>
                     <div id="PostsContainer">
                         <div th:each="post : ${posts}">
-                            <div class="card" style="width:20rem;">
+                            <div class="card" style="width:20rem; margin: 1.5em;">
 
                                 <div class="card-body">
-                                    <h5 class="card-title" th:text="${title}"></h5>
-
+                                    <h5 class="card-title" th:text="${post.getTitle()}"></h5>
+                                    <!--                                    <p th:text="${posts.id}"></p>-->
                                     <p class="card-text" th:text="${post.description}"></p>
                                 </div>
                             </div>
                         </div>
-                </div>
-                <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-                    <h2>Events Content</h2>
-                        <div id="EventsContainer">
+                    </div>
+                    <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                        <h2>Events Content</h2>
+                        <div id="EventsContainer1">
                             <div class="event">
                                 <p class="Event-title">Event 1</p>
                                 <p class="Event-description">Loading....</p>
@@ -85,100 +85,105 @@
                                 </div>
                                 <button type="button">Button</button>
                             </div>
+                        </div>
+                        <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+                            <h2>Band of Lists Content</h2>
+                            <p>This is the content of the Band of Lists tab.</p>
+                        </div>
+                    </div>
                 </div>
-                <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
-                    <h2>Band of Lists Content</h2>
-                    <p>This is the content of the Band of Lists tab.</p>
+            </div>
+
+
+
+            <!--<div id="PostsContainer2">-->
+            <!--        <div class="post">-->
+            <!--            <p class="post-title">Post 1</p>-->
+            <!--            <p class="post-description">Loading....</p>-->
+            <!--            <div class="post-image">-->
+            <!--                <img src="../static/img/fff.png" alt="">-->
+            <!--            </div>-->
+            <!--            <button onclick="showModal()">Venue infos</button>-->
+
+            <!--            <div class="modal" id="modal2">-->
+            <!--                <div class="modal-content">-->
+            <!--                    <span class="close" onclick="hideModal()">&times;</span>-->
+            <!--                    <h2>Modal Dialog</h2>-->
+            <!--                    <p>This is the content of the modal dialog.</p>-->
+            <!--                </div>-->
+            <!--            </div>-->
+            <!--        </div>-->
+            <!--        <div class="post">-->
+            <!--            <p class="post-title">Post 2</p>-->
+            <!--            <p class="post-description">Loading....</p>-->
+            <!--            <div class="post-image">-->
+            <!--                <img src="img/Localscene.png" alt="">-->
+            <!--            </div>-->
+            <!--            <button onclick="showModal()">Mission Statement</button>-->
+
+            <!--            <div class="modal" id="modal3">-->
+            <!--                <div class="modal-content">-->
+            <!--                    <span class="close" onclick="hideModal()">&times;</span>-->
+            <!--                    <h2>Modal Dialog</h2>-->
+            <!--                    <p>This is the content of the modal dialog.</p>-->
+            <!--                </div>-->
+            <!--            </div>-->
+            <!--        </div>-->
+            <!--        <div class="post">-->
+            <!--            <p class="post-title">Post 3</p>-->
+            <!--            <p class="post-description">Loading....</p>-->
+            <!--            <div class="post-image">-->
+            <!--                <img src="img/01d.png" alt="">-->
+            <!--            </div>-->
+            <!--            <button onclick="showModal()">Bands list</button>-->
+
+            <!--            <div class="modal" id="modal">-->
+            <!--                <div class="modal-content">-->
+            <!--                    <span class="close" onclick="hideModal()">&times;</span>-->
+            <!--                    <h2>Modal Dialog</h2>-->
+            <!--                    <p>This is the content of the modal dialog.</p>-->
+            <!--                </div>-->
+            <!--            </div>-->
+            <!--        </div>-->
+            <!--    </div>-->
+
+            <div id="EventsContainer2">
+                <div class="event">
+                    <p class="Event-title">Event 1</p>
+                    <p class="Event-description">Loading....</p>
+                    <div class="Event-image">
+                        <img src="img/Localscene.jpg" alt="">
+                    </div>
+                    <button type="button">Button</button>
                 </div>
+                <div class="event">
+                    <p class="Event-title">Event 2</p>
+                    <p class="Event-description">Loading....</p>
+                    <div class="Event-image">
+                        <img src="img/Localscene.jpg" alt="">
+                    </div>
+                    <button type="button">Button</button>
+                </div>
+                <div class="event">
+                    <p class="Event-title">Event 3</p>
+                    <p class="Event-description">Loading....</p>
+                    <div class="Event-image">
+                        <img src="img/Localscene.jpg" alt="">
+                    </div>
+                    <button type="button">Button</button>
+                </div>
+            </div>
         </div>
     </div>
 </div>
 
-
-
-<div id="PostsContainer">
-        <div class="post">
-            <p class="post-title">Post 1</p>
-            <p class="post-description">Loading....</p>
-            <div class="post-image">
-                <img src="../static/img/fff.png" alt="">
-            </div>
-            <button onclick="showModal()">Venue infos</button>
-
-            <div class="modal" id="modal">
-                <div class="modal-content">
-                    <span class="close" onclick="hideModal()">&times;</span>
-                    <h2>Modal Dialog</h2>
-                    <p>This is the content of the modal dialog.</p>
-                </div>
-            </div>
-        </div>
-        <div class="post">
-            <p class="post-title">Post 2</p>
-            <p class="post-description">Loading....</p>
-            <div class="post-image">
-                <img src="img/Localscene.png" alt="">
-            </div>
-            <button onclick="showModal()">Mission Statement</button>
-
-            <div class="modal" id="modal">
-                <div class="modal-content">
-                    <span class="close" onclick="hideModal()">&times;</span>
-                    <h2>Modal Dialog</h2>
-                    <p>This is the content of the modal dialog.</p>
-                </div>
-            </div>
-        </div>
-        <div class="post">
-            <p class="post-title">Post 3</p>
-            <p class="post-description">Loading....</p>
-            <div class="post-image">
-                <img src="img/01d.png" alt="">
-            </div>
-            <button onclick="showModal()">Bands list</button>
-
-            <div class="modal" id="modal">
-                <div class="modal-content">
-                    <span class="close" onclick="hideModal()">&times;</span>
-                    <h2>Modal Dialog</h2>
-                    <p>This is the content of the modal dialog.</p>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div id="EventsContainer">
-        <div class="event">
-            <p class="Event-title">Event 1</p>
-            <p class="Event-description">Loading....</p>
-            <div class="Event-image">
-                <img src="img/Localscene.jpg" alt="">
-            </div>
-            <button type="button">Button</button>
-        </div>
-        <div class="event">
-            <p class="Event-title">Event 2</p>
-            <p class="Event-description">Loading....</p>
-            <div class="Event-image">
-                <img src="img/Localscene.jpg" alt="">
-            </div>
-            <button type="button">Button</button>
-        </div>
-        <div class="event">
-            <p class="Event-title">Event 3</p>
-            <p class="Event-description">Loading....</p>
-            <div class="Event-image">
-                <img src="img/Localscene.jpg" alt="">
-            </div>
-            <button type="button">Button</button>
-        </div>
-    </div>
-    <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
-    <script src="../static/js/keys.js"></script>
-    <script src="../static/js/mapbox-geocode-utils.js"></script>
-    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+<th:block th:replace="partials/navbar-scripts :: navbar-scripts"></th:block>
+<script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+<script src="../static/js/keys.js"></script>
+<script src="../static/js/mapbox-geocode-utils.js"></script>
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
 
 </body>
