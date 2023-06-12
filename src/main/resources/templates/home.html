@@ -22,11 +22,45 @@
             <img src="../static/img/localscen.png" alt="">
         </div>
     <h3>The Local Scene</h3>
-    <button type="button">Posts</button>
-    <button type="button">Events</button>
     <div id="map"></div>
-    <p id="inputContainer">City or Zip: <input type="text" id="cityInput"></p>
-    <button id="cityLocation" type="button">Find</button>
+</div>
+<div class="container">
+    <h1>City or Zip: </h1>
+    <div class="row">
+        <div class="col-md-6">
+            <form id="search-form">
+                <div class="input-group mb-3">
+                    <label for="search-input"></label>
+                    <input type="text" id="search-input" class="form-control" placeholder="Enter your location">
+                    <div class="input-group-append">
+                        <button class="btn btn-primary" type="submit">Find</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="mission-container">
+        <h2>Mission Statement</h2>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum eget erat et quam pulvinar sagittis.
+            Nulla facilisi. Donec auctor metus non leo tincidunt fringilla. Phasellus luctus justo sed nunc feugiat,
+            vitae malesuada sem ultrices. Morbi convallis auctor dui, ac dignissim nunc finibus in. Praesent luctus
+            enim ut eros cursus, id finibus ipsum lacinia.</p>
+    </div>
+    <div class="people-container">
+        <div class="person">
+            <img src="img/person1.jpg" alt="Person 1">
+        </div>
+        <div class="person">
+            <img src="img/person2.jpg" alt="Person 2">
+        </div>
+        <div class="person">
+            <img src="img/person3.jpg" alt="Person 3">
+        </div>
+        <div class="person">
+            <img src="img/person4.jpg" alt="Person 4">
+        </div>
     </div>
 </div>
 <div>
@@ -42,25 +76,19 @@
                 <li class="nav-item" role="presentation">
                     <button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact" type="button" role="tab" aria-controls="contact" aria-selected="false">Band of Lists</button>
                 </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="venues-tab" data-bs-toggle="tab" data-bs-target="#venues" type="button" role="tab" aria-controls="venues" aria-selected="false">Venues</button>
+                </li>
             </ul>
             <div class="tab-content">
-                <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-                    <h2>Posts Content</h2>
+                <div class="tab-pane fade" id="home" role="tabpanel" aria-labelledby="home-tab">
+                    <h2>Posts</h2>
                     <div id="PostsContainer">
                         <div class="post">
                             <p class="post-title">Post 1</p>
                             <p class="post-description">Loading....</p>
                             <div class="post-image">
                                 <img src="../static/img/fff.png" alt="">
-                            </div>
-                            <button onclick="showModal()">Venue infos</button>
-
-                            <div class="modal" id="modal">
-                                <div class="modal-content">
-                                    <span class="close" onclick="hideModal()">&times;</span>
-                                    <h2>Modal Dialog</h2>
-                                    <p>This is the content of the modal dialog.</p>
-                                </div>
                             </div>
                         </div>
                         <div class="post">
@@ -69,151 +97,116 @@
                             <div class="post-image">
                                 <img src="img/Localscene.png" alt="">
                             </div>
-                            <button onclick="showModal()">Mission Statement</button>
-
-                            <div class="modal" id="modal">
-                                <div class="modal-content">
-                                    <span class="close" onclick="hideModal()">&times;</span>
-                                    <h2>Modal Dialog</h2>
-                                    <p>This is the content of the modal dialog.</p>
-                                </div>
-                            </div>
                         </div>
                         <div class="post">
                             <p class="post-title">Post 3</p>
                             <p class="post-description">Loading....</p>
                             <div class="post-image">
                                 <img src="img/01d.png" alt="">
-                            </div>
-                            <button onclick="showModal()">Bands list</button>
-
-                            <div class="modal" id="modal">
-                                <div class="modal-content">
-                                    <span class="close" onclick="hideModal()">&times;</span>
-                                    <h2>Modal Dialog</h2>
-                                    <p>This is the content of the modal dialog.</p>
-                                </div>
-                            </div>
                         </div>
                     </div>
                 </div>
+            </div>
+            </div>
+            <div class="tab-content">
                 <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-                    <h2>Events Content</h2>
-                        <div id="EventsContainer">
-                            <div class="event">
-                                <p class="Event-title">Event 1</p>
-                                <p class="Event-description">Loading....</p>
-                                <div class="Event-image">
-                                    <img src="img/Localscene.jpg" alt="">
+                    <h2>Events</h2>
+                        <div id="events-container" class="row">
+                            <div id="events-card" class="tab-pane fade">
+                                <h2>Events</h2>
+                                <div class="row row-events">
+                                    <!-- Event cards will be dynamically added here -->
+                                    <div class="card">
+                                        <img src="../static/img/event1.jpg" alt="Event 1">
+                                        <div class="card-body">
+                                            <h5>Event 1</h5>
+                                            <p>Event description</p>
+                                            <a href="#" onclick="showModal('Event 1')">More Info</a>
+                                        </div>
+                                    </div>
+                                    <div class="card">
+                                        <img src="../static/img/event2.jpg" alt="Event 2">
+                                        <div class="card-body">
+                                            <h5>Event 2</h5>
+                                            <p>Event description</p>
+                                            <a href="#" onclick="showModal('Event 2')">More Info</a>
+                                        </div>
+                                    </div>
                                 </div>
-                                <button type="button">Button</button>
-                            </div>
-                            <div class="event">
-                                <p class="Event-title">Event 2</p>
-                                <p class="Event-description">Loading....</p>
-                                <div class="Event-image">
-                                    <img src="img/Localscene.jpg" alt="">
-                                </div>
-                                <button type="button">Button</button>
-                            </div>
-                            <div class="event">
-                                <p class="Event-title">Event 3</p>
-                                <p class="Event-description">Loading....</p>
-                                <div class="Event-image">
-                                    <img src="img/Localscene.jpg" alt="">
-                                </div>
-                                <button type="button">Button</button>
-                            </div>
+                        </div>
                 </div>
+            </div>
                 <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
-                    <h2>Band of Lists Content</h2>
-                    <p>This is the content of the Band of Lists tab.</p>
+                    <h2>Band of Lists</h2>
+                    <div id="BandsContainer">
+                        <div class="band">
+                            <p class="Band-title">Band 1</p>
+                            <p class="Band-description">Loading....</p>
+                            <div class="Band-image">
+                                <img src="img/Localscene.jpg" alt="">
+                            </div>
+                        </div>
+                        <div class="band">
+                            <p class="Band-title">Band 1</p>
+                            <p class="Band-description">Loading....</p>
+                            <div class="Band-image">
+                                <img src="img/Localscene.jpg" alt="">
+                            </div>
+                        </div>
+                        <div class="band">
+                            <p class="Band-title">Band 1</p>
+                            <p class="Band-description">Loading....</p>
+                            <div class="Band-image">
+                                <img src="img/Localscene.jpg" alt="">
+                            </div>
+                        </div>
                 </div>
+                </div>
+                <div class="tab-pane fade" id="venues" role="tabpanel" aria-labelledby="venues-tab">
+                    <h2>Venues</h2>
+                        <div class="row">
+                            <div id="venues-container" class="col-md-6 tab-content">
+                                    <div class="row row-venues">
+                                        <table id="venues-table">
+                                            <thead>
+                                            <tr>
+                                                <th>Venue Name</th>
+                                                <th>Location</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <!-- Venue rows will be dynamically added here -->
+                                            <tr>
+                                                <td><a href="#" onclick="showModal('Venue Name 1')">Venue Name 1</a></td>
+                                                <td>Location 1</td>
+                                            </tr>
+                                            <tr>
+                                                <td><a href="#" onclick="showModal('Venue Name 2')">Venue Name 2</a></td>
+                                                <td>Location 2</td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                </div>
+
+            </div>
         </div>
     </div>
 </div>
-
-
-
-<!--<div id="PostsContainer">-->
-<!--        <div class="post">-->
-<!--            <p class="post-title">Post 1</p>-->
-<!--            <p class="post-description">Loading....</p>-->
-<!--            <div class="post-image">-->
-<!--                <img src="../static/img/fff.png" alt="">-->
-<!--            </div>-->
-<!--            <button onclick="showModal()">Venue infos</button>-->
-
-<!--            <div class="modal" id="modal">-->
-<!--                <div class="modal-content">-->
-<!--                    <span class="close" onclick="hideModal()">&times;</span>-->
-<!--                    <h2>Modal Dialog</h2>-->
-<!--                    <p>This is the content of the modal dialog.</p>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--        <div class="post">-->
-<!--            <p class="post-title">Post 2</p>-->
-<!--            <p class="post-description">Loading....</p>-->
-<!--            <div class="post-image">-->
-<!--                <img src="img/Localscene.png" alt="">-->
-<!--            </div>-->
-<!--            <button onclick="showModal()">Mission Statement</button>-->
-
-<!--            <div class="modal" id="modal">-->
-<!--                <div class="modal-content">-->
-<!--                    <span class="close" onclick="hideModal()">&times;</span>-->
-<!--                    <h2>Modal Dialog</h2>-->
-<!--                    <p>This is the content of the modal dialog.</p>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--        <div class="post">-->
-<!--            <p class="post-title">Post 3</p>-->
-<!--            <p class="post-description">Loading....</p>-->
-<!--            <div class="post-image">-->
-<!--                <img src="img/01d.png" alt="">-->
-<!--            </div>-->
-<!--            <button onclick="showModal()">Bands list</button>-->
-
-<!--            <div class="modal" id="modal">-->
-<!--                <div class="modal-content">-->
-<!--                    <span class="close" onclick="hideModal()">&times;</span>-->
-<!--                    <h2>Modal Dialog</h2>-->
-<!--                    <p>This is the content of the modal dialog.</p>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--    </div>-->
-
-<!--    <div id="EventsContainer">-->
-<!--        <div class="event">-->
-<!--            <p class="Event-title">Event 1</p>-->
-<!--            <p class="Event-description">Loading....</p>-->
-<!--            <div class="Event-image">-->
-<!--                <img src="img/Localscene.jpg" alt="">-->
-<!--            </div>-->
-<!--            <button type="button">Button</button>-->
-<!--        </div>-->
-<!--        <div class="event">-->
-<!--            <p class="Event-title">Event 2</p>-->
-<!--            <p class="Event-description">Loading....</p>-->
-<!--            <div class="Event-image">-->
-<!--                <img src="img/Localscene.jpg" alt="">-->
-<!--            </div>-->
-<!--            <button type="button">Button</button>-->
-<!--        </div>-->
-<!--        <div class="event">-->
-<!--            <p class="Event-title">Event 3</p>-->
-<!--            <p class="Event-description">Loading....</p>-->
-<!--            <div class="Event-image">-->
-<!--                <img src="img/Localscene.jpg" alt="">-->
-<!--            </div>-->
-<!--            <button type="button">Button</button>-->
-<!--        </div>-->
+    <div class="modal" id="modal">
+        <div class="modal-content">
+            <span class="close" onclick="hideModal()">&times;</span>
+            <h2 id="modal-title"></h2>
+            <p id="modal-content"></p>
+        </div>
     </div>
     <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
     <script src="../static/js/keys.js"></script>
+<script src="../static/js/events.js"></script>
+                            <script src="../static/js/keyTM.js"></script>
     <script src="../static/js/mapbox-geocode-utils.js"></script>
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
