@@ -12,16 +12,16 @@
 </head>
 <body>
 <div>
-    <nav th:insert="partials/navbar :: navbar" />
-    <h1 th:inline="text">this is home page</h1>
-    <form th:action="@{/logout}" method="post">
-        <input type="submit" value="Sign Out"/>
-    </form>
+    <div th:fragment="navbar">
+        <div th:replace="partials/navbar"></div>
+    </div>
+    <div th:if="${message}" th:class="${alertClass}" th:text="${message}"></div>
+
     <div>
         <div class="main-background">
             <img src="../static/img/localscen.png" alt="">
         </div>
-    <h3>The Local Scene</h3>
+   <h3>The Local Scene</h3>
     <div id="map"></div>
 </div>
 <div class="container">

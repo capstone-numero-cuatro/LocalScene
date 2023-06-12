@@ -1,38 +1,47 @@
 package com.codeup.localscene.controllers;
 
 import com.codeup.localscene.models.Bands;
+import com.codeup.localscene.models.PasswordResetForm;
 import com.codeup.localscene.models.Posts;
 import com.codeup.localscene.models.Users;
 import com.codeup.localscene.repositories.BandRepository;
 import com.codeup.localscene.repositories.PostRepository;
 import com.codeup.localscene.repositories.UserRepository;
+import com.codeup.localscene.services.EmailService;
+import com.codeup.localscene.services.PasswordResetService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.Authentication;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import java.security.Principal;
+import java.util.List;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-
-import java.security.Principal;
-import java.util.List;
 
 @Controller
 public class ProfileController {
 
     private final UserRepository userRepository;
     private final PostRepository postRepository;
-    // suppose you have a BandsRepository
     private final BandRepository bandRepository;
+    private final PasswordResetService passwordResetService;
+    private final EmailService emailService;
 
     @Autowired
-    public ProfileController(UserRepository userRepository, PostRepository postRepository, BandRepository bandRepository) {
+    public ProfileController(UserRepository userRepository, PostRepository postRepository, BandRepository bandRepository, PasswordResetService passwordResetService, EmailService emailService) {
         this.userRepository = userRepository;
         this.postRepository = postRepository;
         this.bandRepository = bandRepository;
+        this.passwordResetService = passwordResetService;
+        this.emailService = emailService;
     }
 
     @GetMapping("/profile/{id}")
@@ -43,16 +52,27 @@ public class ProfileController {
         }
 
         model.addAttribute("posts", new Posts());
-        model.addAttribute("band", new Bands());
-
-        return "users/profile";
+        model.addAttribute("bands", new Bands());
+        model.addAttribute("passwordResetForm", new PasswordResetForm());
+        model.addAttribute("user", user);
+        return "profile";
     }
 
     @PostMapping("/profile/posts/create")
     public String createPost(@ModelAttribute Posts posts) {
+        //Access the logged in user (bottom of security)
+        Users loggedInUser = (Users) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        loggedInUser = userRepository.findByUsername(loggedInUser.getUsername());
+
+        posts.setUser_id(loggedInUser);
+
+        System.out.println("posts.getUser_id().getUsername() = " + posts.getUser_id().getUsername());
+
         postRepository.save(posts);
-        return "redirect:/posts";
+        return "redirect:/home";
     }
+
 
     @PostMapping("/bands/create")
     public String createBand(@ModelAttribute Bands band) {
@@ -60,35 +80,36 @@ public class ProfileController {
         return "redirect:/band-profile/" + band.getId();
     }
 
-    @PostMapping("/saveSocialMediaLink")
-    public String saveSocialMediaLink(@ModelAttribute Users user) {
-        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        String username = userDetails.getUsername();
+    @PostMapping("/profile/reset-password")
+    public String handlePasswordReset(@ModelAttribute("passwordResetForm") PasswordResetForm form, Model model, Principal principal, RedirectAttributes redirectAttributes) {
+        String username = principal.getName();
 
-        Users currentUser = userRepository.findByUsername(username);
+        Users user = userRepository.findByUsername(username);
+        if (user == null) {
+            model.addAttribute("errorMessage", "User does not exist.");
+            return "users/profile";
+        }
+        String email = user.getEmail();
 
-        currentUser.setFacebook(user.getFacebook());
-        currentUser.setTwitter(user.getTwitter());
-        currentUser.setInstagram(user.getInstagram());
+        // check if current password is correct
+        if (!passwordResetService.authenticateUser(email, form.getCurrentPassword())) {
+            model.addAttribute("errorMessage", "Current password is incorrect.");
+            return "users/profile";
+        }
 
-        userRepository.save(currentUser);
+        // check if new password and confirmation match
+        if (!form.getNewPassword().equals(form.getConfirmPassword())) {
+            model.addAttribute("errorMessage", "New password and confirmation do not match.");
+            return "users/profile";
+        }
 
-        return "redirect:/profile/" + currentUser.getId();
+        // update password
+        passwordResetService.updatePassword(user, form.getNewPassword());
+
+        redirectAttributes.addFlashAttribute("message", "Password successfully updated.");
+
+        return "redirect:/profile/" + user.getId();
     }
-
-    @PostMapping("/saveFacebook")
-    public String saveFacebook(@ModelAttribute Users facebook){
-        userRepository.save(facebook);
-        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        String username = userDetails.getUsername();
-
-        // Retrieve the user from the database using the username
-        Users currentUser = userRepository.findByUsername(username);
-
-        return "redirect:/profile/" + currentUser.getId();
-    }
-
-
 }
 
 
