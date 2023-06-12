@@ -76,6 +76,39 @@ public class Users {
     public Users (){
     }
 
+    public Users(Long id, String username, String password, String email, String verificationCode, String resetPasswordToken, boolean enabled, String instrument, boolean band_member, String user_image, String instagram, String facebook, String twitter, String confirmPassword) {
+        this.id = id;
+        this.username = username;
+        this.password = password;
+        this.email = email;
+        this.verificationCode = verificationCode;
+        this.resetPasswordToken = resetPasswordToken;
+        this.enabled = enabled;
+        this.instrument = instrument;
+        this.band_member = band_member;
+        this.user_image = user_image;
+        this.instagram = instagram;
+        this.facebook = facebook;
+        this.twitter = twitter;
+        this.confirmPassword = confirmPassword;
+    }
+
+    public Users(String username, String password, String email, String verificationCode, String resetPasswordToken, boolean enabled, String instrument, boolean band_member, String user_image, String instagram, String facebook, String twitter, String confirmPassword) {
+        this.username = username;
+        this.password = password;
+        this.email = email;
+        this.verificationCode = verificationCode;
+        this.resetPasswordToken = resetPasswordToken;
+        this.enabled = enabled;
+        this.instrument = instrument;
+        this.band_member = band_member;
+        this.user_image = user_image;
+        this.instagram = instagram;
+        this.facebook = facebook;
+        this.twitter = twitter;
+        this.confirmPassword = confirmPassword;
+    }
+
     public Long getId() {
         return id;
     }
@@ -187,4 +220,7 @@ public class Users {
     public void setUser_image(String user_image) {
         this.user_image = user_image;
     }
+
+
+
 }

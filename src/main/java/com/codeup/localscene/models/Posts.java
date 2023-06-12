@@ -67,4 +67,19 @@ public class Posts {
         this.post_image = post_image;
     }
 
+    public long getPost_image() {
+        return post_image;
+    }
+
+    public void setPost_image(long post_image) {
+        this.post_image = post_image;
+    }
+
+    public Users getUser_id() {
+        return user_id;
+    }
+
+    public void setUser_id(Users user_id) {
+        this.user_id = user_id;
+    }
 }
