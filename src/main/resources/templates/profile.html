@@ -19,18 +19,18 @@
 
 
 <div class="container text-center" style="border: solid plum 2px">
-    <div>
-        <img src="" alt="image" id="profilePic" style="background-color: darkgrey; color:white; padding:5px; border:none;outline:none; height: 30vh; width: auto">
+    <div class="row">
+        <img src="" alt="image" id="profilePic" >
 
         <dialog id="changePicture">
-            <div style="position: relative">
+            <div>
                 <input type="file" id="imageInput" onchange="handleProfilePictureUpload()">
                 <img src="" alt="image" id="profilePic" style="background-color: darkgrey; color:white; padding:5px; border:none;outline:none; height: 30vh; width: auto">
                 <button type="submit" class="btn btn-success">Submit!</button>
             </div>
         </dialog>
 
-        <button onclick="openProfilePicturePicker()" type="button" class="btn btn-warning">Change Profile Picture</button>
+        <button onclick="openProfilePicturePicker()" type="button" id="changeProfilePic" style="--content: 'Hover me!';"><div class="left"> </div> Change Profile Picture<div class="right"></div></button>
 
         <h2 th:text="${username}">UserName Place Holder</h2>
 
