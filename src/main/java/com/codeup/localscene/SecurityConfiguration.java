@@ -52,9 +52,8 @@ public class SecurityConfiguration {
                         .logoutSuccessUrl("/home")
                 )
                 .authorizeHttpRequests((authorize) -> authorize
-                        .requestMatchers("/css/**", "/", "/sign-up", "/verify", "/home","/forgot-password","/reset-password").permitAll()
+                        .requestMatchers("/img/**","/js/**", "/css/**", "/", "/sign-up", "/verify", "/home","/forgot-password","/reset-password").permitAll()
                         .requestMatchers("/profile/{id}","/profile/reset-password").authenticated()
-//                        .requestMatchers("/", "/sign-up", "/verify", "/home","/forgot-password","/reset-password").permitAll()
                         .anyRequest().authenticated()
                 )
 
