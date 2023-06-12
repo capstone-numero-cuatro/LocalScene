@@ -58,6 +58,30 @@ public class Bands {
         this.bandname = bandname;
     }
 
+    public List<BandUser> getBand() {
+        return band;
+    }
+
+    public void setBand(List<BandUser> band) {
+        this.band = band;
+    }
+
+    public String getBand_image() {
+        return band_image;
+    }
+
+    public void setBand_image(String band_image) {
+        this.band_image = band_image;
+    }
+
+    public Users getUser() {
+        return user;
+    }
+
+    public void setUser(Users user) {
+        this.user = user;
+    }
+
     public String getDescription(){
         return description;
     }
@@ -66,11 +90,4 @@ public class Bands {
         this.description = description;
     }
 
-    public String getBandImage(){
-        return band_image;
-    }
-
-    public void setBandImage(String band_image) {
-        this.band_image = band_image;
-    }
 }

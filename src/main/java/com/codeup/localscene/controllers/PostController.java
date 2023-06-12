@@ -17,11 +17,11 @@ public class PostController {
     private final PostRepository postRepository;
 
     @Autowired
-    public PostController (PostRepository postRepository){
+    public PostController(PostRepository postRepository) {
         this.postRepository = postRepository;
-    };
+    }
 
-
+    ;
 
 
     @GetMapping("/profile/{id}/posts")
@@ -29,6 +29,7 @@ public class PostController {
         List<Posts> posts = postRepository.findAll();
         model.addAttribute("posts", posts);
         model.addAttribute("posts", new Posts());
+
         return "redirect:/posts";
     }
 
@@ -36,16 +37,25 @@ public class PostController {
     @PostMapping("/profile/{id}/posts/create")
     public String createPosts(@ModelAttribute("posts") Posts posts) {
         postRepository.save(posts);
-        return "redirect:/posts";
+        return "redirect:/home";
     }
+
+    //create post, saves post, redirects to list of posts
+//    @PostMapping("/profile/posts/create")
+//    public String createPosts(@ModelAttribute("posts") Posts posts) {
+//        postRepository.save(posts);
+//        return "redirect:/home";
+//    }
+
 
     //delete
     @PostMapping("/profile/{id}/posts/delete")
-    public String deletePosts(@ModelAttribute("posts") Posts posts){
+
+    public String deletePosts(@ModelAttribute("posts") Posts posts) {
         postRepository.delete(posts);
-        return "redirect:/posts";
+
+        return "redirect:/home";
+
+        }
     }
-
-}
-
 

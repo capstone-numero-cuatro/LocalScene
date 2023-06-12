@@ -12,14 +12,19 @@ import com.codeup.localscene.services.PasswordResetService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.Authentication;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
 import java.security.Principal;
 import java.util.List;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
 public class ProfileController {
@@ -46,25 +51,35 @@ public class ProfileController {
             return "redirect:/404";
         }
 
-        List<Posts> posts = postRepository.findByUser(user);
-        model.addAttribute("posts", posts);
         model.addAttribute("post", new Posts());
         model.addAttribute("bands", new Bands());
         model.addAttribute("passwordResetForm", new PasswordResetForm());
         model.addAttribute("user", user);
-
-        return "users/profile";
+        return "profile";
     }
+
     @PostMapping("/profile/posts/create")
     public String createPost(@ModelAttribute Posts posts) {
+        //Access the logged in user (bottom of security)
+        Users loggedInUser = (Users) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        loggedInUser = userRepository.findByUsername(loggedInUser.getUsername());
+
+        posts.setUser_id(loggedInUser);
+
+        System.out.println("posts.getUser_id().getUsername() = " + posts.getUser_id().getUsername());
+
         postRepository.save(posts);
-        return "redirect:/posts";
+        return "redirect:/home";
     }
+
+
     @PostMapping("/bands/create")
     public String createBand(@ModelAttribute Bands band) {
         bandRepository.save(band);
         return "redirect:/band-profile/" + band.getId();
     }
+
     @PostMapping("/profile/reset-password")
     public String handlePasswordReset(@ModelAttribute("passwordResetForm") PasswordResetForm form, Model model, Principal principal, RedirectAttributes redirectAttributes) {
         String username = principal.getName();

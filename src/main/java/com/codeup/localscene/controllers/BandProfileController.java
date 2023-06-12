@@ -3,10 +3,14 @@ package com.codeup.localscene.controllers;
 import com.codeup.localscene.models.BandPosts;
 import com.codeup.localscene.models.Bands;
 import com.codeup.localscene.models.Events;
+import com.codeup.localscene.models.Posts;
+
 import com.codeup.localscene.repositories.BandPostRepository;
 import com.codeup.localscene.repositories.BandRepository;
 import com.codeup.localscene.repositories.EventRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;

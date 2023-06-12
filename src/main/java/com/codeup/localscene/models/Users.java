@@ -34,6 +34,7 @@ public class Users {
     @Column(name = "profile_image", length = 500)
     private String profileImage;
 
+
     public Users(Users copy) {
         id = copy.id;
         username = copy.username;
@@ -46,6 +47,7 @@ public class Users {
 
     public Users (){
     }
+
 
     public Long getId() {
         return id;
@@ -95,7 +97,6 @@ public class Users {
         this.enabled = enabled;
     }
 
-
     public String getResetPasswordToken() {
         return resetPasswordToken;
     }
@@ -111,5 +112,6 @@ public class Users {
     public void setProfileImage(String profileImage) {
         this.profileImage = profileImage;
     }
+
 
 }

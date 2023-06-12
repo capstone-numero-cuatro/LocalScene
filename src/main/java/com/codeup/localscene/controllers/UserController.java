@@ -86,6 +86,11 @@ public class UserController {
         }
     }
 
+    @GetMapping("/forgot-password")
+    public String showForgotPasswordForm() {
+        return "users/forgot-password";
+    }
+
     @PostMapping("/forgot-password")
     public ResponseEntity<String> handleForgotPassword(@RequestParam("email") String email) {
         try {
