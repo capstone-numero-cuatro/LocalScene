@@ -1,5 +1,6 @@
 let myToken ="pk.eyJ1Ijoid29kbjIzNDUiLCJhIjoiY2xpajJ1aTA2MDNyejNlcGJ1NTJ5ZTNnYSJ9.U7kLp4bsqObbZ2DHI7b63w";
 let apiKey = 'UdZ8l4XkAoz0AEQZV9sRX2cOqvZL1Atw';
+let filestackKey ="Abd5534iTviZyWy5jGpswz";
 
 
 $('#cityLocation').click(function(e){
@@ -34,7 +35,7 @@ function getLocation(searchString){
     })
 }
 
-function showModal() {
+    function showModal() {
     var modal = document.getElementById('modal');
     modal.style.display = 'block';
 }
@@ -43,4 +44,5 @@ function hideModal() {
     var modal = document.getElementById('modal');
     modal.style.display = 'none';
 }
+
 

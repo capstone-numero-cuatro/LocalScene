@@ -3,12 +3,20 @@ import com.codeup.localscene.repositories.UserRepository;
 import com.codeup.localscene.services.EmailService;
 import com.codeup.localscene.models.Users;
 import com.codeup.localscene.services.UserDetailsLoader;
+import jakarta.servlet.http.HttpServletRequest;
+import org.apache.tomcat.util.net.openssl.ciphers.Authentication;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.ui.Model;
+
+import java.util.Map;
+import java.util.UUID;
 
 
 @Controller
@@ -25,10 +33,13 @@ public class UserController {
         this.userDetailsLoader = userDetailsLoader;
         this.passwordEncoder = passwordEncoder;
     }
+    @Value("${filestack.api.key}")
+    private String filestackApiKey;
 
     @GetMapping("/sign-up")
     public String showRegistrationForm(Model model) {
         model.addAttribute("user", new Users());
+        model.addAttribute("filestackKey", filestackApiKey);
         return "sign-up";
     }
 
@@ -60,14 +71,12 @@ public class UserController {
     }
 
 
-    @PostMapping("/perform_login")
+    @PostMapping("/login")
     public String login(@RequestParam("email") String email,
                         @RequestParam("password") String password,
                         Model model) {
-        // Authenticate user using userService (or any other service you use for authentication)
         boolean isAuthenticated = emailService.authenticateUser(email, password);
 
-        // If authentication is successful, redirect to home page.
         if (isAuthenticated) {
             return "redirect:/home";
         } else {
@@ -76,7 +85,6 @@ public class UserController {
             return "login";
         }
     }
-
 
     @GetMapping("/forgot-password")
     public String showForgotPasswordForm() {

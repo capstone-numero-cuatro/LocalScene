@@ -15,12 +15,13 @@
 
 
 <nav th:insert="partials/navbar :: navbar"></nav>
+<div th:if="${message}" th:class="${alertClass}" th:text="${message}"></div>
 
 
 
 <div class="container text-center" style="border: solid plum 2px">
     <div class="row">
-        <img src="" alt="image" id="profilePic" >
+        <img src="" alt="image" id="currentPic" style="background-color: darkgrey; color:white; padding:5px; border:none;outline:none; height: 30vh; width: auto">
 
         <dialog id="changePicture">
             <div>
@@ -54,25 +55,24 @@
     <div>
         <dialog id="pwreset">
             <h1>Reset Password</h1>
-            <form action="/reset-password" method="post">
-                <div>
-                    <label for="currentPW">Current Password</label>
-                    <input type="password" id="currentPW" name="currentPW" placeholder="Enter current password" required><br><br>
-
+            <form th:action="@{/profile/reset-password}" th:object="${passwordResetForm}" method="post">
+                <div class="form-group">
+                    <label for="currentPassword">Current password</label>
+                    <input type="password" class="form-control" id="currentPassword" th:field="*{currentPassword}" required />
                 </div>
-                <div>
-                    <label for="newPW">New Password</label>
-                    <input type="password" id="newPW" name="newPW" placeholder="Enter new password" required><br><br>
-                    <input type="checkbox" id="showNewPW" onclick="togglePasswordVisibility('newPW', 'showNewPW')">
-                    <label for="showNewPW">Show Password</label>
+                <div class="form-group">
+                    <label for="newPassword">New password</label>
+                    <input type="password" class="form-control" id="newPassword" th:field="*{newPassword}" required />
                 </div>
-                <div>
-                    <label for="confirmNewPW">Confirm New Password</label>
-                    <input type="password" id="confirmNewPW" name="confirmNewPW" placeholder="Re-enter new password" required><br><br>
-                    <input type="checkbox" id="showConfirmNewPW" onclick="togglePasswordVisibility('confirmNewPW', 'showConfirmNewPW')">
-                    <label for="showConfirmNewPW">Show Password</label>
+                <div class="form-group">
+                    <label for="confirmPassword">Confirm New Password</label>
+                    <input type="password" class="form-control" id="confirmPassword" th:field="*{confirmPassword}" required />
                 </div>
-                <button class="btn btn-info" type="submit">Reset Password</button>
+                <input type="checkbox" id="showPasswords" onclick="togglePasswordVisibility()">
+                <label for="showPasswords">Show Passwords</label>
+                <div>
+                    <button class="btn btn-info" type="submit">Reset Password</button>
+                </div>
             </form>
         </dialog>
         <button onclick="pwreset.showModal()" type="button" class="btn btn-info">Reset Password?</button>
@@ -80,16 +80,16 @@
 </div>
 <div class="container" id="recent-activity" style="border: solid yellow 2px">
     <div><h4>Recent Activity Placeholder</h4>
-<!--        Below here - we need ot start with "IF THERE ARE POSTS" then render POSTS-->
-<!--        <div th:each="post : ${posts}">-->
-<!--            <div class="card" style="width: 18rem">-->
-<!--                <div class="card-body">-->
-<!--                    <h5 class="card-title" th:text="${post.title}"></h5>-->
-<!--                    <h6 class="card-body" th:text="${post.description}"></h6>-->
-<!--                    <img th:src="@{'/images/' + ${post.image}}" alt="postImage" src="">-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </div>-->
+        <!--        Below here - we need ot start with "IF THERE ARE POSTS" then render POSTS-->
+        <!--        <div th:each="post : ${posts}">-->
+        <!--            <div class="card" style="width: 18rem">-->
+        <!--                <div class="card-body">-->
+        <!--                    <h5 class="card-title" th:text="${post.title}"></h5>-->
+        <!--                    <h6 class="card-body" th:text="${post.description}"></h6>-->
+        <!--                    <img th:src="@{'/images/' + ${post.image}}" alt="postImage" src="">-->
+        <!--                </div>-->
+        <!--            </div>-->
+        <!--        </div>-->
 
     </div>
 </div>
@@ -237,6 +237,27 @@
             field.type = "password";
         }
     }
+    function submitForm() {
+        document.getElementById("loginForm").submit();
+    }
+
+    function showForm(formId) {
+        if (formId === 'sign-up') {
+            fetch('sign-up')
+                .then(response => response.text())
+                .then(html => {
+                    document.querySelector('.screen-content').innerHTML = html;
+                });
+        } else if (formId === 'forgot-password') {
+            document.getElementById('forgot-password').style.display = 'block';
+        }
+    }
+    window.addEventListener('click', function(e) {
+        var dialog = document.getElementById('pwreset');
+        if (e.target == dialog) {
+            dialog.close();
+        }
+    });
 
 
 </script>
