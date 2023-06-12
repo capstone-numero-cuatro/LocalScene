@@ -21,14 +21,14 @@ public class Posts {
 
     @ManyToOne
     @JoinColumn(name = "user_id")
-    private Users user_id;
+    private Users user;
 
     public Posts(Posts copy){
         id = copy.id;
         title = copy.title;
         description = copy.description;
         post_image = copy.post_image;
-        user_id = copy.user_id;
+        user = copy.user;
     }
 
     public Posts() {
@@ -67,11 +67,11 @@ public class Posts {
         this.post_image = post_image;
     }
 
-    public Users getUser_id() {
-        return user_id;
+    public Users getUser() {
+        return user;
     }
 
-    public void setUser_id(Users user_id) {
-        this.user_id = user_id;
+    public void setUser(Users user) {
+        this.user = user;
     }
 }

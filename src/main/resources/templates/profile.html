@@ -29,7 +29,7 @@
   justify-content: center;
   flex-wrap: wrap;
   margin-bottom: 20px;">
-        <img  alt="image" id="currentPic" style="background-color: darkgrey; color:white; padding:5px; border:none;outline:none; height: 30vh; width: auto">
+        <img th:src="${user.profileImage}" alt="image" id="currentPic" style="background-color: darkgrey; color:white; padding:5px; border:none;outline:none; height: 30vh; width: auto">
 
         <dialog id="changePicture">
             <div>
@@ -41,7 +41,7 @@
 
         <button onclick="openProfilePicturePicker()" type="button" id="changeProfilePic" style="--content: 'Hover me!';"><div class="left"> </div> Change Profile Picture<div class="right"></div></button>
 
-<!--        <h2 id="userName" th:text="${username}" ></h2>-->
+        <h2 id="userName" th:text="${user.username}" ></h2>
 
         <div id="bandsArea">
             <div th:if="${not #lists.isEmpty(bands)}">
@@ -144,21 +144,25 @@
 </div>
 
 
-<div class="container text-center" id="recent-activity" >
-    <div><h4>Recent Activity Placeholder</h4>
-        <!--        Below here - we need ot start with "IF THERE ARE POSTS" then render POSTS-->
-        <!--        <div th:each="post : ${posts}">-->
-        <!--            <div class="card" style="width: 18rem">-->
-        <!--                <div class="card-body">-->
-        <!--                    <h5 class="card-title" th:text="${post.title}"></h5>-->
-        <!--                    <h6 class="card-body" th:text="${post.description}"></h6>-->
-        <!--                    <img th:src="@{'/images/' + ${post.image}}" alt="postImage" src="">-->
-        <!--                </div>-->
-        <!--            </div>-->
-        <!--        </div>-->
-
+<div class="container text-center" id="recent-activity">
+    <div>
+        <h4>Recent Activity</h4>
+        <div th:if="${user.posts.size() > 0}">
+            <div th:each="post : ${user.posts}">
+                <div class="card" style="width: 18rem">
+                    <div class="card-body">
+                        <h5 class="card-title" th:text="${post.title}"></h5>
+                        <h6 class="card-body" th:text="${post.description}"></h6>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div th:unless="${user.posts.size() > 0}">
+            <p>No posts found.</p>
+        </div>
     </div>
 </div>
+
 
 
 
