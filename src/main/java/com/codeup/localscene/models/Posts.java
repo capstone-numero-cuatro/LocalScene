@@ -17,7 +17,7 @@ public class Posts {
     private String description;
 
     @Column
-    private long post_image;
+    private String post_image;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
@@ -28,6 +28,7 @@ public class Posts {
         title = copy.title;
         description = copy.description;
         post_image = copy.post_image;
+        user = copy.user;
     }
 
     public Posts() {
@@ -58,20 +59,13 @@ public class Posts {
         this.description = description;
     }
 
-    public long getPostImage(){
+    public String getPostImage(){
         return post_image;
     }
 
-    public void setPostImage(long post_image) {
+    public void setPostImage(String post_image) {
         this.post_image = post_image;
     }
 
-    public Users getUser() {
-        return user;
-    }
-
-    public void setUser(Users user) {
-        this.user = user;
-    }
 
 }

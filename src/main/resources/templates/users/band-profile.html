@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>Band Profile</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
-    <link rel="stylesheet" href="static/css/profile.css">
+    <link rel="stylesheet" href="/static/css/profile.css">
 
     <!--    Font awesome-->
     <script src="https://kit.fontawesome.com/3d0b015fdb.js" crossorigin="anonymous"></script>
@@ -16,21 +16,21 @@
             <input type="file" id="imageInput">
             <img src="" alt="image" id="profilePic" style="background-color: darkgrey; color:white; padding:5px; border:none;outline:none; height: 30vh; width: auto">
         </div>
-        <h2 th:text="${bandname}">Band Name Placeholder</h2>
+        <h2 th:text="${band.bandname}">Band Name Placeholder</h2>
 
         <h3>Social Media Links</h3>
-        <form action="/submit" method="post">
-            <label for="facebook"><i class="fa-brands fa-facebook"></i>Facebook</label>
-            <input type="text" id="facebook" name="facebook" th:value="${facebook}">
+        <!--        <form action="/submit" method="post">-->
+        <!--            <label for="facebook"><i class="fa-brands fa-facebook"></i>Facebook</label>-->
+        <!--            <input type="text" id="facebook" name="facebook" th:value="${facebook}">-->
 
-            <label for="twitter"><i class="fa-brands fa-twitter"></i>Twitter</label>
-            <input type="text" id="twitter" name="twitter" th:value="${twitter}">
+        <!--            <label for="twitter"><i class="fa-brands fa-twitter"></i>Twitter</label>-->
+        <!--            <input type="text" id="twitter" name="twitter" th:value="${twitter}">-->
 
-            <label for="instagram"><i class="fa-brands fa-instagram"></i>Instagram</label>
-            <input type="text" id="instagram" name="instagram" th:value="${instagram}">
+        <!--            <label for="instagram"><i class="fa-brands fa-instagram"></i>Instagram</label>-->
+        <!--            <input type="text" id="instagram" name="instagram" th:value="${instagram}">-->
 
-            <button type="submit">Save</button>
-        </form>
+        <!--            <button type="submit">Save</button>-->
+        <!--        </form>-->
     </div>
 
 </div>
@@ -55,20 +55,33 @@
 
 
 <div class="container" id="recent-activity" style="border: solid yellow 2px">
-    <div><h4>Recent Activity Placeholder</h4></div>
+    <div>
+        <div><h4>Recent Activity Placeholder</h4>
+            <div th:each="post : ${bandPosts}">
+                <div class="card" style="width: 18rem">
+                    <div class="card-body">
+                        <h5 class="card-title" th:text="${post.title}"></h5>
+                        <h6 class="card-body" th:text="${post.description}"></h6>
+                        <img th:src="@{'/images/' + ${post.image}}" alt="postImage">
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
 </div>
 <div class="container">
     <dialog id="bandPostDialog">
         <h5>Shoutout to your fans!</h5>
-        <form th:method="post" th:action="@{}" th:object="${band_post}">
+        <form th:object="${bandPost}" th:method="post" th:action="@{/bandPostsCreate}">
             <div class="mb-3">
                 <label for="BandPostTitle" class="form-label">Title</label>
-                <input type="text" class="form-control" id="BandPostTitle" name="title" placeholder="Title"  th:field="*{band_posts}">
+                <input type="text" class="form-control" id="BandPostTitle" name="title" placeholder="Title" th:field="*{title}">
             </div>
             <div class="mb-3">
                 <label for="BandPostDescription" class="form-label">Body</label>
                 <textarea class="form-control" id="BandPostDescription" name="content" rows="3" th:field="*{description}"></textarea>
-                <input type="hidden" th:field="*{band_id}">
+                <!--                <input type="hidden" th:field="*{band_id}">-->
                 <div style="position: relative">
                     <input type="file" id="bandPostImgInput">
                     <img src="" alt="image" id="bandPostImg" style="background-color: darkgrey; color:white; padding:5px; border:none;outline:none; height: 30vh; width: auto">
@@ -84,15 +97,15 @@
 <div class="container">
     <dialog id="bandEvent">
         <h5>What are the deets?!</h5>
-        <form th:method="post" th:action="@{}" th:object="${events}">
+        <form th:object="${events}" th:method="post" th:action="@{/band-profile/{id}(id=${band.getId()})}">
             <div class="mb-3">
                 <label for="EventsPostTitle" class="form-label">Title</label>
-                <input type="text" class="form-control" id="EventsPostTitle" name="title" placeholder="Title"  th:field="*{title}">
+                <input type="text" class="form-control" id="EventsPostTitle" name="title" placeholder="Title" th:field="*{title}">
             </div>
             <div class="mb-3">
                 <label for="EventsDescription" class="form-label">Body</label>
                 <textarea class="form-control" id="EventsDescription" name="content" rows="3" th:field="*{description}"></textarea>
-                <input type="hidden" th:field="*{band_id}">
+                <!--                <input type="hidden">-->
                 <div style="position: relative">
                     <input type="file" id="bandEventInput">
                     <img src="" alt="image" id="bandEventFlyer" style="background-color: darkgrey; color:white; padding:5px; border:none;outline:none; height: 30vh; width: auto">
@@ -104,12 +117,6 @@
     </dialog>
     <button onclick="bandEvent.showModal()" type="button" class="btn btn-outline-danger">Event Creation</button>
 </div>
-
-
-
-
-
-
 
 
 <script>

@@ -22,7 +22,7 @@ public class Bands {
     private String description;
 
     @Column
-    private long band_image;
+    private String band_image;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
@@ -66,11 +66,11 @@ public class Bands {
         this.description = description;
     }
 
-    public long getBandImage(){
+    public String getBandImage(){
         return band_image;
     }
 
-    public void setBandImage(long band_image) {
+    public void setBandImage(String band_image) {
         this.band_image = band_image;
     }
 }

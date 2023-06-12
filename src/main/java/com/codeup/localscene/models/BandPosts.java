@@ -7,7 +7,7 @@ import jakarta.persistence.*;
 public class BandPosts {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private long band_post_id;
 
     @Column(nullable = false, length = 45)

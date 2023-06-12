@@ -75,10 +75,8 @@ public class UserController {
     public String login(@RequestParam("email") String email,
                         @RequestParam("password") String password,
                         Model model) {
-        // Authenticate user using userService (or any other service you use for authentication)
         boolean isAuthenticated = emailService.authenticateUser(email, password);
 
-        // If authentication is successful, redirect to home page.
         if (isAuthenticated) {
             return "redirect:/home";
         } else {

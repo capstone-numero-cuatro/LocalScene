@@ -1,87 +1,186 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-<head th:replace="partials/head :: head ('Post - Index')">
+<head th:replace="partials/head :: head ('Home')">
     <script src='https://api.mapbox.com/mapbox-gl-js/v2.13.0/mapbox-gl.js'></script>
     <link href='https://api.mapbox.com/mapbox-gl-js/v2.13.0/mapbox-gl.css' rel='stylesheet' />
-    <link rel="stylesheet" href="../static/css/map.css">
-    <link rel="stylesheet" href="../static/css/home.css">
+    <link rel="stylesheet" href="/static/css/map.css">
+    <link rel="stylesheet" href="/static/css/home.css">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
 </head>
 <body>
 <div th:replace="partials/navbar :: navbar"></div>
 <div th:if="${message}" th:class="${alertClass}" th:text="${message}"></div>
     <h1 th:inline="text">this is home page</h1>
 
-    <div>
-        <div class="main-background">
-            <img src="../static/img/localscen.png" alt="">
-        </div>
+<div>
+    <div class="main-background">
+        <img src="../static/img/localscen.png" alt="">
+    </div>
     <h3>The Local Scene</h3>
     <button type="button">Posts</button>
     <button type="button">Events</button>
     <div id="map"></div>
     <p id="inputContainer">City or Zip: <input type="text" id="cityInput"></p>
     <button id="cityLocation" type="button">Find</button>
-    </div>
-    <div id="PostsContainer">
-        <div class="post">
-            <p class="post-title">Post 1</p>
-            <p class="post-description">Loading....</p>
-            <div class="post-image">
-                <img src="../static/img/fff.png" alt="">
-            </div>
-        </div>
-        <div class="post">
-            <p class="post-title">Post 2</p>
-            <p class="post-description">Loading....</p>
-            <div class="post-image">
-                <img src="img/Localscene.png" alt="">
-            </div>
-        </div>
-        <div class="post">
-            <p class="post-title">Post 3</p>
-            <p class="post-description">Loading....</p>
-            <div class="post-image">
-                <img src="img/01d.png" alt="">
-            </div>
-        </div>
-    </div>
+</div>
 
-    <div id="EventsContainer">
-        <div class="event">
-            <p class="Event-title">Event 1</p>
-            <p class="Event-description">Loading....</p>
-            <div class="Event-image">
-                <img src="img/Localscene.jpg" alt="">
+<div>
+    <div>
+        <div>
+            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">Posts</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false">Events</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact" type="button" role="tab" aria-controls="contact" aria-selected="false">Band of Lists</button>
+                </li>
+            </ul>
+            <div class="tab-content">
+                <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                    <h2>Posts Content</h2>
+                    <div id="PostsContainer1">
+                        <div th:each="post : ${posts}">
+                            <div class="card" style="width:20rem;">
+
+                                <div class="card-body">
+                                    <h5 class="card-title" th:text="${title}"></h5>
+
+                                    <p class="card-text" th:text="${post.description}"></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                        <h2>Events Content</h2>
+                        <div id="EventsContainer1">
+                            <div class="event">
+                                <p class="Event-title">Event 1</p>
+                                <p class="Event-description">Loading....</p>
+                                <div class="Event-image">
+                                    <img src="img/Localscene.jpg" alt="">
+                                </div>
+                                <button type="button">Button</button>
+                            </div>
+                            <div class="event">
+                                <p class="Event-title">Event 2</p>
+                                <p class="Event-description">Loading....</p>
+                                <div class="Event-image">
+                                    <img src="img/Localscene.jpg" alt="">
+                                </div>
+                                <button type="button">Button</button>
+                            </div>
+                            <div class="event">
+                                <p class="Event-title">Event 3</p>
+                                <p class="Event-description">Loading....</p>
+                                <div class="Event-image">
+                                    <img src="img/Localscene.jpg" alt="">
+                                </div>
+                                <button type="button">Button</button>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+                            <h2>Band of Lists Content</h2>
+                            <p>This is the content of the Band of Lists tab.</p>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <button type="button">Button</button>
-        </div>
-        <div class="event">
-            <p class="Event-title">Event 2</p>
-            <p class="Event-description">Loading....</p>
-            <div class="Event-image">
-                <img src="img/Localscene.jpg" alt="">
+
+
+
+            <div id="PostsContainer2">
+                <div class="post">
+                    <p class="post-title">Post 1</p>
+                    <p class="post-description">Loading....</p>
+                    <div class="post-image">
+                        <img src="../static/img/fff.png" alt="">
+                    </div>
+                    <button onclick="showModal()">Venue infos</button>
+
+                    <div class="modal" id="modal1">
+                        <div class="modal-content">
+                            <span class="close" onclick="hideModal()">&times;</span>
+                            <h2>Modal Dialog</h2>
+                            <p>This is the content of the modal dialog.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="post">
+                    <p class="post-title">Post 2</p>
+                    <p class="post-description">Loading....</p>
+                    <div class="post-image">
+                        <img src="img/Localscene.png" alt="">
+                    </div>
+                    <button onclick="showModal()">Mission Statement</button>
+
+                    <div class="modal" id="modal2">
+                        <div class="modal-content">
+                            <span class="close" onclick="hideModal()">&times;</span>
+                            <h2>Modal Dialog</h2>
+                            <p>This is the content of the modal dialog.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="post">
+                    <p class="post-title">Post 3</p>
+                    <p class="post-description">Loading....</p>
+                    <div class="post-image">
+                        <img src="img/01d.png" alt="">
+                    </div>
+                    <button onclick="showModal()">Bands list</button>
+
+                    <div class="modal" id="modal3">
+                        <div class="modal-content">
+                            <span class="close" onclick="hideModal()">&times;</span>
+                            <h2>Modal Dialog</h2>
+                            <p>This is the content of the modal dialog.</p>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <button type="button">Button</button>
-        </div>
-        <div class="event">
-            <p class="Event-title">Event 3</p>
-            <p class="Event-description">Loading....</p>
-            <div class="Event-image">
-                <img src="img/Localscene.jpg" alt="">
+
+            <div id="EventsContainer2">
+                <div class="event">
+                    <p class="Event-title">Event 1</p>
+                    <p class="Event-description">Loading....</p>
+                    <div class="Event-image">
+                        <img src="img/Localscene.jpg" alt="">
+                    </div>
+                    <button type="button">Button</button>
+                </div>
+                <div class="event">
+                    <p class="Event-title">Event 2</p>
+                    <p class="Event-description">Loading....</p>
+                    <div class="Event-image">
+                        <img src="img/Localscene.jpg" alt="">
+                    </div>
+                    <button type="button">Button</button>
+                </div>
+                <div class="event">
+                    <p class="Event-title">Event 3</p>
+                    <p class="Event-description">Loading....</p>
+                    <div class="Event-image">
+                        <img src="img/Localscene.jpg" alt="">
+                    </div>
+                    <button type="button">Button</button>
+                </div>
             </div>
-            <button type="button">Button</button>
         </div>
     </div>
-    <th:block th:replace="partials/navbar-scripts :: navbar-scripts"></th:block>
-    <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
-    <script src="../static/js/keys.js"></script>
-    <script src="../static/js/mapbox-geocode-utils.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
-</body>
-
+</div>
+<script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+<script src="../static/js/keys.js"></script>
+<script src="../static/js/mapbox-geocode-utils.js"></script>
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>

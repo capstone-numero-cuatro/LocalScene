@@ -26,7 +26,6 @@
                         <li>
                             <a class="dropdown-item" th:href="@{/profile/{id}(id=${#authentication.principal.id})}">Profile</a>
                         </li>
-                        <li><a class="dropdown-item" href="#">Post</a></li>
                         <li><hr class="dropdown-divider"></li>
                         <li>
                             <form th:action="@{/logout}" th:method="post">
@@ -73,11 +72,6 @@
                 <div sec:authorize="!isFullyAuthenticated()">
                     <button onclick="c.showModal()" type="button" class="btn btn-primary">Login</button>
                 </div>
-<!--                <div th:if="${#authentication.principal != 'anonymousUser'}">-->
-<!--                    <form th:action="@{/logout}" th:method="post">-->
-<!--                        <input type="submit" value="Logout" class="btn btn-primary">-->
-<!--                    </form>-->
-<!--                </div>-->
             </div>
         </div>
     </div>

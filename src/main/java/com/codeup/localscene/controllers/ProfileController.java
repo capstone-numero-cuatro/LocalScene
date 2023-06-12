@@ -26,15 +26,10 @@ public class ProfileController {
 
     private final UserRepository userRepository;
     private final PostRepository postRepository;
-
     private final BandRepository bandRepository;
     private final PasswordResetService passwordResetService;
     private final EmailService emailService;
 
-    @GetMapping("/home")
-    public String homePage(Model model) {
-        return "home";
-    }
     @Autowired
     public ProfileController(UserRepository userRepository, PostRepository postRepository, BandRepository bandRepository, PasswordResetService passwordResetService, EmailService emailService) {
         this.userRepository = userRepository;
@@ -48,19 +43,27 @@ public class ProfileController {
     public String showProfile(@PathVariable long id, Model model) {
         Users user = userRepository.findById(id).orElse(null);
         if (user == null) {
-            return "redirect:/login";
+            return "redirect:/404";
         }
 
         List<Posts> posts = postRepository.findByUser(user);
         model.addAttribute("posts", posts);
         model.addAttribute("post", new Posts());
-
-        // suppose Bands is your another entity
         model.addAttribute("bands", new Bands());
         model.addAttribute("passwordResetForm", new PasswordResetForm());
         model.addAttribute("user", user);
 
         return "users/profile";
+    }
+    @PostMapping("/profile/posts/create")
+    public String createPost(@ModelAttribute Posts posts) {
+        postRepository.save(posts);
+        return "redirect:/posts";
+    }
+    @PostMapping("/bands/create")
+    public String createBand(@ModelAttribute Bands band) {
+        bandRepository.save(band);
+        return "redirect:/band-profile/" + band.getId();
     }
     @PostMapping("/profile/reset-password")
     public String handlePasswordReset(@ModelAttribute("passwordResetForm") PasswordResetForm form, Model model, Principal principal, RedirectAttributes redirectAttributes) {
