@@ -1,3 +1,7 @@
 body{
-    background-color: red;
+    background-color:#161724;
+}
+#changeProfilePic{
+    size: 40px;
+    width: 100px;
 }
