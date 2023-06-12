@@ -35,11 +35,6 @@
 <!-- Include the Filestack JS library -->
 <script src="https://static.filestackapi.com/filestack-js/3.x.x/filestack.min.js"></script>
 
-<script th:inline="javascript">
-  /*<![CDATA[*/
-  var filestackKey = /*[[${filestackKey}]]*/ 'default';
-  /*]]>*/
-</script>
 <div id="usernameCriteria" style="display: none;">
   <h5>Name must be:</h5>
   <ul>
@@ -69,6 +64,11 @@
     <li id="passwordMatch" class="criteria">Match the password</li>
   </ul>
 </div>
+<script th:inline="javascript">
+  /*<![CDATA[*/
+  var filestackKey = /*[[${filestackKey}]]*/ 'default';
+  /*]]>*/
+</script>
 
 <script>
   const client = filestack.init(filestackKey);

@@ -53,7 +53,7 @@ public class SecurityConfiguration {
                 )
                 .authorizeHttpRequests((authorize) -> authorize
                         .requestMatchers("/img/**","/js/**", "/css/**", "/", "/sign-up", "/verify", "/home","/forgot-password","/reset-password").permitAll()
-                        .requestMatchers("/profile/{id}","/profile/reset-password").authenticated()
+                        .requestMatchers("/profile/{id}","/profile/reset-password","/profile/edit").authenticated()
                         .anyRequest().authenticated()
                 )
 
