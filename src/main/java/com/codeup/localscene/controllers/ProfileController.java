@@ -51,7 +51,7 @@ public class ProfileController {
             return "redirect:/404";
         }
 
-        model.addAttribute("post", new Posts());
+        model.addAttribute("posts", new Posts());
         model.addAttribute("bands", new Bands());
         model.addAttribute("passwordResetForm", new PasswordResetForm());
         model.addAttribute("user", user);
