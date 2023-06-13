@@ -15,11 +15,12 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(ResourceNotFoundException.class)
     public ModelAndView handleResourceNotFoundException(ResourceNotFoundException e) {
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("404"); // name of your error-view
+        modelAndView.setViewName("404");
         modelAndView.addObject("message", e.getMessage());
         modelAndView.setStatus(HttpStatus.NOT_FOUND);
         return modelAndView;
     }
+
     @ExceptionHandler(AccessDeniedException.class)
     public ModelAndView handleAccessDeniedException(AccessDeniedException ex) {
         ModelAndView modelAndView = new ModelAndView();
@@ -27,7 +28,6 @@ public class GlobalExceptionHandler {
         modelAndView.addObject("exception", ex);
         return modelAndView;
     }
-
 
 }
 
