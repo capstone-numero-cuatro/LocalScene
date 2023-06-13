@@ -65,25 +65,26 @@
 </div>
 <div class="container">
     <dialog id="bandPostDialog">
-        <h2>Shoutout to your fans!</h2>
-        <form th:object="${bandPost}" th:method="post" th:action="@{/bandPostsCreate}">
-            <div class="mb-3">
-                <label for="BandPostTitle" class="form-label">Title</label>
-                <input type="text" class="form-control" id="BandPostTitle" name="title" placeholder="Title" th:field="*{title}">
-            </div>
-            <div class="mb-3">
-                <label for="BandPostDescription" class="form-label">Body</label>
-                <textarea class="form-control" id="BandPostDescription" name="content" rows="3" th:field="*{description}"></textarea>
-<!--                                <input type="hidden" th:field="*{id}">-->
-                <div >
-                    <input type="file" id="bandPostImgInput">
-                    <img src="" alt="image" id="bandPostImg" >
+        <section id="insideModal">
+            <h2>Shoutout to your fans!</h2>
+            <form th:object="${bandPost}" th:method="post" th:action="@{/bandPostsCreate}">
+                <div class="mb-3">
+                    <label for="BandPostTitle" class="form-label">Title</label>
+                    <input type="text" class="form-control" id="BandPostTitle" name="title" placeholder="Title" th:field="*{title}">
                 </div>
+                <div class="mb-3">
+                    <label for="BandPostDescription" class="form-label">Body</label>
+                    <textarea class="form-control" id="BandPostDescription" name="content" rows="3" th:field="*{description}"></textarea>
+    <!--                                <input type="hidden" th:field="*{id}">-->
+                    <div >
+                        <input type="file" id="bandPostImgInput">
+                        <img src="" alt="image" id="bandPostImg" >
+                    </div>
 
-            </div>
-            <button type="submit" class="btn btn-warning">Let it be known!</button>
-        </form>
-
+                </div>
+                <button type="submit" class="btn btn-warning">Let it be known!</button>
+            </form>
+        </section>
     </dialog>
     <button onclick="bandPostDialog.showModal()" type="button" class="btn btn-warning">Band Post</button>
 </div>
