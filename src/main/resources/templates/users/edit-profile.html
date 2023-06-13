@@ -32,14 +32,14 @@
 <div id="usernameCriteria" style="display: none;">
     <h5>Name must be:</h5>
     <ul>
-        <li id="usernameChar" class="criteria">Only letters and numbers</li>
-        <li id="usernameLength" class="criteria">Between 3 and 15 characters</li>
+        <li id="usernameChar" class="username-criteria">Only letters and numbers</li>
+        <li id="usernameLength" class="username-criteria">Between 3 and 15 characters</li>
     </ul>
 </div>
 <div id="emailCriteria" style="display: none;">
     <h5>Email must be:</h5>
     <ul>
-        <li id="emailSymbol" class="criteria">A valid email address</li>
+        <li id="emailSymbol" class="email-criteria">A valid email address</li>
     </ul>
 </div>
 <div>
@@ -142,7 +142,7 @@
         } else {
             document.getElementById('usernameLength').style.color = 'grey';
         }
-        checkCriteria()
+        checkUsernameCriteriaMet()
     }
 
     //Check email
@@ -168,24 +168,33 @@
         } else {
             document.getElementById('emailSymbol').style.color = 'grey';
         }
-        checkCriteria()
+        checkEmailCriteriaMet()
     }
     //Check all Criteria
-    function allCriteriaMet() {
-        let criteria = document.getElementsByClassName('criteria');
+    function checkUsernameCriteriaMet() {
+        let criteria = document.getElementsByClassName('username-criteria');
 
         for (let i = 0; i < criteria.length; i++) {
             if (criteria[i].style.color !== 'green') {
-                return false;
+                document.getElementById("submitBtn").disabled = true;
+                return;
+            } else {
+                document.getElementById("submitBtn").disabled = false;
+                return;
             }
         }
-        return true;
     }
-    function checkCriteria() {
-        if (allCriteriaMet()) {
-            document.getElementById("submitBtn").disabled = false;
-        } else {
-            document.getElementById("submitBtn").disabled = true;
+    function checkEmailCriteriaMet() {
+        let criteria = document.getElementsByClassName('email-criteria');
+
+        for (let i = 0; i < criteria.length; i++) {
+            if (criteria[i].style.color !== 'green') {
+                document.getElementById("submitBtn").disabled = true;
+                return;
+            } else {
+                document.getElementById("submitBtn").disabled = false;
+                return;
+            }
         }
     }
 </script>
