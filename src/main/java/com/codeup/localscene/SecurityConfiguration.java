@@ -49,10 +49,9 @@ public class SecurityConfiguration {
                 )
                 .authorizeHttpRequests((authorize) -> authorize
                         .requestMatchers("/404","/img/**","/js/**", "/css/**", "/", "/sign-up", "/verify", "/home","/forgot-password","/reset-password").permitAll()
-                        .requestMatchers("/profile/{id}").permitAll()
-                        .requestMatchers("/profile/edit", "/band-profile/{id}", "/bands/create", "/bandPostsCreate").authenticated()
+                        .requestMatchers("/profile/{id}","/profile/edit").authenticated()
+                        .anyRequest().authenticated()
                 )
-
         ;
 
         return http.build();
