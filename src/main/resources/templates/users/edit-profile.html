@@ -81,6 +81,8 @@
     const profileFileInput = document.getElementById("profileImageInput");
     const profileImageUrlInput = document.getElementById("profileImageUrl");
 
+    profileImageUrlInput.value = profilePic.src;
+
     profileFileInput.addEventListener("change", (event) => {
         const file = event.target.files[0];
 
@@ -91,6 +93,21 @@
             console.log(error);
         });
     });
+    //Keep the image
+    document.getElementById('profileImageInput').addEventListener('change', function(e) {
+        var file = e.target.files[0];
+        var reader = new FileReader();
+
+        reader.onloadend = function() {
+            document.getElementById('profileImageUrl').value = reader.result;
+            document.getElementById('profileImage').src = reader.result;
+        }
+
+        if (file) {
+            reader.readAsDataURL(file);
+        }
+    });
+    //Password reset
     window.addEventListener('click', function(e) {
         var dialog = document.getElementById('pwreset');
         if (e.target == dialog) {
@@ -170,7 +187,7 @@
         }
         checkEmailCriteriaMet()
     }
-    //Check all Criteria
+    //Check username Criteria
     function checkUsernameCriteriaMet() {
         let criteria = document.getElementsByClassName('username-criteria');
 
@@ -184,6 +201,7 @@
             }
         }
     }
+    //Check email Criteria
     function checkEmailCriteriaMet() {
         let criteria = document.getElementsByClassName('email-criteria');
 
