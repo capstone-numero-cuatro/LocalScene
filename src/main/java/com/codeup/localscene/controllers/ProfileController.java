@@ -42,10 +42,7 @@ public class ProfileController {
 
     @GetMapping("/profile/{id}")
     public String showProfile(@PathVariable long id, Model model) {
-        Users user = userRepository.findById(id).orElse(null);
-        if (user == null) {
-            return "redirect:/404";
-        }
+        Users user = userRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("User not found with id " + id));
 
         List<Posts> posts = postRepository.findByUser(user);
 
