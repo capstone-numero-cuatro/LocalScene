@@ -11,10 +11,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
-import org.thymeleaf.extras.springsecurity6.dialect.SpringSecurityDialect;
-import org.thymeleaf.spring6.SpringTemplateEngine;
-import org.thymeleaf.templateresolver.ITemplateResolver;
-
 
 
 @Configuration
@@ -52,10 +48,9 @@ public class SecurityConfiguration {
                         .logoutSuccessUrl("/home")
                 )
                 .authorizeHttpRequests((authorize) -> authorize
-                        .requestMatchers("/css/**", "/", "/sign-up", "/verify", "/home","/forgot-password","/reset-password").permitAll()
-                        .requestMatchers("/profile/{id}","/profile/reset-password").authenticated()
-//                        .requestMatchers("/", "/sign-up", "/verify", "/home","/forgot-password","/reset-password").permitAll()
-                        .anyRequest().authenticated()
+                        .requestMatchers("/404","/img/**","/js/**", "/css/**", "/", "/sign-up", "/verify", "/home","/forgot-password","/reset-password").permitAll()
+                        .requestMatchers("/profile/{id}").permitAll()
+                        .requestMatchers("/profile/edit", "/band-profile/{id}", "/bands/create", "/bandPostsCreate").authenticated()
                 )
 
         ;

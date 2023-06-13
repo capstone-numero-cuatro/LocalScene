@@ -8,20 +8,25 @@
     <link rel="stylesheet" th:href="@{/css/profile.css}" type="text/css" >
 
 
-    <!--    Font awesome-->
-    <script src="https://kit.fontawesome.com/3d0b015fdb.js" crossorigin="anonymous"></script>
+    <!---googlefonts-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Slackside+One&display=swap" rel="stylesheet">
 </head>
 <body>
 
+<div id="preloader"></div>
 
 <nav th:insert="partials/navbar :: navbar"></nav>
-<div th:if="${message}" th:class="${alertClass}" th:text="${message}"></div>
 
-
-
-<div class="container text-center" style="border: solid plum 2px">
-    <div class="row">
-        <img src="" alt="image" id="currentPic" style="background-color: darkgrey; color:white; padding:5px; border:none;outline:none; height: 30vh; width: auto">
+<div class="container text-center" Id="userInfoArea" >
+    <div class="row" style="display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 20px;">
+        <img th:src="${user.profileImage}" alt="image" id="currentPic" style="background-color: darkgrey; color:white; padding:5px; border:none;outline:none; height: 30vh; width: auto">
 
         <dialog id="changePicture">
             <div>
@@ -33,68 +38,24 @@
 
         <button onclick="openProfilePicturePicker()" type="button" id="changeProfilePic" style="--content: 'Hover me!';"><div class="left"> </div> Change Profile Picture<div class="right"></div></button>
 
-        <h2 th:text="${user.username}">UserName Place Holder</h2>
+        <h2 id="userName" th:text="${user.username}" ></h2>
 
-        <div>
-<!--            <div th:if="${not #lists.isEmpty(band)}">-->
+        <div id="bandsArea">
+            <div th:if="${not #lists.isEmpty(bands)}">
                 <h4>Bands:</h4>
                 <ul>
-                    <li th:each="band : ${bands}"></li>
-                    <a th:href="@{/band-profile/{bandId}(bandId=${band_id})}"
-                       th:text="${bands.bandname}"></a>
-                    </li>
+                    <li th:each="band : ${bands}">[[${band.bandname}]]</li>
                     <!-- Add more list items for each band -->
                 </ul>
+            </div>
         </div>
-    </div>
-
-        <h3>Social Media Links</h3>
-
-</div>
 
     <div>
-        <dialog id="pwreset">
-            <h1>Reset Password</h1>
-            <form th:action="@{/profile/reset-password}" th:object="${passwordResetForm}" method="post">
-                <div class="form-group">
-                    <label for="currentPassword">Current password</label>
-                    <input type="password" class="form-control" id="currentPassword" th:field="*{currentPassword}" required />
-                </div>
-                <div class="form-group">
-                    <label for="newPassword">New password</label>
-                    <input type="password" class="form-control" id="newPassword" th:field="*{newPassword}" required />
-                </div>
-                <div class="form-group">
-                    <label for="confirmPassword">Confirm New Password</label>
-                    <input type="password" class="form-control" id="confirmPassword" th:field="*{confirmPassword}" required />
-                </div>
-                <input type="checkbox" id="showPasswords" onclick="togglePasswordVisibility()">
-                <label for="showPasswords">Show Passwords</label>
-                <div>
-                    <button class="btn btn-info" type="submit">Reset Password</button>
-                </div>
-            </form>
-        </dialog>
-        <button onclick="pwreset.showModal()" type="button" class="btn btn-info">Reset Password?</button>
+        <a th:href="@{/profile/edit}" type="button" class="btn btn-info">Edit profile</a>
     </div>
-</div>
-<div class="container" id="recent-activity" style="border: solid yellow 2px">
-    <div><h4>Recent Activity Placeholder</h4>
-        <!--        Below here - we need ot start with "IF THERE ARE POSTS" then render POSTS-->
-        <!--        <div th:each="post : ${posts}">-->
-        <!--            <div class="card" style="width: 18rem">-->
-        <!--                <div class="card-body">-->
-        <!--                    <h5 class="card-title" th:text="${post.title}"></h5>-->
-        <!--                    <h6 class="card-body" th:text="${post.description}"></h6>-->
-        <!--                    <img th:src="@{'/images/' + ${post.image}}" alt="postImage" src="">-->
-        <!--                </div>-->
-        <!--            </div>-->
-        <!--        </div>-->
 
-    </div>
-</div>
-<div style="border: solid 2px red">
-    <div class="container" id="blog-post">
+<div id="postsButtons">
+    <div  id="blog-post">
         <dialog id="postCreationDialog">
             <h5>Create a new post</h5>
             <form th:action="@{/profile/posts/create}" th:method="post" th:object="${posts}">
@@ -121,26 +82,25 @@
         </dialog>
         <button onclick="postCreationDialog.showModal()" type="button" class="btn btn-info">Create New Post</button>
     </div>
-    <div class="container" id="bandCreate">
+    <div  id="bandCreate">
         <dialog id="bandCreationDialog">
             <h5>Create a new band</h5>
-            <form th:method="post"
-                  th:action="@{/band-profile/{band_id}/add-user}"
-                  th:object="${bands}">
+            <form th:method="post" th:action="@{/bands/create}" th:object="${bands}">
                 <div class="mb-3">
                     <label for="BandName" class="form-label">Band Name</label>
                     <input type="text" class="form-control" id="BandName" name="bandName" placeholder="Band Name"
                            th:field="*{bandname}">
                 </div>
+
                 <div class="mb-3">
                     <label for="BandDescription" class="form-label">Band Description</label>
-                    <textarea class="form-control" id="BandDescription" name="description" rows="3"
-                              th:field="*{description}"></textarea>
-                                        <input type="hidden" th:field="*{id}">
+                    <textarea class="form-control" id="BandDescription" name="description" rows="3"           th:field="*{description}"></textarea>
+                    <input type="hidden" th:field="*{id}">
                     <div style="position: relative">
                         <input type="file" id="bandCreateImg" onchange="handleBandImageUpload()">
                         <img src="" alt="image" id="bandImg" style="background-color: darkgrey; color:white; padding:5px; border:none;outline:none; height: 30vh; width: auto">
                     </div>
+
                 </div>
                 <button type="submit" class="btn btn-success">Submit!</button>
             </form>
@@ -151,6 +111,49 @@
 
 </div>
 
+
+<div class="container text-center" id="recent-activity">
+    <div>
+        <h4>Recent Activity</h4>
+<!--        <div th:if="${user.posts.size() > 0}">-->
+<!--            <div th:each="post : ${user.posts}">-->
+<!--                <div class="card" style="width: 18rem">-->
+<!--                    <div class="card-body">-->
+<!--                        <h5 class="card-title" th:text="${post.title}"></h5>-->
+<!--                        <h6 class="card-body" th:text="${post.description}"></h6>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--        <div th:unless="${user.posts.size() > 0}">-->
+<!--            <p>No posts found.</p>-->
+<!--        </div>-->
+    </div>
+</div>
+
+
+
+
+<th:block th:replace="partials/navbar-scripts :: navbar-scripts"></th:block>
+<!--preloader-->
+<script>
+    let loader = document.getElementById("preloader");
+
+    // Set the duration in milliseconds for the preloader to be displayed
+    const preloaderDuration = 1500; // Change this value as desired (e.g., 3000 for 3 seconds)
+
+    // Function to hide the preloader after the specified duration
+    function hidePreloader() {
+        loader.style.display = "none";
+    }
+
+    // Show the preloader initially
+    loader.style.display = "block";
+
+    // Set a timeout to hide the preloader after the specified duration
+    setTimeout(hidePreloader, preloaderDuration);
+
+</script>
 
 <!--File Stack-->
 <script src="//static.filestackapi.com/filestack-js/3.x.x/filestack.min.js"></script>
@@ -228,21 +231,6 @@
     }
 
 
-
-    function togglePasswordVisibility(fieldId, checkboxId) {
-        var field = document.getElementById(fieldId);
-        var checkbox = document.getElementById(checkboxId);
-
-        if (checkbox.checked) {
-            field.type = "text";
-        } else {
-            field.type = "password";
-        }
-    }
-    function submitForm() {
-        document.getElementById("loginForm").submit();
-    }
-
     function showForm(formId) {
         if (formId === 'sign-up') {
             fetch('sign-up')
@@ -254,12 +242,22 @@
             document.getElementById('forgot-password').style.display = 'block';
         }
     }
-    window.addEventListener('click', function(e) {
-        var dialog = document.getElementById('pwreset');
-        if (e.target == dialog) {
-            dialog.close();
-        }
-    });
+
+        window.addEventListener('click', function(e) {
+            var postCreationDialog = document.getElementById('postCreationDialog');
+            if (e.target == postCreationDialog ) {
+                postCreationDialog.close();
+            }
+        });
+
+
+        window.addEventListener('click', function(e) {
+            var bandCreationDialog = document.getElementById('bandCreationDialog');
+            if (e.target == bandCreationDialog) {
+               bandCreationDialog.close();
+            }
+        });
+
 
 
 </script>

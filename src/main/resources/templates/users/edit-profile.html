@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Profile-Edit</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+</head>
+<body>
+<div th:fragment="navbar">
+    <div th:replace="partials/navbar"></div>
+</div>
+
+<form action="#" th:action="@{/profile/edit}" th:object="${user}" method="post">
+    <label for="username">Name</label>
+    <input id="username" th:field="*{username}" />
+
+    <label for="userEmail">Email</label>
+    <input id="userEmail" th:field="*{email}" />
+
+    <label for="profileImageInput" class="custom-file-upload">
+        Choose your profile image
+    </label>
+    <input type="file" id="profileImageInput" style="display: none;"/>
+    <img src="" th:src="${user.profileImage}" alt="image" id="profileImage" height="34" class="rounded-circle">
+    <input type="hidden" id="profileImageUrl" name="profileImage">
+
+    <div sec:authorize="isAuthenticated()">
+        <input value="Save changes" id="submitBtn" type="submit" disabled/>
+    </div>
+</form>
+<div id="usernameCriteria" style="display: none;">
+    <h5>Name must be:</h5>
+    <ul>
+        <li id="usernameChar" class="username-criteria">Only letters and numbers</li>
+        <li id="usernameLength" class="username-criteria">Between 3 and 15 characters</li>
+    </ul>
+</div>
+<div id="emailCriteria" style="display: none;">
+    <h5>Email must be:</h5>
+    <ul>
+        <li id="emailSymbol" class="email-criteria">A valid email address</li>
+    </ul>
+</div>
+<div>
+    <dialog id="pwreset">
+        <h1>Reset Password</h1>
+        <form th:action="@{/profile/edit/reset-password}" th:object="${passwordResetForm}" method="post">
+            <div class="form-group">
+                <label for="currentPassword">Current password</label>
+                <input type="password" class="form-control" id="currentPassword" th:field="*{currentPassword}" required />
+            </div>
+            <div class="form-group">
+                <label for="newPassword">New password</label>
+                <input type="password" class="form-control" id="newPassword" th:field="*{newPassword}" required />
+            </div>
+            <div class="form-group">
+                <label for="confirmPassword">Confirm New Password</label>
+                <input type="password" class="form-control" id="confirmPassword" th:field="*{confirmPassword}" required />
+            </div>
+            <input type="checkbox" id="showPasswords" onclick="togglePasswordVisibility()">
+            <label for="showPasswords">Show Passwords</label>
+            <div>
+                <button class="btn btn-info" type="submit">Reset Password</button>
+            </div>
+        </form>
+    </dialog>
+    <button onclick="pwreset.showModal()" type="button" class="btn btn-info">Reset Password?</button>
+</div>
+<div th:if="${message}" th:class="${alertClass}" th:text="${message}"></div>
+<div th:if="${errorMessage}" th:class="${alertClass}" th:text="${errorMessage}"></div>
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    var filestackKey = /*[[${filestackKey}]]*/ 'default';
+    /*]]>*/
+</script>
+<script src="https://static.filestackapi.com/filestack-js/3.x.x/filestack.min.js"></script>
+<script>
+    const client = filestack.init(filestackKey);
+    const profilePic = document.getElementById("profileImage");
+    const profileFileInput = document.getElementById("profileImageInput");
+    const profileImageUrlInput = document.getElementById("profileImageUrl");
+
+    profileImageUrlInput.value = profilePic.src;
+
+    profileFileInput.addEventListener("change", (event) => {
+        const file = event.target.files[0];
+
+        client.upload(file).then((response) => {
+            profilePic.src = response.url;
+            profileImageUrlInput.value = response.url;
+        }).catch((error) => {
+            console.log(error);
+        });
+    });
+    //Keep the image
+    document.getElementById('profileImageInput').addEventListener('change', function(e) {
+        var file = e.target.files[0];
+        var reader = new FileReader();
+
+        reader.onloadend = function() {
+            document.getElementById('profileImageUrl').value = reader.result;
+            document.getElementById('profileImage').src = reader.result;
+        }
+
+        if (file) {
+            reader.readAsDataURL(file);
+        }
+    });
+    //Password reset
+    window.addEventListener('click', function(e) {
+        var dialog = document.getElementById('pwreset');
+        if (e.target == dialog) {
+            dialog.close();
+        }
+    });
+    function togglePasswordVisibility() {
+        const newPassword = document.getElementById('newPassword');
+        const confirmPassword = document.getElementById('confirmPassword');
+        const checkbox = document.getElementById('showPasswords');
+
+        if (checkbox.checked) {
+            // Show the password
+            newPassword.type = 'text';
+            confirmPassword.type = 'text';
+        } else {
+            // Hide the password
+            newPassword.type = 'password';
+            confirmPassword.type = 'password';
+        }
+    }
+    //Check Username
+    document.getElementById('username').addEventListener('focus', () => {
+        document.getElementById('usernameCriteria').style.display = 'block';
+    });
+
+    document.getElementById('username').addEventListener('blur', () => {
+        document.getElementById('usernameCriteria').style.display = 'none';
+    });
+
+    document.getElementById('username').addEventListener('keyup', function() {
+        const username = document.getElementById('username').value;
+        checkUsernameCriteria(username);
+    });
+    function checkUsernameCriteria(username) {
+        const charRegex = /^[a-z0-9]+$/i;
+        let isCharValid = false, isLengthValid = false;
+
+        if (username.match(charRegex)) {
+            document.getElementById('usernameChar').style.color = 'green';
+            isCharValid = true;
+        } else {
+            document.getElementById('usernameChar').style.color = 'grey';
+        }
+
+        if (username.length >= 3 && username.length <= 15) {
+            document.getElementById('usernameLength').style.color = 'green';
+            isLengthValid = true;
+        } else {
+            document.getElementById('usernameLength').style.color = 'grey';
+        }
+        checkUsernameCriteriaMet()
+    }
+
+    //Check email
+    document.getElementById('userEmail').addEventListener('focus', () => {
+        document.getElementById('emailCriteria').style.display = 'block';
+    });
+
+    document.getElementById('userEmail').addEventListener('blur', () => {
+        document.getElementById('emailCriteria').style.display = 'none';
+    });
+
+    document.getElementById('userEmail').addEventListener('keyup', function() {
+        const email = document.getElementById('userEmail').value;
+        checkEmailCriteria(email);
+    });
+    function checkEmailCriteria(email) {
+        const emailSymbolRegex = /@/;
+        let isSymbolValid = false;
+
+        if (email.match(emailSymbolRegex)) {
+            document.getElementById('emailSymbol').style.color = 'green';
+            isSymbolValid = true;
+        } else {
+            document.getElementById('emailSymbol').style.color = 'grey';
+        }
+        checkEmailCriteriaMet()
+    }
+    //Check username Criteria
+    function checkUsernameCriteriaMet() {
+        let criteria = document.getElementsByClassName('username-criteria');
+
+        for (let i = 0; i < criteria.length; i++) {
+            if (criteria[i].style.color !== 'green') {
+                document.getElementById("submitBtn").disabled = true;
+                return;
+            } else {
+                document.getElementById("submitBtn").disabled = false;
+                return;
+            }
+        }
+    }
+    //Check email Criteria
+    function checkEmailCriteriaMet() {
+        let criteria = document.getElementsByClassName('email-criteria');
+
+        for (let i = 0; i < criteria.length; i++) {
+            if (criteria[i].style.color !== 'green') {
+                document.getElementById("submitBtn").disabled = true;
+                return;
+            } else {
+                document.getElementById("submitBtn").disabled = false;
+                return;
+            }
+        }
+    }
+</script>
+<th:block th:replace="partials/navbar-scripts :: navbar-scripts"></th:block>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+</body>
+
+</html>

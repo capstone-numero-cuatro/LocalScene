@@ -1,7 +1,140 @@
-body{
-    background-color:lightgray;
+
+body {
+    background: linear-gradient(90deg, #404066, #2b2c41);
+    font-family: 'Permanent Marker', cursive;
 }
-#changeProfilePic{
-    size: 40px;
+
+#userInfoArea {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    position: relative;
+}
+
+#currentPic,
+#profilePic {
+    background-color: darkgrey;
+    color: white;
+    padding: 5px;
+    border: none;
+    outline: none;
+    height: 30vh;
+    width: auto;
+}
+
+#changeProfilePic {
+    height: 100px;
     width: 100px;
+    border: 8px solid #488cfb;
+    border-radius: 34px;
+    background-color: transparent;
+    padding: 5px 10px;
+    animation: borderAnimation 6s linear infinite;
+    font-family: 'Slackside One', cursive;
+    font-size: 0.85em;
+    font-weight: 100;
+    color: #fff;
 }
+
+@keyframes borderAnimation {
+    0% { border-color: #488cfb; }
+    14.3% { border-color: #29dbbc; }
+    28.6% { border-color: #0FF0FC; }
+    42.9% { border-color: #FF5E00; }
+    57.2% { border-color: #BC13FE; }
+    71.5% { border-color: #8A2BE2; }
+    85.8% { border-color: #0FF0FC; }
+    100% { border-color: #488cfb; }
+}
+
+#username {
+    margin: 0;
+    padding: 10px;
+}
+
+#bandsArea {
+    margin-right: 10px;
+    padding: 10px;
+}
+
+#pwResetdiv {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    margin-top: 20px;
+    padding: 10px;
+}
+
+#postsButtons {
+
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    margin: 5em;
+}
+
+#postCreationDialog,#bandCreationDialog {
+    color: #fff;
+    padding: 1rem 3rem;
+    background: #606060;
+    background-image: url("https://cdn.fuelrocks.com/can_you_use_a_vocal_mic_on_a_guitar_amp.jpg");
+    background-size: cover;
+    padding-top: 2rem;
+    border-radius: 20px;
+    border: 0;
+    box-shadow: 0 5px 30px 0 rgb(0 0 0 / 10%);
+    animation: fadeIn 1s ease both;
+}
+
+dialog::backdrop {
+    animation: fadeIn 1.5s ease both;
+    background: rgb(0 0 0 / 40%);
+    z-index: 2;
+    backdrop-filter: blur(20px);
+}
+
+dialog .x {
+    filter: grayscale(1);
+    border: none;
+    background: none;
+    position: absolute;
+    top: 15px;
+    right: 10px;
+    transition: ease filter, transform 0.3s;
+    cursor: pointer;
+    transform-origin: center;
+}
+
+dialog:hover .x {
+    filter: grayscale(0);
+    transform: scale(1.1);
+}
+
+h5 {
+    font-weight: 600;
+    font-size: 2rem;
+    padding-bottom: 1rem;
+}
+
+label {
+    font-size: 1rem;
+    line-height: 1.3rem;
+    padding: 0.5rem 0;
+}
+#preloader{
+    background: #26202a url("../img/preloader.gif") no-repeat center;
+    height: 100vh;
+    width: 100%;
+    position: fixed;
+    z-index: 100;
+
+}
+#bandCreationDialog{
+    background-image: url("../img/platypus.png");
+    background-size: cover;
+    background-position: center;
+    color: black;
+
+}
+

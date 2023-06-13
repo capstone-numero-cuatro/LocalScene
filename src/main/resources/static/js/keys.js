@@ -3,9 +3,9 @@ let apiKey = 'UdZ8l4XkAoz0AEQZV9sRX2cOqvZL1Atw';
 let filestackKey ="Abd5534iTviZyWy5jGpswz";
 
 
-$('#cityLocation').click(function(e){
+$('#submit').click(function(e){
     e.preventDefault();
-    getLocation($('#cityInput').val());
+    getLocation($('#search-input').val());
 })
 
 mapboxgl.accessToken =myToken;
@@ -35,7 +35,7 @@ function getLocation(searchString){
     })
 }
 
-    function showModal() {
+function showModal() {
     var modal = document.getElementById('modal');
     modal.style.display = 'block';
 }
@@ -44,5 +44,4 @@ function hideModal() {
     var modal = document.getElementById('modal');
     modal.style.display = 'none';
 }
-
 

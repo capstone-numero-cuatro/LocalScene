@@ -8,5 +8,6 @@ import java.util.List;
 
 @Repository
 public interface PostRepository extends JpaRepository<Posts, Long> {
+    List<Posts> findByUser(Users user);
 
 }

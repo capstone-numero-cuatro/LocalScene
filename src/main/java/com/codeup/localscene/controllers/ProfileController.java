@@ -1,29 +1,26 @@
 package com.codeup.localscene.controllers;
 
-import com.codeup.localscene.models.*;
+import com.codeup.localscene.models.Bands;
+import com.codeup.localscene.models.PasswordResetForm;
+import com.codeup.localscene.models.Posts;
+import com.codeup.localscene.models.Users;
 import com.codeup.localscene.repositories.BandRepository;
-import com.codeup.localscene.repositories.BandUserRepository;
 import com.codeup.localscene.repositories.PostRepository;
 import com.codeup.localscene.repositories.UserRepository;
 import com.codeup.localscene.services.EmailService;
 import com.codeup.localscene.services.PasswordResetService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.Authentication;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import java.security.Principal;
-import java.util.ArrayList;
-import java.util.List;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import java.security.Principal;
+import java.util.List;
 
 @Controller
 public class ProfileController {
@@ -35,23 +32,19 @@ public class ProfileController {
     private final EmailService emailService;
 
     @Autowired
-    public ProfileController(UserRepository userRepository, PostRepository postRepository,
-                             BandRepository bandRepository,
-                             PasswordResetService passwordResetService, EmailService emailService) {
+    public ProfileController(UserRepository userRepository, PostRepository postRepository, BandRepository bandRepository, PasswordResetService passwordResetService, EmailService emailService) {
         this.userRepository = userRepository;
         this.postRepository = postRepository;
         this.bandRepository = bandRepository;
         this.passwordResetService = passwordResetService;
         this.emailService = emailService;
-     ;
     }
 
     @GetMapping("/profile/{id}")
     public String showProfile(@PathVariable long id, Model model) {
-        Users user = userRepository.findById(id).orElse(null);
-        if (user == null) {
-            return "redirect:/404";
-        }
+        Users user = userRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("User not found with id " + id));
+
+        List<Posts> posts = postRepository.findByUser(user);
 
 
         model.addAttribute("posts", new Posts());
@@ -63,13 +56,14 @@ public class ProfileController {
 
     @PostMapping("/profile/posts/create")
     public String createPost(@ModelAttribute Posts posts) {
+        //Access the logged in user (bottom of security)
         Users loggedInUser = (Users) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
         loggedInUser = userRepository.findByUsername(loggedInUser.getUsername());
 
-        posts.setUser_id(loggedInUser);
+        posts.setUser(loggedInUser);
 
-        System.out.println("posts.getUser_id().getUsername() = " + posts.getUser_id().getUsername());
+        System.out.println("posts.getUser_id().getUsername() = " + posts.getUser().getUsername());
 
         postRepository.save(posts);
         return "redirect:/home";
@@ -112,8 +106,6 @@ public class ProfileController {
 
         return "redirect:/profile/" + user.getId();
     }
-
-
 }
 
 
