@@ -10,6 +10,7 @@ import com.codeup.localscene.repositories.UserRepository;
 import com.codeup.localscene.services.EmailService;
 import com.codeup.localscene.services.PasswordResetService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
