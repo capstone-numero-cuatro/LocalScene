@@ -130,5 +130,11 @@ label {
     z-index: 100;
 
 }
+#bandCreationDialog{
+    background-image: url("../img/platypus.png");
+    background-size: cover;
+    background-position: center;
+    color: black;
 
+}
 
