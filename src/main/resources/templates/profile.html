@@ -15,7 +15,7 @@
     <script src="https://kit.fontawesome.com/3d0b015fdb.js" crossorigin="anonymous"></script>
 </head>
 <body>
-
+<div id="preloader"></div>
 
 <nav th:insert="partials/navbar :: navbar"></nav>
 <div th:if="${message}" th:class="${alertClass}" th:text="${message}"></div>
@@ -147,24 +147,45 @@
 <div class="container text-center" id="recent-activity">
     <div>
         <h4>Recent Activity</h4>
-        <div th:if="${user.posts.size() > 0}">
-            <div th:each="post : ${user.posts}">
-                <div class="card" style="width: 18rem">
-                    <div class="card-body">
-                        <h5 class="card-title" th:text="${post.title}"></h5>
-                        <h6 class="card-body" th:text="${post.description}"></h6>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div th:unless="${user.posts.size() > 0}">
-            <p>No posts found.</p>
-        </div>
+<!--        <div th:if="${user.posts.size() > 0}">-->
+<!--            <div th:each="post : ${user.posts}">-->
+<!--                <div class="card" style="width: 18rem">-->
+<!--                    <div class="card-body">-->
+<!--                        <h5 class="card-title" th:text="${post.title}"></h5>-->
+<!--                        <h6 class="card-body" th:text="${post.description}"></h6>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--        <div th:unless="${user.posts.size() > 0}">-->
+<!--            <p>No posts found.</p>-->
+<!--        </div>-->
     </div>
 </div>
 
 
 
+
+
+<!--preloader-->
+<script>
+    let loader = document.getElementById("preloader");
+
+    // Set the duration in milliseconds for the preloader to be displayed
+    const preloaderDuration = 1500; // Change this value as desired (e.g., 3000 for 3 seconds)
+
+    // Function to hide the preloader after the specified duration
+    function hidePreloader() {
+        loader.style.display = "none";
+    }
+
+    // Show the preloader initially
+    loader.style.display = "block";
+
+    // Set a timeout to hide the preloader after the specified duration
+    setTimeout(hidePreloader, preloaderDuration);
+
+</script>
 
 <!--File Stack-->
 <script src="//static.filestackapi.com/filestack-js/3.x.x/filestack.min.js"></script>

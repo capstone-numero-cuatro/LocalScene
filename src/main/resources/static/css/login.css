@@ -1,13 +1,5 @@
-.custom-file-upload {
-    padding: 6px 12px;
-    cursor: pointer;
-    background-color: #f8f9fa;
-    border: 1px solid #ced4da;
-    border-radius: 4px;
-    display: inline-block;
-}
 body{
-    background: linear-gradient(90deg, #404066, #2b2c41);
+    background: linear-gradient(0deg, #facd92, #feb163);
     font-family: 'Permanent Marker', cursive;
 
 }
@@ -19,11 +11,11 @@ body{
 }
 
 .screen {
-    background: linear-gradient(90deg, #404066, #88cafc);
+    background: linear-gradient(90deg, #e47a3c, #fff9d9);
     position: relative;
     height: 600px;
     width: 360px;
-    box-shadow: 0px 0px 24px #d2ebff;
+    box-shadow: 0px 0px 24px #e47a3c;
     border-radius: 32px;
     display: flex;
     align-items: center;
@@ -60,7 +52,7 @@ body{
 .screen__background__shape1 {
     height: 520px;
     width: 520px;
-    background: #edcc6f;
+    background: #fff9d9;
     top: -50px;
     right: 120px;
     border-radius: 0 72px 0 0;
@@ -69,7 +61,7 @@ body{
 .screen__background__shape2 {
     height: 220px;
     width: 220px;
-    background: #88cafc;
+    background: #feb06f;
     top: -172px;
     right: 0;
     border-radius: 32px;
@@ -78,7 +70,7 @@ body{
 .screen__background__shape3 {
     height: 540px;
     width: 190px;
-    background: linear-gradient(270deg, #404066, #2b2c41);
+    background: linear-gradient(270deg, #feb06f,#e47a3c );
     top: -24px;
     right: 0;
     border-radius: 32px;
@@ -87,7 +79,7 @@ body{
 .screen__background__shape4 {
     height: 400px;
     width: 200px;
-    background: #88cafc;
+    background: #e47a3c;
     top: 420px;
     right: 50px;
     border-radius: 60px;
@@ -104,13 +96,4 @@ img{
 input{
     border-radius: 25px;
     margin: .5em;
-}
-
-#preloader{
-    background: #26202a url("../img/preloader.gif") no-repeat center;
-    height: 100vh;
-    width: 100%;
-    position: fixed;
-    z-index: 100;
-
 }
