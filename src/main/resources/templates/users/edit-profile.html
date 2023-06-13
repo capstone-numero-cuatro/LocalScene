@@ -12,11 +12,11 @@
 </div>
 
 <form action="#" th:action="@{/profile/edit}" th:object="${user}" method="post">
-    <label for="username">Username</label>
+    <label for="username">Name</label>
     <input id="username" th:field="*{username}" />
 
-    <label for="email">Email</label>
-    <input id="email" th:field="*{email}" />
+    <label for="userEmail">Email</label>
+    <input id="userEmail" th:field="*{email}" />
 
     <label for="profileImageInput" class="custom-file-upload">
         Choose your profile image
@@ -26,9 +26,22 @@
     <input type="hidden" id="profileImageUrl" name="profileImage">
 
     <div sec:authorize="isAuthenticated()">
-        <input value="Save changes" type="submit" />
+        <input value="Save changes" id="submitBtn" type="submit" disabled/>
     </div>
 </form>
+<div id="usernameCriteria" style="display: none;">
+    <h5>Name must be:</h5>
+    <ul>
+        <li id="usernameChar" class="criteria">Only letters and numbers</li>
+        <li id="usernameLength" class="criteria">Between 3 and 15 characters</li>
+    </ul>
+</div>
+<div id="emailCriteria" style="display: none;">
+    <h5>Email must be:</h5>
+    <ul>
+        <li id="emailSymbol" class="criteria">A valid email address</li>
+    </ul>
+</div>
 <div>
     <dialog id="pwreset">
         <h1>Reset Password</h1>
@@ -97,6 +110,82 @@
             // Hide the password
             newPassword.type = 'password';
             confirmPassword.type = 'password';
+        }
+    }
+    //Check Username
+    document.getElementById('username').addEventListener('focus', () => {
+        document.getElementById('usernameCriteria').style.display = 'block';
+    });
+
+    document.getElementById('username').addEventListener('blur', () => {
+        document.getElementById('usernameCriteria').style.display = 'none';
+    });
+
+    document.getElementById('username').addEventListener('keyup', function() {
+        const username = document.getElementById('username').value;
+        checkUsernameCriteria(username);
+    });
+    function checkUsernameCriteria(username) {
+        const charRegex = /^[a-z0-9]+$/i;
+        let isCharValid = false, isLengthValid = false;
+
+        if (username.match(charRegex)) {
+            document.getElementById('usernameChar').style.color = 'green';
+            isCharValid = true;
+        } else {
+            document.getElementById('usernameChar').style.color = 'grey';
+        }
+
+        if (username.length >= 3 && username.length <= 15) {
+            document.getElementById('usernameLength').style.color = 'green';
+            isLengthValid = true;
+        } else {
+            document.getElementById('usernameLength').style.color = 'grey';
+        }
+        checkCriteria()
+    }
+
+    //Check email
+    document.getElementById('userEmail').addEventListener('focus', () => {
+        document.getElementById('emailCriteria').style.display = 'block';
+    });
+
+    document.getElementById('userEmail').addEventListener('blur', () => {
+        document.getElementById('emailCriteria').style.display = 'none';
+    });
+
+    document.getElementById('userEmail').addEventListener('keyup', function() {
+        const email = document.getElementById('userEmail').value;
+        checkEmailCriteria(email);
+    });
+    function checkEmailCriteria(email) {
+        const emailSymbolRegex = /@/;
+        let isSymbolValid = false;
+
+        if (email.match(emailSymbolRegex)) {
+            document.getElementById('emailSymbol').style.color = 'green';
+            isSymbolValid = true;
+        } else {
+            document.getElementById('emailSymbol').style.color = 'grey';
+        }
+        checkCriteria()
+    }
+    //Check all Criteria
+    function allCriteriaMet() {
+        let criteria = document.getElementsByClassName('criteria');
+
+        for (let i = 0; i < criteria.length; i++) {
+            if (criteria[i].style.color !== 'green') {
+                return false;
+            }
+        }
+        return true;
+    }
+    function checkCriteria() {
+        if (allCriteriaMet()) {
+            document.getElementById("submitBtn").disabled = false;
+        } else {
+            document.getElementById("submitBtn").disabled = true;
         }
     }
 </script>
