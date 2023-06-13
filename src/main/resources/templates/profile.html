@@ -33,24 +33,24 @@
 
         <button onclick="openProfilePicturePicker()" type="button" id="changeProfilePic" style="--content: 'Hover me!';"><div class="left"> </div> Change Profile Picture<div class="right"></div></button>
 
-        <h2 th:text="${username}">UserName Place Holder</h2>
+        <h2 th:text="${user.username}">UserName Place Holder</h2>
 
         <div>
-            <div th:if="${not #lists.isEmpty(bands)}">
+<!--            <div th:if="${not #lists.isEmpty(band)}">-->
                 <h4>Bands:</h4>
                 <ul>
-                    <li th:each="band : ${bands}">[[${band.bandname}]]</li>
+                    <li th:each="band : ${bands}"></li>
+                    <a th:href="@{/band-profile/{bandId}(bandId=${band_id})}"
+                       th:text="${bands.bandname}"></a>
+                    </li>
                     <!-- Add more list items for each band -->
                 </ul>
-            </div>
         </div>
-
+    </div>
 
         <h3>Social Media Links</h3>
 
-
-
-    </div>
+</div>
 
     <div>
         <dialog id="pwreset">
@@ -100,7 +100,8 @@
             <form th:action="@{/profile/posts/create}" th:method="post" th:object="${posts}">
                 <div class="mb-3">
                     <label for="BlogTitle" class="form-label">Title</label>
-                    <input type="text" class="form-control" id="BlogTitle" name="title" placeholder="Title" th:field="*{title}">
+                    <input type="text" class="form-control" id="BlogTitle" name="title"
+                           placeholder="Title" th:field="*{title}">
 
                 </div>
 
@@ -123,13 +124,14 @@
     <div class="container" id="bandCreate">
         <dialog id="bandCreationDialog">
             <h5>Create a new band</h5>
-            <form th:method="post" th:action="@{/bands/create}" th:object="${bands}">
+            <form th:method="post"
+                  th:action="@{/band-profile/{band_id}/add-user}"
+                  th:object="${bands}">
                 <div class="mb-3">
                     <label for="BandName" class="form-label">Band Name</label>
                     <input type="text" class="form-control" id="BandName" name="bandName" placeholder="Band Name"
                            th:field="*{bandname}">
                 </div>
-
                 <div class="mb-3">
                     <label for="BandDescription" class="form-label">Band Description</label>
                     <textarea class="form-control" id="BandDescription" name="description" rows="3"

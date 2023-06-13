@@ -75,6 +75,9 @@ public class Bands {
     }
 
     public Users getUser() {
+        if (user == null) {
+            return new Users();
+        }
         return user;
     }
 

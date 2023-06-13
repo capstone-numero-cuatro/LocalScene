@@ -19,6 +19,15 @@ public class BandUser {
     @JoinColumn(name = "band_id")
     private Bands band;
 
+    public BandUser(){
+
+    }
+
+    public BandUser(Bands band, Users user){
+        this.band = band;
+        this.user = user;
+    }
+
 
     public void setId(long id) {
         this.id = id;

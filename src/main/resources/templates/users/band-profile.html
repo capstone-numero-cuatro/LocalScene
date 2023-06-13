@@ -39,17 +39,24 @@
     <div>
         <h3>Band Members</h3>
         <ul>
-            <li th:each="member : ${userid}">
-                <span th:text="${userid}"></span>
+            <li th:each="bandUser : ${band.band}">
+                <span th:text="${bandUser.user.username}"></span>
             </li>
         </ul>
     </div>
     <div>
         <h3>Add Band Member</h3>
-        <form th:action="@{/addMember}" method="post">
+        <form th:action="@{/band-profile/{band_id}/add-user(band_id=${band.id})}" method="post">
             <input type="text" name="username" placeholder="Username" required>
-            <button class="btn  btn-success" type="submit">Add</button>
+            <button class="btn btn-success" type="submit">Add</button>
         </form>
+<!--        <form-->
+<!--                th:action="@{/band-profile/{band_id}/add-user(band_id=${band_id}, user_id=${user_id})}"-->
+<!--              method="post">-->
+<!--            <input type="text" name="user_id" placeholder="User ID" required>-->
+<!--            <button class="btn  btn-success" type="submit">Add</button>-->
+<!--        </form>-->
+
     </div>
 </div>
 
@@ -73,7 +80,8 @@
 <div class="container">
     <dialog id="bandPostDialog">
         <h5>Shoutout to your fans!</h5>
-        <form th:object="${bandPost}" th:method="post" th:action="@{/bandPostsCreate}">
+        <form th:object="${bandPost}" th:method="post"
+              th:action="@{/bandPostsCreate/{band_id}(band_id=${band_id})}">
             <div class="mb-3">
                 <label for="BandPostTitle" class="form-label">Title</label>
                 <input type="text" class="form-control" id="BandPostTitle" name="title" placeholder="Title" th:field="*{title}">
