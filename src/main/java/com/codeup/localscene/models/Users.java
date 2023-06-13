@@ -7,6 +7,8 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 
+import java.util.List;
+
 @Entity
 @Table(name="users")
 public class Users {
@@ -36,6 +38,9 @@ public class Users {
     @Column(name = "profile_image", length = 500)
     private String profileImage;
 
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Bands> bands;
+
 
     public Users(Users copy) {
         id = copy.id;
@@ -45,6 +50,7 @@ public class Users {
         resetPasswordToken = copy.resetPasswordToken;
         enabled = copy.enabled;
         profileImage = copy.profileImage;
+        bands = copy.bands;
     }
 
     public Users (){
@@ -115,5 +121,7 @@ public class Users {
         this.profileImage = profileImage;
     }
 
-
+    public List<Bands> getBands() {
+        return bands;
+    }
 }

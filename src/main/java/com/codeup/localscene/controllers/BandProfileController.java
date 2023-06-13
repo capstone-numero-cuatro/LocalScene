@@ -100,25 +100,25 @@ public class BandProfileController {
         return "redirect:/home";
     }
 
-//    @PostMapping("/band-profile/{band_id}/add-user")
-//    public String addUserToBand(@PathVariable("band_id") Long bandId,
-//                                @RequestParam("user_id") Long userId){
-//
-//        Bands band = bandRepository.findById(bandId).orElse(null);
-//        if(band == null){
-//            return "redirect:/404";
-//        }
-//
-//        Users user = userRepository.findById(userId).orElse(null);
-//        if(user == null){
-//            return "redirect:/404";
-//        }
-//
-//        BandUser bandUser = new BandUser(band, user);
-//
-//        bandUserRepository.save(bandUser);
-//
-//        return "redirect:/users/band-profile";
-//    }
+    @PostMapping("/band-profile/{band_id}/add-user")
+    public String addUserToBand(@PathVariable("band_id") Long bandId,
+                                @RequestParam("user_id") Long userId){
+
+        Bands band = bandRepository.findById(bandId).orElse(null);
+        if(band == null){
+            return "redirect:/404";
+        }
+
+        Users user = userRepository.findById(userId).orElse(null);
+        if(user == null){
+            return "redirect:/404";
+        }
+
+        BandUser bandUser = new BandUser(band, user);
+
+        bandUserRepository.save(bandUser);
+
+        return "redirect:/users/band-profile";
+    }
 
 }

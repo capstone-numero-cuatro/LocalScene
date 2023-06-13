@@ -45,10 +45,11 @@ public class ProfileController {
         Users user = userRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("User not found with id " + id));
 
         List<Posts> posts = postRepository.findByUser(user);
-
+        List<Bands> band = user.getBands();
 
         model.addAttribute("posts", new Posts());
         model.addAttribute("bands", new Bands());
+        model.addAttribute("bands", band);
         model.addAttribute("passwordResetForm", new PasswordResetForm());
         model.addAttribute("user", user);
         return "profile";
@@ -71,9 +72,14 @@ public class ProfileController {
 
 
     @PostMapping("/bands/create")
-    public String createBand(@ModelAttribute Bands band) {
+    public String createBand(@ModelAttribute Bands band, Principal principal) {
+        Users loggedInUser = userRepository.findByUsername(principal.getName());
         bandRepository.save(band);
-        return "redirect:/band-profile/" + band.getId();
+
+        loggedInUser.getBands().add(band);
+        userRepository.save(loggedInUser);
+
+        return "redirect:/profile/" + loggedInUser.getId();
     }
 
     @PostMapping("/profile/reset-password")
