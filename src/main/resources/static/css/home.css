@@ -1,3 +1,6 @@
+body{
+    background-color: #404066;
+}
 .post{
     display: inline-block;
     height: 200px;
@@ -8,6 +11,14 @@
 }
 
 .event{
+    display: inline-block;
+    height: 200px;
+    width: 190px;
+    margin: 20px;
+    border:5px solid rgba(48, 47, 47);
+    border-radius: 10px;
+}
+.band{
     display: inline-block;
     height: 200px;
     width: 190px;
@@ -57,8 +68,62 @@
     margin-top:15px;
 }
 
+#see-more-container {
+    margin-top: 20px;
+    display: none;
+}
 
-<<<<<<< HEAD
-=======
+#see-more-button {
+    padding: 10px 20px;
+    font-size: 16px;
+}
 
->>>>>>> 989b0253ac89f42a58f25f9a6ee8f75107981664
+#events-container {
+    margin-bottom: 20px;
+    padding: 20px;
+    background-color: #f5f5f5;
+}
+
+.event-card {
+    width: 50%; /* Set the width to 50% to accommodate two cards side by side */
+    margin-bottom: 50px;
+    padding: 50px;
+    background-color: #f5f5f5;
+}
+
+
+.event-card-title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.event-card-text {
+    margin-bottom: 10px;
+}
+
+.event-image {
+    width: 30%;
+    height: auto;
+}
+
+.row-events {
+    display: flex;
+    flex-wrap: wrap;
+    margin-left: -15px;
+    margin-right: -15px;
+}
+
+@media (max-width: 768px) {
+    .event-card {
+        width: 100%; /* Change the width to 100% for smaller screens to stack the cards vertically */
+    }
+}
+#preloader{
+    background: #26202a url("../img/preloader.gif") no-repeat center;
+    height: 100vh;
+    width: 100%;
+    position: fixed;
+    z-index: 100;
+
+}
