@@ -237,12 +237,22 @@
             document.getElementById('forgot-password').style.display = 'block';
         }
     }
-    window.addEventListener('click', function(e) {
-        var dialog = document.getElementById('pwreset');
-        if (e.target == dialog) {
-            dialog.close();
-        }
-    });
+
+        window.addEventListener('click', function(e) {
+            var postCreationDialog = document.getElementById('postCreationDialog');
+            if (e.target == postCreationDialog ) {
+                postCreationDialog.close();
+            }
+        });
+
+
+        window.addEventListener('click', function(e) {
+            var bandCreationDialog = document.getElementById('bandCreationDialog');
+            if (e.target == bandCreationDialog) {
+               bandCreationDialog.close();
+            }
+        });
+
 
 
 </script>
