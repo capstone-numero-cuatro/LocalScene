@@ -50,6 +50,7 @@ function reverseGeocode(coordinates, token) {
         });
 }
 
+
 // ticketmaster
 function fetchVenues(keyword) {
     var baseUrl = 'https://app.ticketmaster.com';
@@ -142,4 +143,5 @@ document.getElementById('search-form').addEventListener('submit', function (even
 
 document.getElementById('see-more-button').addEventListener('click', function () {
 })
+
 
