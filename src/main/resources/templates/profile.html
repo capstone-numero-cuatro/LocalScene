@@ -147,19 +147,19 @@
 <div class="container text-center" id="recent-activity">
     <div>
         <h4>Recent Activity</h4>
-        <div th:if="${user.posts.size() > 0}">
-            <div th:each="post : ${user.posts}">
-                <div class="card" style="width: 18rem">
-                    <div class="card-body">
-                        <h5 class="card-title" th:text="${post.title}"></h5>
-                        <h6 class="card-body" th:text="${post.description}"></h6>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div th:unless="${user.posts.size() > 0}">
-            <p>No posts found.</p>
-        </div>
+<!--        <div th:if="${user.posts.size() > 0}">-->
+<!--            <div th:each="post : ${user.posts}">-->
+<!--                <div class="card" style="width: 18rem">-->
+<!--                    <div class="card-body">-->
+<!--                        <h5 class="card-title" th:text="${post.title}"></h5>-->
+<!--                        <h6 class="card-body" th:text="${post.description}"></h6>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--        <div th:unless="${user.posts.size() > 0}">-->
+<!--            <p>No posts found.</p>-->
+<!--        </div>-->
     </div>
 </div>
 

@@ -1,4 +1,6 @@
-
+body{
+    background-color: #404066;
+}
 .post{
     display: inline-block;
     height: 200px;
@@ -117,4 +119,11 @@
         width: 100%; /* Change the width to 100% for smaller screens to stack the cards vertically */
     }
 }
+#preloader{
+    background: #26202a url("../img/preloader.gif") no-repeat center;
+    height: 100vh;
+    width: 100%;
+    position: fixed;
+    z-index: 100;
 
+}

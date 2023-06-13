@@ -1,9 +1,6 @@
-* {
-
-}
 
 body {
-    background-color: #606060;
+    background: linear-gradient(90deg, #404066, #2b2c41);
     font-family: 'Permanent Marker', cursive;
 }
 
