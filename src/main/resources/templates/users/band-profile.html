@@ -65,7 +65,7 @@
 </div>
 <div class="container">
     <dialog id="bandPostDialog">
-        <h5>Shoutout to your fans!</h5>
+        <h2>Shoutout to your fans!</h2>
         <form th:object="${bandPost}" th:method="post" th:action="@{/bandPostsCreate}">
             <div class="mb-3">
                 <label for="BandPostTitle" class="form-label">Title</label>
@@ -74,10 +74,10 @@
             <div class="mb-3">
                 <label for="BandPostDescription" class="form-label">Body</label>
                 <textarea class="form-control" id="BandPostDescription" name="content" rows="3" th:field="*{description}"></textarea>
-                <!--                <input type="hidden" th:field="*{band_id}">-->
-                <div style="position: relative">
+<!--                                <input type="hidden" th:field="*{id}">-->
+                <div >
                     <input type="file" id="bandPostImgInput">
-                    <img src="" alt="image" id="bandPostImg" style="background-color: darkgrey; color:white; padding:5px; border:none;outline:none; height: 30vh; width: auto">
+                    <img src="" alt="image" id="bandPostImg" >
                 </div>
 
             </div>
@@ -143,6 +143,13 @@
             console.log(error);
         });
     });
+    window.addEventListener('click', function(e) {
+        var bandPost = document.getElementById('bandPostDialog');
+        if (e.target == bandPost) {
+            bandPost.close();
+        }
+    });
+
 </script>
 
 
