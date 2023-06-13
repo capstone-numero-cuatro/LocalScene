@@ -1,9 +1,6 @@
-* {
-
-}
 
 body {
-    background-color: #606060;
+    background: linear-gradient(90deg, #404066, #2b2c41);
     font-family: 'Permanent Marker', cursive;
 }
 
@@ -125,6 +122,13 @@ label {
     line-height: 1.3rem;
     padding: 0.5rem 0;
 }
+#preloader{
+    background: #26202a url("../img/preloader.gif") no-repeat center;
+    height: 100vh;
+    width: 100%;
+    position: fixed;
+    z-index: 100;
 
+}
 
 
