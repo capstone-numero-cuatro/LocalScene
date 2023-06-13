@@ -18,6 +18,7 @@
 
 </head>
 <body>
+<div id="preloader"></div>
 <nav th:insert="partials/navbar :: navbar" class="custom-navbar"></nav>
 
 
@@ -61,7 +62,25 @@
 </div>
 
 
+<!--preloader-->
+<script>
+  let loader = document.getElementById("preloader");
 
+  // Set the duration in milliseconds for the preloader to be displayed
+  const preloaderDuration = 1500; // Change this value as desired (e.g., 3000 for 3 seconds)
+
+  // Function to hide the preloader after the specified duration
+  function hidePreloader() {
+    loader.style.display = "none";
+  }
+
+  // Show the preloader initially
+  loader.style.display = "block";
+
+  // Set a timeout to hide the preloader after the specified duration
+  setTimeout(hidePreloader, preloaderDuration);
+
+</script>
 
 
 <!-- Include the Filestack JS library -->

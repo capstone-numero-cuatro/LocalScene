@@ -15,7 +15,7 @@
     <script src="https://kit.fontawesome.com/3d0b015fdb.js" crossorigin="anonymous"></script>
 </head>
 <body>
-
+<div id="preloader"></div>
 
 <nav th:insert="partials/navbar :: navbar"></nav>
 <div th:if="${message}" th:class="${alertClass}" th:text="${message}"></div>
@@ -165,6 +165,27 @@
 
 
 
+
+
+<!--preloader-->
+<script>
+    let loader = document.getElementById("preloader");
+
+    // Set the duration in milliseconds for the preloader to be displayed
+    const preloaderDuration = 1500; // Change this value as desired (e.g., 3000 for 3 seconds)
+
+    // Function to hide the preloader after the specified duration
+    function hidePreloader() {
+        loader.style.display = "none";
+    }
+
+    // Show the preloader initially
+    loader.style.display = "block";
+
+    // Set a timeout to hide the preloader after the specified duration
+    setTimeout(hidePreloader, preloaderDuration);
+
+</script>
 
 <!--File Stack-->
 <script src="//static.filestackapi.com/filestack-js/3.x.x/filestack.min.js"></script>
