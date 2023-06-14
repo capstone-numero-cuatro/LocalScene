@@ -1,12 +1,12 @@
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <nav th:fragment="navbar" class="navbar navbar-expand-lg bg-body-tertiary">
-    <div class="container-fluid">
+    <div class="container-fluid" id="navContainer">
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
-            <a class="navbar-brand" href="#">
+            <a class="navbar-brand" th:href="@{/home}">
                 <img th:src="@{/img/localscenelogo.png}" alt="Logo" width="30" height="24" class="d-inline-block align-text-top">
                 The Local Scene</a>
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
@@ -14,7 +14,7 @@
                     <a class="nav-link active" aria-current="page" th:href="@{/home}">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Venues</a>
+                    <a class="nav-link" th:href="@{/venues}">Venues</a>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -36,35 +36,46 @@
                 </li>
             </ul>
             <div>
-                <dialog id="c">
-                    <div class="container">
-                        <div class="screen">
-                            <div class="screen-content">
+                <dialog id="c" >
+                    <div class="navDialogContainer">
+                        <div class="navScreen">
+                            <div class="navScreen-content">
                                 <div th:if="${param.error}">
                                     Invalid Username and Password.
                                 </div>
                                 <div th:if="${param.logout}">
                                     You have been logged out.
                                 </div>
-                                <form class="login" th:action="@{/login}" method="post" id="loginForm">
-                                    <i class="fa-solid fa-user"></i>
-                                    <label for="email"></label>
-                                    <input id="email" placeholder="email" name="email" type="text" />
-                                    <label for="password"></label>
-                                    <i class="fa-solid fa-key"></i>
-                                    <input id="password" name="password" placeholder="Password" type="password" />
-                                    <input type="submit" value="Log In" class="btn btn-info" />
-                                    <p>Not a member? <a th:href="@{/sign-up}">Sign up!</a></p>
-                                    <p><a href="#forgot-password" onclick="showForm('forgot-password')">Forgot Password?</a></p>
-                                </form>
+                                    <div>
+                                        <form class="navLogin" th:action="@{/login}" method="post" id="navLoginForm">
+                                            <div>
+                                                <i class="fa-solid fa-user"></i>
+                                                <label for="navEmail"></label>
+                                                <input id="navEmail" placeholder="Email" name="email" type="text" />
+                                            </div>
+                                            <div>
+                                                <label for="navPassword"></label>
+                                                <i class="fa-solid fa-key"></i>
+                                                <input id="navPassword" name="password" placeholder="Password" type="password" />
+                                            </div>
+                                            <input style="margin: 1em;" type="submit" value="Log In" class="btn btn-info" />
+                                            <p>Not a member? <a th:href="@{/sign-up}">Sign up!</a></p>
+                                            <p><a href="#forgot-password" onclick="showForm('forgot-password')">Forgot Password?</a></p>
+                                        </form>
 
-                                <form id="forgot-password" th:action="@{/forgot-password}" method="post" style="display: none;">
-                                    <h4>Forgot Password</h4>
-                                    <p>Enter your email to reset your password:</p>
-                                    <input type="email" placeholder="Email" name="email" required>
-                                    <button type="submit" class="btn btn-primary">Reset Password</button>
-                                </form>
-
+                                        <form id="forgot-password" th:action="@{/forgot-password}" method="post" style="display: none;">
+                                            <h4>Forgot Password</h4>
+                                            <p>Enter your email to reset your password:</p>
+                                            <input type="email" placeholder="Email" name="email" required>
+                                            <button type="submit" class="btn btn-primary">Reset Password</button>
+                                        </form>
+                                    </div>
+                            </div>
+                            <div class="screen__background">
+                                <span class="screen__background__shape screen__background__shape4"></span>
+                                <span class="screen__background__shape screen__background__shape3"></span>
+                                <span class="screen__background__shape screen__background__shape2"></span>
+                                <span class="screen__background__shape screen__background__shape1"></span>
                             </div>
                         </div>
                     </div>
