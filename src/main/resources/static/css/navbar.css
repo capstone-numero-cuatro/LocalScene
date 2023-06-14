@@ -1,5 +1,9 @@
 #navContainer{
-    background-color: rebeccapurple;
+    background-color: #55ffe1;
+    font-family: 'Permanent Marker', cursive;
+}
+navbar {
+    background-color: #55ffe1;
 }
 #c{
     max-width: fit-content;
@@ -101,4 +105,37 @@
     font-weight: 700;
     width: 75%;
     transition: .2s;
+}
+#forgot-password{
+    height: 340px;
+    width: 320px;
+    background: #eee;
+    border-radius: 60% / 10%;
+    transform: translateY(-180px);
+    transition: .8s ease-in-out;
+}
+#forgot-password {
+    height: 380px;
+    width: 360px;
+    background: linear-gradient(90deg, #a4fbf4, #2affed);
+    border-radius: 60% / 10%;
+    transform: translateY(-180px);
+    transition: 3s ease-in-out;
+    z-index: 9000;
+}
+
+#chk:checked ~ .navLogin {
+    transform: translateY(-500px);
+}
+
+#chk:checked ~ #forgot-password {
+    transform: translateY(-180px);
+}
+#innerFrom{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+    z-index: 9000;
 }
