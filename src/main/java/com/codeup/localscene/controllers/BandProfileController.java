@@ -17,17 +17,16 @@ public class BandProfileController {
     private final BandRepository bandRepository;
     private final EventRepository eventRepository;
     private final UserRepository userRepository;
-    private final BandUserRepository bandUserRepository;
+
 
     @Autowired
     public BandProfileController(BandPostRepository bandPostRepository,
                                  BandRepository bandRepository, EventRepository eventRepository,
-                                 UserRepository userRepository, BandUserRepository bandUserRepository) {
+                                 UserRepository userRepository) {
         this.bandPostRepository = bandPostRepository;
         this.bandRepository = bandRepository;
         this.eventRepository = eventRepository;
         this.userRepository = userRepository;
-        this.bandUserRepository = bandUserRepository;
     }
 
 //    @Autowired
@@ -35,31 +34,31 @@ public class BandProfileController {
 //        this.bandPostRepository = bandPostRepository;
 //    }
 
-    @GetMapping("/band-profile/{band_id}")
-    public String showBandProfile( Model model, @PathVariable("band_id") Long band_id){
-        Bands band = bandRepository.findById(band_id).orElse(null);
+    @GetMapping("/band-profile/{bandId}")
+    public String showBandProfile( Model model, @PathVariable("bandId") Long bandId){
+        Band band = bandRepository.getReferenceById(bandId);
         if (band == null){
             return "redirect:/404";
         }
 
         // Get the currently logged-in user
-        Users loggedInUser = (Users) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User loggedInUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
         // Check if the logged-in user is associated with the band
-        if (!band.getUser().equals(loggedInUser)) {
-            return "redirect:/404"; // Redirect to error page if user doesn't have access to this band profile
-        }
+//        if (!band.getUser().equals(loggedInUser)) {
+//            return "redirect:/404"; // Redirect to error page if user doesn't have access to this band profile
+//        }
 
         model.addAttribute("events", new Events());
         model.addAttribute("bandPost", new BandPosts());
         model.addAttribute("band", band);
-        model.addAttribute("band_id", band_id);
+        model.addAttribute("bandId", bandId);
         return "users/band-profile";
     }
 
 
 
-    @PostMapping("/band-profile/{band_id}")
+    @PostMapping("/band-profile/{bandId}")
     public String createPostBandProfile(@ModelAttribute Events events){
 
         eventRepository.save(events);
@@ -68,7 +67,7 @@ public class BandProfileController {
 
     @GetMapping("/band-profile/{band_id}/edit")
     public String editBandProfile(@PathVariable("band_id") Long band_id, Model model) {
-        Bands band = bandRepository.findById(band_id).orElse(null);
+        Band band = bandRepository.findById(band_id).orElse(null);
         if (band == null) {
             return "redirect:/404";
         }
@@ -78,7 +77,7 @@ public class BandProfileController {
 
     @GetMapping("/band-profile/{band_id}/delete")
     public String deleteBandProfile(@PathVariable("band_id") Long band_id) {
-        Bands band = bandRepository.findById(band_id).orElse(null);
+        Band band = bandRepository.findById(band_id).orElse(null);
         if (band == null) {
             return "redirect:/404";
         }
@@ -100,25 +99,25 @@ public class BandProfileController {
         return "redirect:/home";
     }
 
-    @PostMapping("/band-profile/{band_id}/add-user")
-    public String addUserToBand(@PathVariable("band_id") Long bandId,
-                                @RequestParam("user_id") Long userId){
-
-        Bands band = bandRepository.findById(bandId).orElse(null);
-        if(band == null){
-            return "redirect:/404";
-        }
-
-        Users user = userRepository.findById(userId).orElse(null);
-        if(user == null){
-            return "redirect:/404";
-        }
-
-        BandUser bandUser = new BandUser(band, user);
-
-        bandUserRepository.save(bandUser);
-
-        return "redirect:/users/band-profile";
-    }
+//    @PostMapping("/band-profile/{band_id}/add-user")
+//    public String addUserToBand(@PathVariable("band_id") Long bandId,
+//                                @RequestParam("user_id") Long userId){
+//
+//        Bands band = bandRepository.findById(bandId).orElse(null);
+//        if(band == null){
+//            return "redirect:/404";
+//        }
+//
+//        Users user = userRepository.findById(userId).orElse(null);
+//        if(user == null){
+//            return "redirect:/404";
+//        }
+//
+//        BandUser bandUser = new BandUser(band, user);
+//
+//        bandUserRepository.save(bandUser);
+//
+//        return "redirect:/users/band-profile";
+//    }
 
 }

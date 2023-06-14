@@ -10,8 +10,8 @@ import jakarta.validation.constraints.Size;
 import java.util.List;
 
 @Entity
-@Table(name="users")
-public class Users {
+@Table(name="user")
+public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -38,11 +38,13 @@ public class Users {
     @Column(name = "profile_image", length = 500)
     private String profileImage;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<Bands> bands;
+    @ManyToOne
+    @JoinColumn(name = "band_id")
+    private Band band;
 
 
-    public Users(Users copy) {
+
+    public User(User copy) {
         id = copy.id;
         username = copy.username;
         password = copy.password;
@@ -50,10 +52,10 @@ public class Users {
         resetPasswordToken = copy.resetPasswordToken;
         enabled = copy.enabled;
         profileImage = copy.profileImage;
-        bands = copy.bands;
+        band = copy.band;
     }
 
-    public Users (){
+    public User (){
     }
 
 
@@ -121,7 +123,11 @@ public class Users {
         this.profileImage = profileImage;
     }
 
-    public List<Bands> getBands() {
-        return bands;
+    public Band getBand(){
+        return this.band;
+    }
+
+    public void setBand(Band band){
+        this.band = band;
     }
 }

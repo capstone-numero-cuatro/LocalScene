@@ -1,6 +1,6 @@
 package com.codeup.localscene.controllers;
 
-import com.codeup.localscene.models.Users;
+import com.codeup.localscene.models.User;
 import com.codeup.localscene.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
@@ -22,7 +22,7 @@ public class AuthenticationController {
     public void addLoggedInUser(Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String currentUserName = authentication.getName();
-        Users loggedInUser = userRepository.findByUsername(currentUserName);
+        User loggedInUser = userRepository.findByUsername(currentUserName);
 
         if (loggedInUser != null) {
             model.addAttribute("loggedInUser", loggedInUser);
