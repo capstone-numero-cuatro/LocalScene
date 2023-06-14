@@ -21,8 +21,8 @@ public class Bands {
     @Column(nullable = false, length = 200)
     private String description;
 
-    @Column
-    private String band_image;
+    @Column(name = "band_image", length = 500)
+    private String bandImage;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
@@ -33,7 +33,7 @@ public class Bands {
         band = copy.band;
         bandname = copy.bandname;
         description = copy.description;
-        band_image = copy.band_image;
+        bandImage = copy.bandImage;
         user = copy.user;
     }
 
@@ -66,12 +66,12 @@ public class Bands {
         this.band = band;
     }
 
-    public String getBand_image() {
-        return band_image;
+    public String getBandImage() {
+        return bandImage;
     }
 
-    public void setBand_image(String band_image) {
-        this.band_image = band_image;
+    public void setBandImage(String band_image) {
+        this.bandImage = bandImage;
     }
 
     public Users getUser() {

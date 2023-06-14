@@ -14,57 +14,36 @@
     <script src="https://kit.fontawesome.com/3d0b015fdb.js" crossorigin="anonymous"></script>
 </head>
 <body>
+<div id="preloader"></div>
 <nav th:insert="partials/navbar :: navbar"></nav>
 
-<div class="container text-center" style="border: solid plum 2px">
-    <div>
-        <div style="position: relative">
-            <input type="file" id="imageInput">
-            <img src="" alt="image" id="profilePic" style="background-color: darkgrey; color:white; padding:5px; border:none;outline:none; height: 30vh; width: auto">
-        </div>
-        <h2 th:text="${band.bandname}">Band Name Placeholder</h2>
-
-        <h3>Social Media Links</h3>
-
-    </div>
-
-</div>
-
-<div class="container">
-    <div>
-        <h3>Band Members</h3>
-        <ul>
-            <li th:each="member : ${userid}">
-                <span th:text="${userid}"></span>
-            </li>
-        </ul>
-    </div>
-    <div>
-        <h3>Add Band Member</h3>
-        <form th:action="@{/addMember}" method="post">
-            <input type="text" name="username" placeholder="Username" required>
-            <button class="btn  btn-success" type="submit">Add</button>
-        </form>
-    </div>
-</div>
+<div class="container text-center" id="bandInfoArea" style="border: solid plum 2px">
+    <div class="row" style="display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 20px;">
+        <img th:src="${band.bandImage}" alt="image" id="currentPic" style="background-color: darkgrey; color:white; padding:5px; border:none;outline:none; height: 30vh; width: auto">
 
 
-<div class="container" id="recent-activity" style="border: solid yellow 2px">
-    <div>
-        <div><h4>Recent Activity Placeholder</h4>
-            <div th:each="post : ${bandPosts}">
-                <div class="card" style="width: 18rem">
-                    <div class="card-body">
-                        <h5 class="card-title" th:text="${post.title}"></h5>
-                        <h6 class="card-body" th:text="${post.description}"></h6>
-                        <img th:src="@{'/images/' + ${post.image}}" alt="postImage">
-                    </div>
-                </div>
+        <h2 id="bandName" th:text="${band.bandname}" ></h2>
+
+        <div id="membersArea">
+            <div th:if="${not #lists.isEmpty(users)}">
+                <h4>Members:</h4>
+                <ul>
+                    <li th:each="band : ${users}">[[${user.username}]]</li>
+                    <!-- Add more list items for each band -->
+                </ul>
             </div>
-
         </div>
     </div>
+    <div>
+        <a th:href="@{/profile/band-post/edit}" type="button" class="btn btn-info">Edit Band</a>
+    </div>
 </div>
+
 <div class="container">
     <dialog id="bandPostDialog">
         <section id="insideModal">
@@ -114,10 +93,25 @@
     <button onclick="bandEvent.showModal()" type="button" class="btn btn-outline-danger">Event Creation</button>
 </div>
 
-
+<script src="//static.filestackapi.com/filestack-js/3.x.x/filestack.min.js"></script>
 <script>
+    //Set Preloader
+    let loader = document.getElementById("preloader");
+    const preloaderDuration = 1500;
+    function hidePreloader() {
+        loader.style.display = "none";
+    }
+    loader.style.display = "block";
 
-    const client = filestack.init("Abd5534iTviZyWy5jGpswz");
+    setTimeout(hidePreloader, preloaderDuration);
+
+    //Show band Image
+    const client = filestack.init(filestackKey);
+
+    function openBandImagePicker() {
+        const dialog = document.getElementById("changePicture");
+        dialog.showModal();
+    }
 
     // Band post image
     const bandPostImg = document.getElementById("bandPostImg");

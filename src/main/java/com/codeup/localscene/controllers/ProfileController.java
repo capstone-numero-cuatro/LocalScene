@@ -7,6 +7,7 @@ import com.codeup.localscene.models.Users;
 import com.codeup.localscene.repositories.BandRepository;
 import com.codeup.localscene.repositories.PostRepository;
 import com.codeup.localscene.repositories.UserRepository;
+import com.codeup.localscene.services.BandService;
 import com.codeup.localscene.services.EmailService;
 import com.codeup.localscene.services.PasswordResetService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,14 +32,16 @@ public class ProfileController {
     private final BandRepository bandRepository;
     private final PasswordResetService passwordResetService;
     private final EmailService emailService;
+    private final BandService bandService;
 
     @Autowired
-    public ProfileController(UserRepository userRepository, PostRepository postRepository, BandRepository bandRepository, PasswordResetService passwordResetService, EmailService emailService) {
+    public ProfileController(UserRepository userRepository, PostRepository postRepository, BandRepository bandRepository, PasswordResetService passwordResetService, EmailService emailService, BandService bandService) {
         this.userRepository = userRepository;
         this.postRepository = postRepository;
         this.bandRepository = bandRepository;
         this.passwordResetService = passwordResetService;
         this.emailService = emailService;
+        this.bandService = bandService;
     }
 
     @GetMapping("/profile/{id}")
@@ -72,8 +75,9 @@ public class ProfileController {
 
     @PostMapping("/bands/create")
     public String createBand(@ModelAttribute Bands band) {
-        bandRepository.save(band);
-        return "redirect:/band-profile/" + band.getId();
+        Bands createdBand = bandService.createBand(band);
+        System.out.println("createdBand = " + createdBand.getBandImage());
+        return "redirect:/band-profile/" + createdBand.getId();
     }
 
     @PostMapping("/profile/reset-password")
