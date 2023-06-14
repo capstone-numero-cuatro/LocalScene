@@ -23,19 +23,20 @@ body{
     display: inline-flex;
     justify-content: space-evenly;
     align-items: center;
+    margin-right: 20%;
 }
 #signup-image{
     height: 600px !important;
         width: 350px !important;
         border-radius: 20px !important;
-    margin: 4em;
+    margin: 1em;
     box-shadow: 0px 0px 24px #d2ebff;
 }
 form{
 
     display: flex;
     flex-direction: column;
-    margin: 3em;
+    margin: .5em;
     padding: 4em;
     z-index: 30;
 }
@@ -121,6 +122,9 @@ form {
 input{
     border-radius: 25px;
     margin: .5em;
+}
+#criterias{
+    color:white;
 }
 
 

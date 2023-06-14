@@ -67,36 +67,37 @@
                             <input value="Sign me up!" type="submit" id="submitBtn" disabled>
                         </div>
                     </form>
-                    <div id="usernameCriteria" style="display: none;">
-                        <h5>Name must be:</h5>
-                        <ul>
-                            <li id="usernameChar" class="criteria">Only letters and numbers</li>
-                            <li id="usernameLength" class="criteria">Between 3 and 15 characters</li>
-                        </ul>
+                    <div id="criterias" style="color: white;">
+                        <div id="usernameCriteria" style="display: none;">
+                            <h5>Name must be:</h5>
+                            <ul>
+                                <li id="usernameChar" class="criteria">Only letters and numbers</li>
+                                <li id="usernameLength" class="criteria">Between 3 and 15 characters</li>
+                            </ul>
+                        </div>
+                        <div id="emailCriteria" style="display: none;">
+                            <h5>Email must be:</h5>
+                            <ul>
+                                <li id="emailSymbol" class="criteria">A valid email address</li>
+                            </ul>
+                        </div>
+                        <div id="passwordCriteria" style="display: none;">
+                            <h5>Password must include at least:</h5>
+                            <ul>
+                                <li id="lowercase" class="criteria">A lowercase letter</li>
+                                <li id="uppercase" class="criteria">An uppercase letter</li>
+                                <li id="number" class="criteria">A number</li>
+                                <li id="specialChar" class="criteria">A special character ($, %,@,#,^, or &)</li>
+                                <li id="length" class="criteria">Between 4 and 15 characters</li>
+                            </ul>
+                        </div>
+                        <div id="confirmPasswordCriteria" style="display: none;">
+                            <h5>Confirm password must be:</h5>
+                            <ul>
+                                <li id="passwordMatch" class="criteria">Match the password</li>
+                            </ul>
+                        </div>
                     </div>
-                    <div id="emailCriteria" style="display: none;">
-                        <h5>Email must be:</h5>
-                        <ul>
-                            <li id="emailSymbol" class="criteria">A valid email address</li>
-                        </ul>
-                    </div>
-                    <div id="passwordCriteria" style="display: none;">
-                        <h5>Password must include at least:</h5>
-                        <ul>
-                            <li id="lowercase" class="criteria">A lowercase letter</li>
-                            <li id="uppercase" class="criteria">An uppercase letter</li>
-                            <li id="number" class="criteria">A number</li>
-                            <li id="specialChar" class="criteria">A special character ($, %,@,#,^, or &)</li>
-                            <li id="length" class="criteria">Between 4 and 15 characters</li>
-                        </ul>
-                    </div>
-                    <div id="confirmPasswordCriteria" style="display: none;">
-                        <h5>Confirm password must be:</h5>
-                        <ul>
-                            <li id="passwordMatch" class="criteria">Match the password</li>
-                        </ul>
-                    </div>
-
                 </div>
                 <div class="screen__background">
                     <span class="screen__background__shape screen__background__shape4"></span>
@@ -180,31 +181,31 @@
     const specialCharsRegex = /[$%@#^&]/g;
 
     if (password.match(lowercaseRegex)) {
-      document.getElementById('lowercase').style.color = 'green';
+      document.getElementById('lowercase').style.color = 'limegreen';
     } else {
       document.getElementById('lowercase').style.color = 'grey';
     }
 
     if (password.match(uppercaseRegex)) {
-      document.getElementById('uppercase').style.color = 'green';
+      document.getElementById('uppercase').style.color = 'limegreen';
     } else {
       document.getElementById('uppercase').style.color = 'grey';
     }
 
     if (password.match(numbersRegex)) {
-      document.getElementById('number').style.color = 'green';
+      document.getElementById('number').style.color = 'limegreen';
     } else {
       document.getElementById('number').style.color = 'grey';
     }
 
     if (password.match(specialCharsRegex)) {
-      document.getElementById('specialChar').style.color = 'green';
+      document.getElementById('specialChar').style.color = 'limegreen';
     } else {
       document.getElementById('specialChar').style.color = 'grey';
     }
 
     if (password.length >= 4 && password.length <= 15) {
-      document.getElementById('length').style.color = 'green';
+      document.getElementById('length').style.color = 'limegreen';
     } else {
       document.getElementById('length').style.color = 'grey';
     }
@@ -229,14 +230,14 @@
     let isCharValid = false, isLengthValid = false;
 
     if (username.match(charRegex)) {
-      document.getElementById('usernameChar').style.color = 'green';
+      document.getElementById('usernameChar').style.color = 'limegreen';
       isCharValid = true;
     } else {
       document.getElementById('usernameChar').style.color = 'grey';
     }
 
     if (username.length >= 3 && username.length <= 15) {
-      document.getElementById('usernameLength').style.color = 'green';
+      document.getElementById('usernameLength').style.color = 'limegreen';
       isLengthValid = true;
     } else {
       document.getElementById('usernameLength').style.color = 'grey';
@@ -262,7 +263,7 @@
     let isSymbolValid = false;
 
     if (email.match(emailSymbolRegex)) {
-      document.getElementById('emailSymbol').style.color = 'green';
+      document.getElementById('emailSymbol').style.color = 'limegreen';
       isSymbolValid = true;
     } else {
       document.getElementById('emailSymbol').style.color = 'grey';
@@ -288,7 +289,7 @@
     var passwordMatchCriteria = document.getElementById("passwordMatch");
 
     if (password === confirmPassword) {
-      passwordMatchCriteria.style.color = "green";
+      passwordMatchCriteria.style.color = "limegreen";
     } else {
       passwordMatchCriteria.style.color = "red";
     }
@@ -301,7 +302,7 @@
     let criteria = document.getElementsByClassName('criteria');
 
     for (let i = 0; i < criteria.length; i++) {
-      if (criteria[i].style.color !== 'green') {
+      if (criteria[i].style.color !== 'limegreen') {
         return false;
       }
     }
