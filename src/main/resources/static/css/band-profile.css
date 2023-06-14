@@ -1,0 +1,40 @@
+
+body {
+    background: linear-gradient(90deg, #404066, #2b2c41);
+    font-family: 'Permanent Marker', cursive;
+    color: whitesmoke;
+}
+
+#bandPostDialog {
+    background: url("../img/Image about black and white shared by Eirené Grace.jpeg");
+    background-size: cover;
+    height: fit-content;
+    width: 430px;
+    color: white;
+    border-radius: 30px;
+    border: none;
+    box-shadow: whitesmoke;
+    /*display: flex;*/
+    /*flex-direction: column;*/
+    /*align-items: center;*/
+    /*justify-content: center;*/
+    padding: 5em;
+}
+#insideModal{
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+}
+
+/*#bandPostDialog h2 {*/
+/*    position: relative;*/
+/*    z-index: 1;*/
+/*}*/
+
+/*#bandPostDialog form {*/
+/*    margin: 2em;*/
+/*    position: relative;*/
+/*}*/
