@@ -16,6 +16,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.security.Principal;
@@ -46,7 +48,7 @@ public class EditController {
     }
 
     @PostMapping("/profile/edit")
-    public String updateUserProfile(@ModelAttribute("user") Users user, Model model, Principal principal) {
+    public String updateUserProfile(@ModelAttribute("user") Users user, @RequestParam("profileImage") String profileImageUrl, Model model, Principal principal) {
         try {
             String username = principal.getName();
             Users currentUser = userRepository.findByUsername(username);
@@ -54,7 +56,10 @@ public class EditController {
             if (currentUser != null) {
                 currentUser.setUsername(user.getUsername());
                 currentUser.setEmail(user.getEmail());
-                currentUser.setProfileImage(user.getProfileImage());
+
+                if (profileImageUrl != null && !profileImageUrl.isEmpty()) {
+                    currentUser.setProfileImage(profileImageUrl);
+                }
 
                 userRepository.save(currentUser);
 
