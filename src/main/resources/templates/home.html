@@ -4,13 +4,16 @@
     <meta charset="UTF-8">
     <title>The Local Scene</title>
     <!-- Include custom CSS files -->
+    <link rel="stylesheet" href="../static/css/home.css">
+    <link rel="stylesheet" href="../static/css/map.css">
+    <link rel="stylesheet" href="../static/css/nav-card.css">
     <link rel="stylesheet" th:href="@{/css/map.css}">
     <link rel="stylesheet" th:href="@{/css/home.css}">
     <!-- Include Mapbox GL JS library -->
     <script src='https://api.mapbox.com/mapbox-gl-js/v2.13.0/mapbox-gl.js' type="text/javascript"></script>
     <!-- Include Mapbox GL CSS styles -->
     <link href='https://api.mapbox.com/mapbox-gl-js/v2.13.0/mapbox-gl.css' rel='stylesheet' type='text/css' />
-
+    <link href="https://fonts.googleapis.com/css?family=Archivo+Black&display=swap" rel="stylesheet">
     <!-- Include Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <!-- Include Font Awesome CSS -->
@@ -25,21 +28,51 @@
         <div th:replace="partials/navbar"></div>
     </div>
     <div th:if="${message}" th:class="${alertClass}" th:text="${message}"></div>
-
     <div>
-        <div class="main-background">
-            <img src="../static/img/localscen.png" alt="">
+        <div class="container" id="main-title">
+            <div class="neon">The </div>
+            <div class="flux">Local </div>
+            <div class="flux">Scene </div>
         </div>
-        <h3>The Local Scene</h3>
-        <div id="map"></div>
     </div>
 </div>
-<div class="container">
-    <h1>City or Zip: </h1>
-    <div class="row">
-        <div class="col-md-6">
+<br><br><br>
+<div>
+    <div class="nav-container">
+        <ul class="main-nav">
+            <li class="item1">
+                <div class="bg"></div>
+            </li>
+            <li class="item2">
+                <div class="bg"></div>
+            </li>
+            <li class="item3">
+                <div class="bg"></div>
+            </li>
+            <li class="item4">
+                <div class="bg"></div>
+            </li>
+            <li class="item5">
+                <div class="bg"></div>
+            </li>
+        </ul>
+    </div>
+</div>
+<br>
+<div>
+    <div class="mission-container">
+        <h2 class="t-title">Mission Statement</h2>
+        <p class="t-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum eget erat et quam pulvinar sagittis.
+            Nulla facilisi. Donec auctor metus non leo tincidunt fringilla. Phasellus luctus justo sed nunc feugiat,
+            vitae malesuada sem ultrices. Morbi convallis auctor dui, ac dignissim nunc finibus in. Praesent luctus
+            enim ut eros cursus, id finibus ipsum lacinia.</p>
+    </div>
+</div>
+<br>
+<div class="search-container">
+    <h1 class="search-title">City or Zip: </h1>
             <form id="search-form">
-                <div class="input-group mb-3">
+                <div class="input-group">
                     <label for="search-input"></label>
                     <input type="text" id="search-input" class="form-control" placeholder="Enter your location">
                     <div class="input-group-append">
@@ -47,35 +80,11 @@
                     </div>
                 </div>
             </form>
-        </div>
-    </div>
 </div>
-<div class="container">
-    <div class="mission-container">
-        <h2>Mission Statement</h2>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum eget erat et quam pulvinar sagittis.
-            Nulla facilisi. Donec auctor metus non leo tincidunt fringilla. Phasellus luctus justo sed nunc feugiat,
-            vitae malesuada sem ultrices. Morbi convallis auctor dui, ac dignissim nunc finibus in. Praesent luctus
-            enim ut eros cursus, id finibus ipsum lacinia.</p>
-    </div>
-<!--    <div class="people-container">-->
-<!--        <div class="person">-->
-<!--            <img src="img/person1.jpg" alt="Person 1">-->
-<!--        </div>-->
-<!--        <div class="person">-->
-<!--            <img src="img/person2.jpg" alt="Person 2">-->
-<!--        </div>-->
-<!--        <div class="person">-->
-<!--            <img src="img/person3.jpg" alt="Person 3">-->
-<!--        </div>-->
-<!--        <div class="person">-->
-<!--            <img src="img/person4.jpg" alt="Person 4">-->
-<!--        </div>-->
-<!--    </div>-->
-</div>
-<div>
     <div>
-        <div>
+        <div id="map"></div>
+    </div>
+        <div class="NavtabContainer">
             <ul class="nav nav-tabs" id="myTab" role="tablist">
                 <li class="nav-item" role="presentation">
                     <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">Posts</button>
@@ -84,7 +93,7 @@
                     <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false">Events</button>
                 </li>
                 <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact" type="button" role="tab" aria-controls="contact" aria-selected="false">Band of Lists</button>
+                    <button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact" type="button" role="tab" aria-controls="contact" aria-selected="false">List of Bands</button>
                 </li>
                 <li class="nav-item" role="presentation">
                     <button class="nav-link" id="venues-tab" data-bs-toggle="tab" data-bs-target="#venues" type="button" role="tab" aria-controls="venues" aria-selected="false">Venues</button>
@@ -134,11 +143,12 @@
                                         </div>
                                     </div>
                                 </div>
+
                         </div>
                 </div>
             </div>
                 <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
-                    <h2>Band of Lists</h2>
+                    <h2>List of Bands</h2>
                     <div id="BandsContainer">
                         <div class="band">
                             <p class="Band-title">Band 1</p>
@@ -195,8 +205,26 @@
 
             </div>
         </div>
-    </div>
 </div>
+<h1 class="aboutUs">About Us</h1>
+    <div class="people-card">
+        <div class="user-card">
+            <img src="img/person1.jpg" alt="Person 1">
+        </div>
+        <div class="user-card">
+            <img src="img/person2.jpg" alt="Person 2">
+        </div>
+        <div class="user-card">
+            <img src="img/person3.jpg" alt="Person 3">
+        </div>
+        <div class="user-card">
+            <img src="img/person4.jpg" alt="Person 4">
+        </div>
+        <div class="user-card">
+            <img src="img/person4.jpg" alt="Person 4">
+        </div>
+    </div>
+<div>
     <div class="modal" id="modal">
         <div class="modal-content">
             <span class="close" onclick="hideModal()">&times;</span>
@@ -204,6 +232,7 @@
             <p id="modal-content"></p>
         </div>
     </div>
+</div>
 <th:block th:replace="partials/navbar-scripts :: navbar-scripts"></th:block>
 
 <!--preloader-->
@@ -227,7 +256,10 @@
 </script>
 
     <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
-
+<script src="../static/js/keyTM.js"></script>
+<script src="../static/js/keys.js"></script>
+<script src="../static/js/events.js"></script>
+<script src="../static/js/mapbox-geocode-utils.js"></script>
     <script th:src="@{/js/keys.js}" type="text/javascript"></script>
 <script th:src="@{/js/events.js}" type="text/javascript"></script>
                             <script th:src="@{/js/keyTM.js}" type="text/javascript"></script>
