@@ -21,13 +21,7 @@
 <nav th:insert="partials/navbar :: navbar"></nav>
 
 <header>
-<!--    <div class="overlay">-->
-<!--        <h1>Simply The Best</h1>-->
-<!--        <h3>Reasons for Choosing US</h3>-->
-<!--        <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Vero nostrum quis, odio veniam itaque ullam debitis qui magnam consequatur ab. Vero nostrum quis, odio veniam itaque ullam debitis qui magnam consequatur ab.</p>-->
-<!--        <br>-->
-<!--        <button>READ MORE</button>-->
-<!--    </div>-->
+    <h2 id="userName" th:text="${user.username}" ></h2>
 </header>
 
 
@@ -50,7 +44,7 @@
 
 
 
-        <h2 id="userName" th:text="${user.username}" ></h2>
+
 
         <div id="bandsArea">
 <!--            <div th:if="${not #lists.isEmpty(bands)}">-->
@@ -65,62 +59,63 @@
     <div>
         <a th:href="@{/profile/edit}" type="button" class="btn btn-info">Edit profile</a>
     </div>
-</div>
-
-<div id="postsButtons">
-    <div  id="blog-post">
-        <dialog id="postCreationDialog">
-            <h5>Create a new post</h5>
-            <form th:action="@{/profile/posts/create}" th:method="post" th:object="${posts}">
-                <div class="mb-3">
-                    <label for="BlogTitle" class="form-label">Title</label>
-                    <input type="text" class="form-control" id="BlogTitle" name="title" placeholder="Title" th:field="*{title}">
-                </div>
-
-                <div class="mb-3">
-                    <label for="BlogTextArea" class="form-label">Post Body</label>
-                    <textarea class="form-control" id="BlogTextArea" name="content" rows="3" th:field="*{description}"></textarea>
-                    <input type="hidden" th:field="*{id}">
-
-                    <div style="position: relative">
-                        <input type="file" id="postFileInput" onchange="handlePostImageUpload()">
-                        <img src="" alt="image" id="postFile" style="background-color: darkgrey; color:white; padding:5px; border:none;outline:none; height: 30vh; width: auto">
-
-                    </div>
-                </div>
-                <button th:type="submit" class="btn btn-primary">Submit!</button>
-            </form>
-        </dialog>
-        <button onclick="postCreationDialog.showModal()" type="button" class="btn btn-info">Create New Post</button>
-    </div>
-    <div  id="bandCreate">
-        <dialog id="bandCreationDialog">
-            <h5>Create a new band</h5>
-            <form th:method="post" th:action="@{/profile/bands/create}" th:object="${band}">
-                <div class="mb-3">
-                    <label for="BandName" class="form-label">Band Name</label>
-                    <input type="text" class="form-control" id="BandName" name="bandName" placeholder="Band Name"
-                           th:field="*{bandname}">
-                </div>
-
-                <div class="mb-3">
-                    <label for="BandDescription" class="form-label">Band Description</label>
-                    <textarea class="form-control" id="BandDescription" name="description"
-                              rows="3"           th:field="*{description}"></textarea>
-<!--                    <input type="hidden" th:field="*{id}">-->
-                    <div style="position: relative">
-                        <input type="file" id="bandCreateImg" onchange="handleBandImageUpload()">
-                        <img src="" alt="image" id="bandImg" style="background-color: darkgrey; color:white; padding:5px; border:none;outline:none; height: 30vh; width: auto">
+    <div id="postsButtons">
+        <div  id="blog-post">
+            <dialog id="postCreationDialog">
+                <h5>Create a new post</h5>
+                <form th:action="@{/profile/posts/create}" th:method="post" th:object="${posts}">
+                    <div class="mb-3">
+                        <label for="BlogTitle" class="form-label">Title</label>
+                        <input type="text" class="form-control" id="BlogTitle" name="title" placeholder="Title" th:field="*{title}">
                     </div>
 
-                </div>
-                <button type="submit" class="btn btn-success">Submit!</button>
-            </form>
-        </dialog>
-        <button onclick="bandCreationDialog.showModal()" type="button" class="btn btn-success">Create a Band</button>
-    </div>
+                    <div class="mb-3">
+                        <label for="BlogTextArea" class="form-label">Post Body</label>
+                        <textarea class="form-control" id="BlogTextArea" name="content" rows="3" th:field="*{description}"></textarea>
+                        <input type="hidden" th:field="*{id}">
 
+                        <div style="position: relative">
+                            <input type="file" id="postFileInput" onchange="handlePostImageUpload()">
+                            <img src="" alt="image" id="postFile" style="background-color: darkgrey; color:white; padding:5px; border:none;outline:none; height: 30vh; width: auto">
+
+                        </div>
+                    </div>
+                    <button th:type="submit" class="btn btn-primary">Submit!</button>
+                </form>
+            </dialog>
+            <button onclick="postCreationDialog.showModal()" type="button" class="btn btn-info">Create New Post</button>
+        </div>
+        <div  id="bandCreate">
+            <dialog id="bandCreationDialog">
+                <h5>Create a new band</h5>
+                <form th:method="post" th:action="@{/profile/bands/create}" th:object="${band}">
+                    <div class="mb-3">
+                        <label for="BandName" class="form-label">Band Name</label>
+                        <input type="text" class="form-control" id="BandName" name="bandName" placeholder="Band Name"
+                               th:field="*{bandname}">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="BandDescription" class="form-label">Band Description</label>
+                        <textarea class="form-control" id="BandDescription" name="description"
+                                  rows="3"           th:field="*{description}"></textarea>
+                        <!--                    <input type="hidden" th:field="*{id}">-->
+                        <div style="position: relative">
+                            <input type="file" id="bandCreateImg" onchange="handleBandImageUpload()">
+                            <img src="" alt="image" id="bandImg" style="background-color: darkgrey; color:white; padding:5px; border:none;outline:none; height: 30vh; width: auto">
+                        </div>
+
+                    </div>
+                    <button type="submit" class="btn btn-success">Submit!</button>
+                </form>
+            </dialog>
+            <button onclick="bandCreationDialog.showModal()" type="button" class="btn btn-success">Create a Band</button>
+        </div>
+
+    </div>
 </div>
+
+
 
 
 <div class="container text-center" id="recent-activity">
