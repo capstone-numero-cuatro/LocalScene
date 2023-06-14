@@ -32,8 +32,24 @@
 
 
 <div class="container text-center" Id="userInfoArea" >
-    <div class="row" style="display: flex;flex-direction: row;align-items: center;justify-content: center;flex-wrap: wrap;margin-bottom: 20px;">
+    <div class="row" style="display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 20px;">
         <img th:src="${user.profileImage}" alt="image" id="currentPic" style="background-color: darkgrey; color:white; padding:5px; border:none;outline:none; height: 30vh; width: auto">
+
+        <dialog id="changePicture">
+            <div>
+                <input type="file" id="imageInput" onchange="handleProfilePictureUpload()">
+                <img src="" alt="image" id="profilePic" style="background-color: darkgrey; color:white; padding:5px; border:none;outline:none; height: 30vh; width: auto">
+                <button type="submit" class="btn btn-success">Submit!</button>
+            </div>
+        </dialog>
+
+
+
         <h2 id="userName" th:text="${user.username}" ></h2>
 
         <div id="bandsArea">
