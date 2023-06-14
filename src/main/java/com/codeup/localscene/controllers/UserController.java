@@ -1,7 +1,7 @@
 package com.codeup.localscene.controllers;
 import com.codeup.localscene.repositories.UserRepository;
 import com.codeup.localscene.services.EmailService;
-import com.codeup.localscene.models.Users;
+import com.codeup.localscene.models.User;
 import com.codeup.localscene.services.UserDetailsLoader;
 import jakarta.servlet.http.HttpServletRequest;
 import org.apache.tomcat.util.net.openssl.ciphers.Authentication;
@@ -38,13 +38,13 @@ public class UserController {
 
     @GetMapping("/sign-up")
     public String showRegistrationForm(Model model) {
-        model.addAttribute("user", new Users());
+        model.addAttribute("user", new User());
         model.addAttribute("filestackKey", filestackApiKey);
         return "sign-up";
     }
 
     @PostMapping("/sign-up")
-    public ResponseEntity<String> signUp(@ModelAttribute Users user) {
+    public ResponseEntity<String> signUp(@ModelAttribute User user) {
         try {
             emailService.registerUser(user);
             return ResponseEntity.ok("Registration successful. Please check your email for verification link.");
@@ -98,7 +98,7 @@ public class UserController {
 
     @GetMapping("/reset-password")
     public String showResetPasswordForm(@RequestParam("token") String token, Model model) {
-        Users user = emailService.findByResetPasswordToken(token);
+        User user = emailService.findByResetPasswordToken(token);
         if (user != null) {
             model.addAttribute("token", token);
             return "users/reset-password";
@@ -112,7 +112,7 @@ public class UserController {
     public String handleResetPassword(@RequestParam("token") String token,
                                       @RequestParam("password") String newPassword,
                                       Model model) {
-        Users user = emailService.findByResetPasswordToken(token);
+        User user = emailService.findByResetPasswordToken(token);
         if (user == null) {
             model.addAttribute("message", "Invalid token. Please try again.");
             return "users/message";
@@ -122,6 +122,8 @@ public class UserController {
         model.addAttribute("message", "Your password has been updated successfully. Please log in.");
         return "users/message";
     }
+
+
 
 }
 

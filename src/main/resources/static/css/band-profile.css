@@ -1,0 +1,155 @@
+
+body {
+    background: var(--clr-bg);
+    font-family: 'Permanent Marker', cursive;
+    color: whitesmoke;
+}
+header {
+    background: url('../img/santana.jpg');
+    text-align: center;
+    width: 100%;
+    height: 45vh;
+    background-size: cover;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    position: relative;
+    overflow: hidden;
+    border-radius: 0 0 85% 85% / 30%;
+    background-position: center top;
+}
+#bandInfoArea{
+    display: flex;
+    height: 65vh;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    position: absolute;
+    z-index: 1;
+    background: var(--clr-bg);
+    border-radius: 25px;
+    top: 30%;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    color: var(--clr-neon);
+    box-shadow: rgba(6, 24, 44, 0.4) 0px 0px 0px 2px, rgba(6, 24, 44, 0.65) 0px 4px 6px -1px, rgba(255, 255, 255, 0.08) 0px 1px 0px inset;
+}
+#bandButtons{
+    /*border:solid red 2px;*/
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    margin: 2em;
+}
+#bandPostDialog {
+    background: url("../img/Image about black and white shared by Eirené Grace.jpeg");
+    background-size: cover;
+    height: fit-content;
+    width: 430px;
+    color: white;
+    border-radius: 30px;
+    border: none;
+    box-shadow: rgba(240, 46, 170, 0.4) 0px 5px, rgba(240, 46, 170, 0.3) 0px 10px, rgba(240, 46, 170, 0.2) 0px 15px, rgba(240, 46, 170, 0.1) 0px 20px, rgba(240, 46, 170, 0.05) 0px 25px;
+    padding: 5em;
+}
+
+#insideModal{
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+}
+#bandEvent{
+    background: url("../img/event.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    height: fit-content;
+    width: 420px;
+    color: black;
+    border-radius: 30px;
+    border: none;
+    box-shadow: rgba(240, 46, 170, 0.4) 0px 5px, rgba(240, 46, 170, 0.3) 0px 10px, rgba(240, 46, 170, 0.2) 0px 15px, rgba(240, 46, 170, 0.1) 0px 20px, rgba(240, 46, 170, 0.05) 0px 25px;
+    padding: 4em;
+}
+#insideEvent{
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.band-post-btn{
+    font-size: 2em;
+
+    display: inline-block;
+    cursor: pointer;
+    text-decoration: none;
+    color: var(--clr-neon);
+    border: var(--clr-neon) 4px solid;
+    padding: 0.25em 1em;
+    border-radius: 0.25em;
+
+    text-shadow: 0 0 0.125em rgba(255, 255, 255, 0.55), 0 0 0.5em currentColor;
+
+    box-shadow: inset 0 0 0.5em 0 var(--clr-neon), 0 0 0.5em 0 var(--clr-neon);
+
+    position: relative;
+}
+
+:root {
+    --clr-neon: rgba(245, 128, 253, 1);
+    --clr-bg: rgba(1, 1, 1, 1);
+    --clr-white: rgba(255, 255, 255, 1);
+}
+
+.band-post-btn::before {
+    pointer-events: none;
+    content: "";
+    position: absolute;
+    background: var(--clr-neon);
+    top: 120%;
+    left: 0;
+    width: 100%;
+    height: 100%;
+
+    transform: perspective(1.2em) rotateX(40deg) scale(1.5, 0.5);
+    filter: blur(1.15em);
+    opacity: 0.7;
+
+    transition: transform 0.5s linear;
+}
+
+.band-post-btn::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    box-shadow: 0 0 4em 0.6em var(--clr-neon), 0 0 1em 0.2em var(--clr-white);
+    opacity: 0;
+    background: var(--clr-neon);
+    z-index: -1;
+    transition: opacity 0.5s linear;
+}
+
+.band-post-btn:hover,
+.band-post-btn:focus {
+    color: var(--clr-bg);
+    text-shadow: none;
+}
+
+.band-post-btn:hover::before,
+.band-post-btn:focus::before {
+    opacity: 1;
+    transform: perspective(1em) rotateX(40deg) scale(1.5, 0.6);
+    transition: transform 0.5s linear;
+}
+
+.band-post-btn:hover::after,
+.band-post-btn:focus::after {
+    opacity: 1;
+}
+

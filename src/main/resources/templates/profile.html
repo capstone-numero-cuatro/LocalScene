@@ -5,6 +5,8 @@
     <title>Profile</title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+</head>
+    <link rel="stylesheet" th:href="@{/css/navbar.css}">
     <link rel="stylesheet" th:href="@{/css/profile.css}" type="text/css" >
 
 
@@ -18,6 +20,11 @@
 <div id="preloader"></div>
 
 <nav th:insert="partials/navbar :: navbar"></nav>
+
+<header>
+    <h2 id="userName" th:text="${user.username}" ></h2>
+</header>
+
 
 <div class="container text-center" Id="userInfoArea" >
     <div class="row" style="display: flex;
@@ -36,97 +43,89 @@
             </div>
         </dialog>
 
-        <button onclick="openProfilePicturePicker()" type="button" id="changeProfilePic" style="--content: 'Hover me!';"><div class="left"> </div> Change Profile Picture<div class="right"></div></button>
 
-        <h2 id="userName" th:text="${user.username}" ></h2>
+
+
 
         <div id="bandsArea">
-            <div th:if="${not #lists.isEmpty(bands)}">
+<!--            <div th:if="${not #lists.isEmpty(bands)}">-->
                 <h4>Bands:</h4>
                 <ul>
-                    <li th:each="band : ${bands}">[[${band.bandname}]]</li>
-                    <!-- Add more list items for each band -->
+                    <li th:each="band : ${user.band}">
+                        <a th:href="@{/band-profile/{bandId}(bandId=${band.id})}">
+                            <span th:text="${band.bandname}"></span>
+                        </a>
+                    </li>
+<!--                    <li th:text="band.bandname"></li>-->
                 </ul>
-            </div>
         </div>
-
+    </div>
     <div>
         <a th:href="@{/profile/edit}" type="button" class="btn btn-info">Edit profile</a>
     </div>
-
-<div id="postsButtons">
-    <div  id="blog-post">
-        <dialog id="postCreationDialog">
-            <h5>Create a new post</h5>
-            <form th:action="@{/profile/posts/create}" th:method="post" th:object="${posts}">
-                <div class="mb-3">
-                    <label for="BlogTitle" class="form-label">Title</label>
-                    <input type="text" class="form-control" id="BlogTitle" name="title" placeholder="Title" th:field="*{title}">
-
-                </div>
-
-                <div class="mb-3">
-                    <label for="BlogTextArea" class="form-label">Post Body</label>
-                    <textarea class="form-control" id="BlogTextArea" name="content" rows="3" th:field="*{description}"></textarea>
-                    <input type="hidden" th:field="*{id}">
-
-                    <div style="position: relative">
-                        <input type="file" id="postFileInput" onchange="handlePostImageUpload()">
-                        <img src="" alt="image" id="postFile" style="background-color: darkgrey; color:white; padding:5px; border:none;outline:none; height: 30vh; width: auto">
-
-                    </div>
-                </div>
-                <button th:type="submit" class="btn btn-primary">Submit!</button>
-            </form>
-        </dialog>
-        <button onclick="postCreationDialog.showModal()" type="button" class="btn btn-info">Create New Post</button>
-    </div>
-    <div  id="bandCreate">
-        <dialog id="bandCreationDialog">
-            <h5>Create a new band</h5>
-            <form th:method="post" th:action="@{/bands/create}" th:object="${bands}">
-                <div class="mb-3">
-                    <label for="BandName" class="form-label">Band Name</label>
-                    <input type="text" class="form-control" id="BandName" name="bandName" placeholder="Band Name"
-                           th:field="*{bandname}">
-                </div>
-
-                <div class="mb-3">
-                    <label for="BandDescription" class="form-label">Band Description</label>
-                    <textarea class="form-control" id="BandDescription" name="description" rows="3"           th:field="*{description}"></textarea>
-                    <input type="hidden" th:field="*{id}">
-                    <div style="position: relative">
-                        <input type="file" id="bandCreateImg" onchange="handleBandImageUpload()">
-                        <img src="" alt="image" id="bandImg" style="background-color: darkgrey; color:white; padding:5px; border:none;outline:none; height: 30vh; width: auto">
+    <div id="postsButtons">
+        <div  id="blog-post">
+            <dialog id="postCreationDialog">
+                <h5>Create a new post</h5>
+                <form th:action="@{/profile/posts/create}" th:method="post" th:object="${posts}">
+                    <div class="mb-3">
+                        <label for="BlogTitle" class="form-label">Title</label>
+                        <input type="text" class="form-control" id="BlogTitle" name="title" placeholder="Title" th:field="*{title}">
                     </div>
 
-                </div>
-                <button type="submit" class="btn btn-success">Submit!</button>
-            </form>
-        </dialog>
-        <button onclick="bandCreationDialog.showModal()" type="button" class="btn btn-success">Create a Band</button>
+                    <div class="mb-3">
+                        <label for="BlogTextArea" class="form-label">Post Body</label>
+                        <textarea class="form-control" id="BlogTextArea" name="content" rows="3" th:field="*{description}"></textarea>
+                        <input type="hidden" th:field="*{id}">
+
+                        <div style="position: relative">
+                            <input type="file" id="postFileInput" onchange="handlePostImageUpload()">
+                            <img src="" alt="image" id="postFile" style="background-color: darkgrey; color:white; padding:5px; border:none;outline:none; height: 30vh; width: auto">
+
+                        </div>
+                    </div>
+                    <button th:type="submit" class="btn btn-primary">Submit!</button>
+                </form>
+            </dialog>
+            <button onclick="postCreationDialog.showModal()" type="button" class="btn btn-info">Create New Post</button>
+        </div>
+        <div  id="bandCreate">
+            <dialog id="bandCreationDialog">
+                <h5>Create a new band</h5>
+                <form th:method="post" th:action="@{/profile/bands/create}" th:object="${band}">
+                    <div class="mb-3">
+                        <label for="BandName" class="form-label">Band Name</label>
+                        <input type="text" class="form-control" id="BandName" name="bandName" placeholder="Band Name"
+                               th:field="*{bandname}">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="BandDescription" class="form-label">Band Description</label>
+                        <textarea class="form-control" id="BandDescription" name="description"
+                                  rows="3"           th:field="*{description}"></textarea>
+                        <!--                    <input type="hidden" th:field="*{id}">-->
+                        <div style="position: relative">
+                            <input type="file" id="bandCreateImg" onchange="handleBandImageUpload()">
+                            <img src="" alt="image" id="bandImg" style="background-color: darkgrey; color:white; padding:5px; border:none;outline:none; height: 30vh; width: auto">
+                        </div>
+
+                    </div>
+                    <button type="submit" class="btn btn-success">Submit!</button>
+                </form>
+            </dialog>
+            <button onclick="bandCreationDialog.showModal()" type="button" class="btn btn-success">Create a Band</button>
+        </div>
+
     </div>
-
-
 </div>
+
+
 
 
 <div class="container text-center" id="recent-activity">
     <div>
         <h4>Recent Activity</h4>
-<!--        <div th:if="${user.posts.size() > 0}">-->
-<!--            <div th:each="post : ${user.posts}">-->
-<!--                <div class="card" style="width: 18rem">-->
-<!--                    <div class="card-body">-->
-<!--                        <h5 class="card-title" th:text="${post.title}"></h5>-->
-<!--                        <h6 class="card-body" th:text="${post.description}"></h6>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--        <div th:unless="${user.posts.size() > 0}">-->
-<!--            <p>No posts found.</p>-->
-<!--        </div>-->
+
     </div>
 </div>
 
@@ -239,21 +238,29 @@
             document.getElementById('forgot-password').style.display = 'block';
         }
     }
-    window.addEventListener('click', function(e) {
-        var dialog = document.getElementById('pwreset');
-        if (e.target == dialog) {
-            dialog.close();
-        }
-    });
+
+        window.addEventListener('click', function(e) {
+            var postCreationDialog = document.getElementById('postCreationDialog');
+            if (e.target == postCreationDialog ) {
+                postCreationDialog.close();
+            }
+        });
+
+
+        window.addEventListener('click', function(e) {
+            var bandCreationDialog = document.getElementById('bandCreationDialog');
+            if (e.target == bandCreationDialog) {
+               bandCreationDialog.close();
+            }
+        });
+
 
 
 </script>
-
-
-
-
-
 <!--Bootstrap-->
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+
+
 </body>
 </html>

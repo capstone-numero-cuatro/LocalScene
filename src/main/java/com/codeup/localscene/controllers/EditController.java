@@ -7,7 +7,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.ui.Model;
-import com.codeup.localscene.models.Users;
+import com.codeup.localscene.models.User;
 import com.codeup.localscene.repositories.UserRepository;
 import com.codeup.localscene.services.UserDetailsLoader;
 import com.codeup.localscene.services.PasswordResetService;
@@ -16,6 +16,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.security.Principal;
@@ -37,7 +39,7 @@ public class EditController {
     @GetMapping("/profile/edit")
     public String showEditProfileForm(Model model, Principal principal) {
         String username = principal.getName();
-        Users user = userRepository.findByUsername(username);
+        User user = userRepository.findByUsername(username);
         model.addAttribute("user", user);
         model.addAttribute("filestackKey", filestackApiKey);
         model.addAttribute("passwordResetForm", new PasswordResetForm());
@@ -46,15 +48,20 @@ public class EditController {
     }
 
     @PostMapping("/profile/edit")
-    public String updateUserProfile(@ModelAttribute("user") Users user, Model model, Principal principal) {
+
+    public String updateUserProfile(@ModelAttribute("user") User user, @RequestParam("profileImage") String profileImageUrl, Model model, Principal principal) {
+
         try {
             String username = principal.getName();
-            Users currentUser = userRepository.findByUsername(username);
+            User currentUser = userRepository.findByUsername(username);
 
             if (currentUser != null) {
                 currentUser.setUsername(user.getUsername());
                 currentUser.setEmail(user.getEmail());
-                currentUser.setProfileImage(user.getProfileImage());
+
+                if (profileImageUrl != null && !profileImageUrl.isEmpty()) {
+                    currentUser.setProfileImage(profileImageUrl);
+                }
 
                 userRepository.save(currentUser);
 
@@ -76,7 +83,7 @@ public class EditController {
     @PostMapping("/profile/edit/reset-password")
     public String handlePasswordReset(@ModelAttribute("passwordResetForm") PasswordResetForm form, Principal principal, RedirectAttributes redirectAttributes) {
         String username = principal.getName();
-        Users user = userRepository.findByUsername(username);
+        User user = userRepository.findByUsername(username);
         String email = user.getEmail();
 
         // check if current password is correct
