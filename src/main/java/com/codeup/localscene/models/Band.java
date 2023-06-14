@@ -5,15 +5,15 @@ import jakarta.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name = "bands")
-public class Bands {
+@Table(name = "band")
+public class Band {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @OneToMany(mappedBy = "band")
-    private List<BandUser> band;
+//    @OneToMany(mappedBy = "band")
+//    private List<BandUser> band;
 
     @Column(nullable = false, length = 45)
     private String bandname;
@@ -24,20 +24,19 @@ public class Bands {
     @Column
     private String band_image;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-    private Users user;
+    @OneToMany(mappedBy = "band", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<User> users;
 
-    public Bands(Bands copy){
+    public Band(Band copy){
         id = copy.id;
-        band = copy.band;
+//        bands = copy.bands;
         bandname = copy.bandname;
         description = copy.description;
         band_image = copy.band_image;
-        user = copy.user;
+        users = copy.users;
     }
 
-    public Bands() {
+    public Band() {
     }
 
 
@@ -58,13 +57,15 @@ public class Bands {
         this.bandname = bandname;
     }
 
-    public List<BandUser> getBand() {
-        return band;
-    }
 
-    public void setBand(List<BandUser> band) {
-        this.band = band;
-    }
+//    public List<BandUser> getBand() {
+//        return band;
+//    }
+//
+//    public void setBand(List<BandUser> band) {
+//        this.band = band;
+//    }
+
 
     public String getBand_image() {
         return band_image;
@@ -74,12 +75,12 @@ public class Bands {
         this.band_image = band_image;
     }
 
-    public Users getUser() {
-        return user;
+    public List<User> getUser() {
+        return users;
     }
 
-    public void setUser(Users user) {
-        this.user = user;
+    public void setUser(List<User> users) {
+        this.users = users;
     }
 
     public String getDescription(){

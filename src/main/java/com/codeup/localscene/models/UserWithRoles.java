@@ -6,9 +6,9 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 
-public class UserWithRoles extends Users implements UserDetails {
+public class UserWithRoles extends User implements UserDetails {
 
-    public UserWithRoles(Users user) {
+    public UserWithRoles(User user) {
         super(user);
     }
 

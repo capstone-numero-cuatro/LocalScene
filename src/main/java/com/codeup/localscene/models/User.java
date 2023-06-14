@@ -7,9 +7,11 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 
+import java.util.List;
+
 @Entity
-@Table(name="users")
-public class Users {
+@Table(name="user")
+public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -36,8 +38,13 @@ public class Users {
     @Column(name = "profile_image", length = 500)
     private String profileImage;
 
+    @ManyToOne
+    @JoinColumn(name = "band_id")
+    private Band band;
 
-    public Users(Users copy) {
+
+
+    public User(User copy) {
         id = copy.id;
         username = copy.username;
         password = copy.password;
@@ -45,9 +52,10 @@ public class Users {
         resetPasswordToken = copy.resetPasswordToken;
         enabled = copy.enabled;
         profileImage = copy.profileImage;
+        band = copy.band;
     }
 
-    public Users (){
+    public User (){
     }
 
 
@@ -115,5 +123,11 @@ public class Users {
         this.profileImage = profileImage;
     }
 
+    public Band getBand(){
+        return this.band;
+    }
 
+    public void setBand(Band band){
+        this.band = band;
+    }
 }

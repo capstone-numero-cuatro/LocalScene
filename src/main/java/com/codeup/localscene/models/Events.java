@@ -21,7 +21,7 @@ public class Events {
 
     @ManyToOne
     @JoinColumn(name = "band_id")
-    private Bands band_id;
+    private Band band_id;
 
     public Events(Events copy){
         event_id = copy.event_id;

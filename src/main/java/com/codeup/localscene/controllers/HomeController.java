@@ -21,7 +21,7 @@ public class HomeController {
         List<Posts> posts =postRepository.findAll();
         model.addAttribute("posts", posts);
 
-        return"home";}
+        return "home";}
 
 
 
