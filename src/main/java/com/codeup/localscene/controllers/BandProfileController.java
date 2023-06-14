@@ -10,6 +10,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @Controller
 public class BandProfileController {
 
@@ -41,8 +43,10 @@ public class BandProfileController {
             return "redirect:/404";
         }
 
+        User users = userRepository.getReferenceById(bandId);
+
         // Get the currently logged-in user
-        User loggedInUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+//        User loggedInUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
         // Check if the logged-in user is associated with the band
 //        if (!band.getUser().equals(loggedInUser)) {
@@ -53,6 +57,7 @@ public class BandProfileController {
         model.addAttribute("bandPost", new BandPosts());
         model.addAttribute("band", band);
         model.addAttribute("bandId", bandId);
+        model.addAttribute("users", users);
         return "users/band-profile";
     }
 
@@ -65,9 +70,9 @@ public class BandProfileController {
         return "redirect:/home";
     }
 
-    @GetMapping("/band-profile/{band_id}/edit")
-    public String editBandProfile(@PathVariable("band_id") Long band_id, Model model) {
-        Band band = bandRepository.findById(band_id).orElse(null);
+    @GetMapping("/band-profile/{bandId}/edit")
+    public String editBandProfile(@PathVariable("bandId") Long bandId, Model model) {
+        Band band = bandRepository.findById(bandId).orElse(null);
         if (band == null) {
             return "redirect:/404";
         }
@@ -75,9 +80,9 @@ public class BandProfileController {
         return "users/band-profile";
     }
 
-    @GetMapping("/band-profile/{band_id}/delete")
-    public String deleteBandProfile(@PathVariable("band_id") Long band_id) {
-        Band band = bandRepository.findById(band_id).orElse(null);
+    @GetMapping("/band-profile/{bandId}/delete")
+    public String deleteBandProfile(@PathVariable("bandId") Long bandId) {
+        Band band = bandRepository.findById(bandId).orElse(null);
         if (band == null) {
             return "redirect:/404";
         }
@@ -99,25 +104,35 @@ public class BandProfileController {
         return "redirect:/home";
     }
 
-//    @PostMapping("/band-profile/{band_id}/add-user")
-//    public String addUserToBand(@PathVariable("band_id") Long bandId,
-//                                @RequestParam("user_id") Long userId){
+//    @PostMapping("/band-profile/{bandId}/add-user")
+//    public String addUserToBand(@RequestParam("username") String username){
 //
-//        Bands band = bandRepository.findById(bandId).orElse(null);
-//        if(band == null){
+//        User users = userRepository.findByUsername(username);
+//        if (users == null) {
+//            System.err.println("User not found for username: " + username);
 //            return "redirect:/404";
 //        }
 //
-//        Users user = userRepository.findById(userId).orElse(null);
-//        if(user == null){
-//            return "redirect:/404";
-//        }
-//
-//        BandUser bandUser = new BandUser(band, user);
-//
-//        bandUserRepository.save(bandUser);
+//        band.getUser().add(users);
+//        bandRepository.save(band);
 //
 //        return "redirect:/users/band-profile";
 //    }
+
+    @PostMapping("/band-profile/{bandId}/add-user")
+    public String addUserToBand(@PathVariable("bandId") Long bandId, @RequestParam("username") String username) {
+        Band band = bandRepository.findById(bandId).orElse(null);
+        User user = userRepository.findByUsername(username);
+
+        if (band == null || user == null) {
+            return "redirect:/404"; // Handle the case where the band or user is not found
+        }
+
+        user.setBand(band);
+        userRepository.save(user);
+
+        return "redirect:/band-profile/" + bandId;
+    }
+
 
 }

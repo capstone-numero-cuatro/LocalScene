@@ -44,6 +44,7 @@ public class ProfileController {
 
         List<Posts> posts = postRepository.findByUser(user);
 
+
         model.addAttribute("posts", new Posts());
         model.addAttribute("band", new Band());
         model.addAttribute("passwordResetForm", new PasswordResetForm());
