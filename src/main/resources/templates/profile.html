@@ -49,11 +49,14 @@
         <div id="bandsArea">
 <!--            <div th:if="${not #lists.isEmpty(bands)}">-->
                 <h4>Bands:</h4>
-                <ul th:text="${user.band}">
-                    <li th:text="band.bandname"></li>
-<!--                    <li th:each="${bands.bandname}"></li>-->
+                <ul>
+                    <li th:each="band : ${user.band}">
+                        <a th:href="@{/band-profile/{bandId}(bandId=${band.id})}">
+                            <span th:text="${band.bandname}"></span>
+                        </a>
+                    </li>
+<!--                    <li th:text="band.bandname"></li>-->
                 </ul>
-<!--            </div>-->
         </div>
     </div>
     <div>

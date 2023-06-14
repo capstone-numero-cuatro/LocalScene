@@ -50,14 +50,14 @@
         <div>
             <h3>Band Members</h3>
             <ul>
-                <li th:each="member : ${user}">
-                    <span th:text="${userid}"></span>
+                <li th:each="user : ${band.user}">
+                    <span th:text="${user.username}"></span>
                 </li>
             </ul>
         </div>
         <div>
             <h3>Add Band Member</h3>
-            <form th:action="@{/band-profile/{bandId}/add-user}" method="post">
+            <form th:action="@{/band-profile/{bandId}/add-user(bandId=${band.id})}" method="post">
                 <input type="text" name="username" placeholder="Username" required>
                 <button class="btn  btn-success" type="submit">Add</button>
             </form>
