@@ -18,76 +18,99 @@
 
 </head>
 <body>
-<div id="preloader"></div>
-
-
-<div>
-  <div>
-    <div class="container">
-      <div class="screen">
-          <div class="screen-content">
-            <form action="#" th:action="@{/sign-up}" th:object="${user}" method="post">
-              <label for="username">Username</label>
-              <input id="username" th:field="*{username}" />
-
-              <label for="email">Email</label>
-              <input id="email" th:field="*{email}" />
-
-              <label for="password">Password</label>
-              <input id="password" type="password" th:field="*{password}" />
-
-              <label for="confirmPassword">Confirm Password</label>
-              <input id="confirmPassword" type="password" />
-
-              <label for="profileImageInput" class="custom-file-upload">
-                Choose your profile image
-              </label>
-              <input type="file" id="profileImageInput" style="display: none;"/>
-              <img src="" alt="image" id="profileImage" style="background-color: darkgrey; color:white; padding:5px; border:none;outline:none; height: 30vh; width: auto">
-              <input type="hidden" id="profileImageUrl" name="profileImage">
-
-                <input value="Sign me up!" type="submit" id="submitBtn" disabled />
-            </form>
-              <div id="usernameCriteria" style="display: none;">
-                  <h5>Name must be:</h5>
-                  <ul>
-                      <li id="usernameChar" class="criteria">Only letters and numbers</li>
-                      <li id="usernameLength" class="criteria">Between 3 and 15 characters</li>
-                  </ul>
-              </div>
-              <div id="emailCriteria" style="display: none;">
-                  <h5>Email must be:</h5>
-                  <ul>
-                      <li id="emailSymbol" class="criteria">A valid email address</li>
-                  </ul>
-              </div>
-              <div id="passwordCriteria" style="display: none;">
-                  <h5>Password must include at least:</h5>
-                  <ul>
-                      <li id="lowercase" class="criteria">A lowercase letter</li>
-                      <li id="uppercase" class="criteria">An uppercase letter</li>
-                      <li id="number" class="criteria">A number</li>
-                      <li id="specialChar" class="criteria">A special character ($, %,@,#,^, or &)</li>
-                      <li id="length" class="criteria">Between 4 and 15 characters</li>
-                  </ul>
-              </div>
-              <div id="confirmPasswordCriteria" style="display: none;">
-                  <h5>Confirm password must be:</h5>
-                  <ul>
-                      <li id="passwordMatch" class="criteria">Match the password</li>
-                  </ul>
-              </div>
-          </div>
-          <div class="screen__background">
-            <span class="screen__background__shape screen__background__shape4"></span>
-            <span class="screen__background__shape screen__background__shape3"></span>
-            <span class="screen__background__shape screen__background__shape2"></span>
-            <span class="screen__background__shape screen__background__shape1"></span>
-          </div>
-      </div>
-    </div>
-  </div>
+<div th:fragment="navbar">
+    <!-- Include navbar partial -->
+    <div th:replace="partials/navbar"></div>
 </div>
+
+
+
+    <div class="container">
+        <div class="inner">
+            <div class="screen">
+                <div class="screen-content">
+
+                    <div class="image-holder">
+                        <img id="signup-image" th:src="@{/img/stratocaster.jpeg}">
+                    </div>
+                    <form action="#" th:action="@{/sign-up}" th:object="${user}" method="post">
+                        <h1>Register with us</h1>
+                        <div class="form-group">
+                            <label for="username">Username</label>
+                            <input id="username" th:field="*{username}">
+                        </div>
+
+                        <div class="form-wrapper">
+                            <label for="email">Email</label>
+                            <input id="email" th:field="*{email}">
+                        </div>
+
+                        <div class="form-wrapper">
+                            <label for="password">Password</label>
+                            <input id="password" type="password" th:field="*{password}">
+                        </div>
+
+                        <div class="form-wrapper">
+                            <label for="confirmPassword">Confirm Password</label>
+                            <input id="confirmPassword" type="password">
+                        </div>
+
+                        <div class="form-wrapper">
+                            <label for="profileImageInput" class="custom-file-upload">
+                                Choose your profile image
+                            </label>
+                            <input type="file" id="profileImageInput" style="display: none;">
+                            <img src="" alt="image" id="profileImage" style="background-color: darkgrey; color:white; padding:5px; border:none;outline:none; height: 10vh; width: auto">
+                            <input type="hidden" id="profileImageUrl" name="profileImage">
+                        </div>
+                        <div class="form-wrapper">
+                            <input value="Sign me up!" type="submit" id="submitBtn" disabled>
+                        </div>
+                    </form>
+                    <div id="usernameCriteria" style="display: none;">
+                        <h5>Name must be:</h5>
+                        <ul>
+                            <li id="usernameChar" class="criteria">Only letters and numbers</li>
+                            <li id="usernameLength" class="criteria">Between 3 and 15 characters</li>
+                        </ul>
+                    </div>
+                    <div id="emailCriteria" style="display: none;">
+                        <h5>Email must be:</h5>
+                        <ul>
+                            <li id="emailSymbol" class="criteria">A valid email address</li>
+                        </ul>
+                    </div>
+                    <div id="passwordCriteria" style="display: none;">
+                        <h5>Password must include at least:</h5>
+                        <ul>
+                            <li id="lowercase" class="criteria">A lowercase letter</li>
+                            <li id="uppercase" class="criteria">An uppercase letter</li>
+                            <li id="number" class="criteria">A number</li>
+                            <li id="specialChar" class="criteria">A special character ($, %,@,#,^, or &)</li>
+                            <li id="length" class="criteria">Between 4 and 15 characters</li>
+                        </ul>
+                    </div>
+                    <div id="confirmPasswordCriteria" style="display: none;">
+                        <h5>Confirm password must be:</h5>
+                        <ul>
+                            <li id="passwordMatch" class="criteria">Match the password</li>
+                        </ul>
+                    </div>
+
+                </div>
+                <div class="screen__background">
+                    <span class="screen__background__shape screen__background__shape4"></span>
+                    <span class="screen__background__shape screen__background__shape3"></span>
+                    <span class="screen__background__shape screen__background__shape2"></span>
+                    <span class="screen__background__shape screen__background__shape1"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
 
 <script src="https://static.filestackapi.com/filestack-js/3.x.x/filestack.min.js"></script>
 
@@ -287,8 +310,10 @@
   function checkCriteria() {
     if (allCriteriaMet()) {
       document.getElementById("submitBtn").disabled = false;
+      console.log("Criteria not met yet")
     } else {
       document.getElementById("submitBtn").disabled = true;
+      console.log("Criteria met")
     }
   }
 

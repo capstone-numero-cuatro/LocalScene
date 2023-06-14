@@ -1,28 +1,50 @@
-.custom-file-upload {
-    padding: 6px 12px;
-    cursor: pointer;
-    background-color: #f8f9fa;
-    border: 1px solid #ced4da;
-    border-radius: 4px;
-    display: inline-block;
-}
+/*.custom-file-upload {*/
+/*    padding: 6px 12px;*/
+/*    cursor: pointer;*/
+/*    background-color: #f8f9fa;*/
+/*    border: 1px solid #ced4da;*/
+/*    border-radius: 4px;*/
+
+/*}*/
 body{
-    background: linear-gradient(90deg, #404066, #2b2c41);
+    background: linear-gradient(0deg, #99dcf7, #7ec6f9);
     font-family: 'Permanent Marker', cursive;
+    background-repeat: no-repeat;
+    height: 100vh;
+
 
 }
-.container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 100vh;
+.inner{
+    margin-top: 15%;
+
+    background: transparent;
 }
+.screen-content{
+    display: inline-flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+#signup-image{
+    height: 600px !important;
+        width: 350px !important;
+        border-radius: 20px !important;
+    margin: 4em;
+    box-shadow: 0px 0px 24px #d2ebff;
+}
+form{
+
+    display: flex;
+    flex-direction: column;
+    margin: 3em;
+    padding: 4em;
+    z-index: 30;
+}
+
 
 .screen {
     background: linear-gradient(90deg, #404066, #88cafc);
     position: relative;
-    height: 600px;
-    width: 360px;
+
     box-shadow: 0px 0px 24px #d2ebff;
     border-radius: 32px;
     display: flex;
@@ -34,13 +56,7 @@ body{
     position: relative;
     height: 100%;
 }
-.login{
 
-    width: 320px;
-    padding: 30px;
-
-    /*margin-top: 80px;*/
-}
 .screen__background {
     position: absolute;
     top: 0;
@@ -93,24 +109,18 @@ body{
     border-radius: 60px;
 }
 form {
-    margin-top: 25%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    width: 50%;
+    padding-top: 36px;
+    padding-left: 45px;
+    padding-right: 45px;
+    flex-basis: 50%;
 }
-img{
-    max-height: 10vh;
-}
+/*img{*/
+/*    max-height: 10vh;*/
+/*}*/
 input{
     border-radius: 25px;
     margin: .5em;
 }
 
-#preloader{
-    background: #26202a url("../img/preloader.gif") no-repeat center;
-    height: 100vh;
-    width: 100%;
-    position: fixed;
-    z-index: 100;
 
-}
