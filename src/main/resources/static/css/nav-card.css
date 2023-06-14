@@ -60,31 +60,31 @@
 }
 
 .main-nav li.item1 .bg {
-    background: url(../img/Navcard-img1.jpeg);
+    background-image: url("../img/concertPhones.jpeg");
     background-size: cover;
     background-position: center;
 }
 
 .main-nav li.item2 .bg {
-    background: url(../img/Navcard-img2.jpeg);
+    background: url("../img/Navcard-img2.jpeg");
     background-size: cover;
     background-position: center;
 }
 
 .main-nav li.item3 .bg {
-    background: url(../img/Navcard-img3.jpeg);
+    background: url("../img/Navcard-img3.jpeg");
     background-size: cover;
     background-position: center;
 }
 
 .main-nav li.item4 .bg {
-    background: url(../img/Navcard-img4.jpeg);
+    background: url("../img/Navcard-img4.jpeg");
     background-size: cover;
     background-position: center;
 }
 
 .main-nav li.item5 .bg {
-    background: url(../img/Navcard-img5.jpeg);
+    background: url("../img/Navcard-img5.jpeg");
     background-size: cover;
     background-position: center;
 }
