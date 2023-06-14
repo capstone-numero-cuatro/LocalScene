@@ -16,8 +16,15 @@
 <body>
 <nav th:insert="partials/navbar :: navbar"></nav>
 
-<div class="container text-center" style="border: solid plum 2px">
+<header>
+
+</header>
+
+
+
+<div class="container text-center" id="bandInfoArea">
     <div>
+
 <!--        <div style="position: relative">-->
 <!--            <input type="file" id="imageInput">-->
 <!--            <img src="" alt="image" id="profilePic" style="background-color: darkgrey; color:white; padding:5px; border:none;outline:none; height: 30vh; width: auto">-->
@@ -36,13 +43,11 @@
 
         <button onclick="openProfilePicturePicker()" type="button" id="changeProfilePic" style="--content: 'Hover me!';"><div class="left"> </div> Change Profile Picture<div class="right"></div></button>
 
+
         <h2 th:text="${band.bandname}">Band Name Placeholder</h2>
 
-        <h3>Social Media Links</h3>
 
-    </div>
 
-</div>
 
 <div class="container">
     <div>
@@ -59,8 +64,64 @@
             <input type="text" name="username" placeholder="Username" required>
             <button class="btn  btn-success" type="submit">Add</button>
         </form>
+
+    </div>
+
+    <div id="bandButtons">
+        <div class="container">
+            <dialog id="bandPostDialog">
+                <section id="insideModal">
+                    <h2>Shoutout to your fans!</h2>
+                    <form th:object="${bandPost}" th:method="post" th:action="@{/bandPostsCreate}">
+                        <div class="mb-3">
+                            <label for="BandPostTitle" class="form-label">Title</label>
+                            <input type="text" class="form-control" id="BandPostTitle" name="title" placeholder="Title" th:field="*{title}">
+                        </div>
+                        <div class="mb-3">
+                            <label for="BandPostDescription" class="form-label">Body</label>
+                            <textarea class="form-control" id="BandPostDescription" name="content" rows="3" th:field="*{description}"></textarea>
+                            <!--                                <input type="hidden" th:field="*{id}">-->
+                            <div >
+                                <input type="file" id="bandPostImgInput">
+                                <img src="" alt="image" id="bandPostImg" >
+                            </div>
+
+                        </div>
+                        <button type="submit" class="btn btn-warning">Let it be known!</button>
+                    </form>
+                </section>
+            </dialog>
+            <button onclick="bandPostDialog.showModal()" type="button" class="band-post-btn">Band Post</button>
+        </div>
+        <div class="container">
+            <dialog id="bandEvent">
+                <section id="insideEvent">
+                    <h5>What are the deets?!</h5>
+                    <form th:object="${events}" th:method="post" th:action="@{/band-profile/{id}(id=${band.getId()})}">
+                        <div class="mb-3">
+                            <label for="EventsPostTitle" class="form-label">Title</label>
+                            <input type="text" class="form-control" id="EventsPostTitle" name="title" placeholder="Title" th:field="*{title}">
+                        </div>
+                        <div class="mb-3">
+                            <label for="EventsDescription" class="form-label">Body</label>
+                            <textarea class="form-control" id="EventsDescription" name="content" rows="3" th:field="*{description}"></textarea>
+                            <!--                <input type="hidden">-->
+                            <div style="position: relative">
+                                <input type="file" id="bandEventInput">
+                                <img src="" alt="image" id="bandEventFlyer" style="background-color: darkgrey; color:white; padding:5px; border:none;outline:none; height: 30vh; width: auto">
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-danger">Let it be known!</button>
+                    </form>
+                </section>
+            </dialog>
+            <button onclick="bandEvent.showModal()" type="button" class="band-post-btn">Event Creation</button>
+        </div>
+
     </div>
 </div>
+
+
 
 
 <div class="container" id="recent-activity" style="border: solid yellow 2px">
@@ -79,54 +140,7 @@
         </div>
     </div>
 </div>
-<div class="container">
-    <dialog id="bandPostDialog">
-        <section id="insideModal">
-            <h2>Shoutout to your fans!</h2>
-            <form th:object="${bandPost}" th:method="post" th:action="@{/bandPostsCreate}">
-                <div class="mb-3">
-                    <label for="BandPostTitle" class="form-label">Title</label>
-                    <input type="text" class="form-control" id="BandPostTitle" name="title" placeholder="Title" th:field="*{title}">
-                </div>
-                <div class="mb-3">
-                    <label for="BandPostDescription" class="form-label">Body</label>
-                    <textarea class="form-control" id="BandPostDescription" name="content" rows="3" th:field="*{description}"></textarea>
-    <!--                                <input type="hidden" th:field="*{id}">-->
-                    <div >
-                        <input type="file" id="bandPostImgInput">
-                        <img src="" alt="image" id="bandPostImg" >
-                    </div>
 
-                </div>
-                <button type="submit" class="btn btn-warning">Let it be known!</button>
-            </form>
-        </section>
-    </dialog>
-    <button onclick="bandPostDialog.showModal()" type="button" class="btn btn-warning">Band Post</button>
-</div>
-<div class="container">
-    <dialog id="bandEvent">
-        <h5>What are the deets?!</h5>
-        <form th:object="${events}" th:method="post" th:action="@{/band-profile/{id}(id=${band.getId()})}">
-            <div class="mb-3">
-                <label for="EventsPostTitle" class="form-label">Title</label>
-                <input type="text" class="form-control" id="EventsPostTitle" name="title" placeholder="Title" th:field="*{title}">
-            </div>
-            <div class="mb-3">
-                <label for="EventsDescription" class="form-label">Body</label>
-                <textarea class="form-control" id="EventsDescription" name="content" rows="3" th:field="*{description}"></textarea>
-                <!--                <input type="hidden">-->
-                <div style="position: relative">
-                    <input type="file" id="bandEventInput">
-                    <img src="" alt="image" id="bandEventFlyer" style="background-color: darkgrey; color:white; padding:5px; border:none;outline:none; height: 30vh; width: auto">
-                </div>
-            </div>
-            <button type="submit" class="btn btn-danger">Let it be known!</button>
-        </form>
-
-    </dialog>
-    <button onclick="bandEvent.showModal()" type="button" class="btn btn-outline-danger">Event Creation</button>
-</div>
 
 
 <script>
@@ -229,9 +243,9 @@
         });
     });
     window.addEventListener('click', function(e) {
-        var bandPost = document.getElementById('bandPostDialog');
-        if (e.target == bandPost) {
-            bandPost.close();
+        var bandEvent = document.getElementById('bandEvent');
+        if (e.target === bandEvent) {
+            bandEvent.close();
         }
     });
 
