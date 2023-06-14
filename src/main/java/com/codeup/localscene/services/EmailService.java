@@ -1,7 +1,7 @@
 package com.codeup.localscene.services;
 
 
-import com.codeup.localscene.models.Users;
+import com.codeup.localscene.models.User;
 import com.codeup.localscene.repositories.UserRepository;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +24,7 @@ public class EmailService {
     @Autowired
     private JavaMailSender mailSender;
 
-    public void registerUser(@Valid Users user) {
+    public void registerUser(@Valid User user) {
         // encode the password
         user.setPassword(passwordEncoder.encode(user.getPassword()));
 
@@ -39,7 +39,7 @@ public class EmailService {
     }
 
 
-    private void sendVerificationEmail(Users user) {
+    private void sendVerificationEmail(User user) {
         SimpleMailMessage mailMessage = new SimpleMailMessage();
         mailMessage.setTo(user.getEmail());
         mailMessage.setSubject("Email Verification");
@@ -50,7 +50,7 @@ public class EmailService {
     }
 
     public boolean verifyUser(String code) {
-        Users user = userRepository.findByVerificationCode(code);
+        User user = userRepository.findByVerificationCode(code);
 
         if (user != null) {
             // verify the user
@@ -64,7 +64,7 @@ public class EmailService {
         }
     }
     public void sendPasswordResetEmail(String email) {
-        Users user = userRepository.findByEmail(email);
+        User user = userRepository.findByEmail(email);
         if (user != null) {
             // Generate a password reset token and save it for the user
             String resetToken = UUID.randomUUID().toString();
@@ -85,7 +85,7 @@ public class EmailService {
         }
     }
     public boolean authenticateUser(String email, String password) {
-        Users user = userRepository.findByEmail(email);
+        User user = userRepository.findByEmail(email);
 
         if (user != null) {
             return passwordEncoder.matches(password, user.getPassword());
@@ -93,11 +93,11 @@ public class EmailService {
         return false;
     }
 
-    public Users findByResetPasswordToken(String token) {
+    public User findByResetPasswordToken(String token) {
         return userRepository.findByResetPasswordToken(token);
     }
 
-    public void updatePassword(Users user, String newPassword) {
+    public void updatePassword(User user, String newPassword) {
         String encodedPassword = passwordEncoder.encode(newPassword);
         user.setPassword(encodedPassword);
         user.setResetPasswordToken(null);

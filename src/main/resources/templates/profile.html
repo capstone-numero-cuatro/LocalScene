@@ -53,13 +53,13 @@
         <h2 id="userName" th:text="${user.username}" ></h2>
 
         <div id="bandsArea">
-            <div th:if="${not #lists.isEmpty(bands)}">
+<!--            <div th:if="${not #lists.isEmpty(bands)}">-->
                 <h4>Bands:</h4>
-                <ul>
-                    <li th:each="band : ${bands}">[[${band.bandname}]]</li>
-                    <!-- Add more list items for each band -->
+                <ul th:text="${user.band}">
+                    <li th:text="band.bandname"></li>
+<!--                    <li th:each="${bands.bandname}"></li>-->
                 </ul>
-            </div>
+<!--            </div>-->
         </div>
     </div>
     <div>
@@ -96,7 +96,7 @@
     <div  id="bandCreate">
         <dialog id="bandCreationDialog">
             <h5>Create a new band</h5>
-            <form th:method="post" th:action="@{/bands/create}" th:object="${bands}">
+            <form th:method="post" th:action="@{/profile/bands/create}" th:object="${band}">
                 <div class="mb-3">
                     <label for="BandName" class="form-label">Band Name</label>
                     <input type="text" class="form-control" id="BandName" name="bandName" placeholder="Band Name"
@@ -105,8 +105,9 @@
 
                 <div class="mb-3">
                     <label for="BandDescription" class="form-label">Band Description</label>
-                    <textarea class="form-control" id="BandDescription" name="description" rows="3"           th:field="*{description}"></textarea>
-                    <input type="hidden" th:field="*{id}">
+                    <textarea class="form-control" id="BandDescription" name="description"
+                              rows="3"           th:field="*{description}"></textarea>
+<!--                    <input type="hidden" th:field="*{id}">-->
                     <div style="position: relative">
                         <input type="file" id="bandCreateImg" onchange="handleBandImageUpload()">
                         <img src="" alt="image" id="bandImg" style="background-color: darkgrey; color:white; padding:5px; border:none;outline:none; height: 30vh; width: auto">
