@@ -22,7 +22,7 @@ public class Band {
     private String description;
 
     @Column(name = "band_image", length = 500)
-    private String bandImage;
+    private String band_image;
 
     @OneToMany(mappedBy = "band", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<User> users;
@@ -31,7 +31,7 @@ public class Band {
         id = copy.id;
         bandname = copy.bandname;
         description = copy.description;
-        bandImage = copy.bandImage;
+        band_image = copy.band_image;
         users = copy.users;
     }
 
@@ -66,12 +66,12 @@ public class Band {
 //    }
 
 
-    public String getBandImage() {
-        return bandImage;
+    public String getBand_image() {
+        return band_image;
     }
 
-    public void setBandImage(String band_image) {
-        this.bandImage = bandImage;
+    public void setBand_image(String band_image) {
+        this.band_image = band_image;
     }
 
     public List<User> getUser() {

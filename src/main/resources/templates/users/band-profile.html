@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <title>Band Profile</title>
@@ -36,11 +37,19 @@
         darkgrey; color:white; padding:5px; border:none;outline:none; height: 30vh; width: auto">
 
         <dialog id="changePicture">
+            <form th:method="post" th:action="@{/band-profile/{bandId}/change-image(bandId=${band.id})}" th:object="${band}">
             <div>
-                <input type="file" id="imageInput" onchange="handleProfilePictureUpload()">
-                <img src="" alt="image" id="profilePic" style="background-color: darkgrey; color:white; padding:5px; border:none;outline:none; height: 30vh; width: auto">
-                <button type="submit" class="btn btn-success">Submit!</button>
+                <label for="bandImageInput" class="custom-file-upload">
+                    Choose your Band image
+                </label>
+                <input type="file" id="bandImageInput" style="display: none;" onchange="enableSubmitButton()"/>
+                <img src="" th:src="${band.band_image}" alt="image" id="bandImage" style="background-color: darkgrey; color:white; padding:5px; border:none;outline:none; height: 30vh; width: auto">
+                <input type="hidden" id="bandImageUrl" name="band_image">
+                <div sec:authorize="isAuthenticated()">
+                    <input value="Save changes" id="submitBtn" type="submit" disabled/>
+                </div>
             </div>
+            </form>
         </dialog>
 
         <button onclick="openProfilePicturePicker()" type="button" id="changeProfilePic" style="--content: 'Hover me!';"><div class="left"> </div> Change Profile Picture<div class="right"></div></button>
@@ -154,33 +163,40 @@
 
 </div>
 
-    <script src="//static.filestackapi.com/filestack-js/3.x.x/filestack.min.js"></script>
-
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    var filestackKey = /*[[${filestackKey}]]*/ 'default';
+    /*]]>*/
+</script>
+<script src="https://static.filestackapi.com/filestack-js/3.x.x/filestack.min.js"></script>
 <script>
     //apikey
     const client = filestack.init("Abd5534iTviZyWy5jGpswz");
+    const bandPic = document.getElementById("bandImage");
+    const bandFileInput = document.getElementById("bandImageInput");
+    const bandImageUrlInput = document.getElementById("bandImageUrl");
+
+    bandImageUrlInput.value = bandPic.src;
+
+    bandFileInput.addEventListener("change", (event) => {
+        const file = event.target.files[0];
+
+        client.upload(file).then((response) => {
+            bandPic.src = response.url;
+            bandImageUrlInput.value = response.url;
+        }).catch((error) => {
+            console.log(error);
+        });
+    });
+    //Image change
+    function enableSubmitButton() {
+        document.getElementById('submitBtn').disabled = false;
+    }
 
     // Function to open the profile picture picker dialog
     function openProfilePicturePicker() {
         const dialog = document.getElementById("changePicture");
         dialog.showModal();
-    }
-
-    // Function to handle file picker and upload for profile picture
-    function handleProfilePictureUpload() {
-        const profilePic = document.getElementById("profilePic");
-        const profileFileInput = document.getElementById("imageInput");
-        const file = profileFileInput.files[0];
-
-        client.upload(file).then((response) => {
-            console.log("Filestack api response: " , response);
-            profilePic.src = response.url;
-            // Save the file to the user's profile using a callback or by making an API request
-            saveProfilePicture(response.url);
-            closeProfilePicturePicker();
-        }).catch((error) => {
-            console.log(error);
-        });
     }
 
     // Function to close the profile picture picker dialog
