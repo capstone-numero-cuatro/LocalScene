@@ -1,49 +1,295 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="en">
+
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html"
+
+      xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html"
+
+      lang="en">
+
 <head>
+
   <meta charset="UTF-8">
+
   <title>Venues</title>
+
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
   <link rel="stylesheet" th:href="@{/css/navbar.css}">
+
   <link rel="stylesheet" th:href="@{/css/venues.css}">
+
+
+
 </head>
+
+
+
 <body>
-<nav th:insert="partials/navbar :: navbar"></nav>
+<div th:fragment="navbar">
+  <!-- Include navbar partial -->
+  <div th:replace="partials/navbar"></div>
+</div>
 
 
+<header>
+  <div class="carousel-wrapper">
 
-<div class="container">
-  <h1>Venue Search</h1>
-  <div class="row">
-    <div class="col-md-3">
-      <form id="search-form">
-        <div class="input-group mb-3">
-          <label for="search-input"></label><input type="text" id="search-input" class="form-control" placeholder="Enter your location">
-          <div class="input-group-append">
-            <button class="btn btn-primary" type="submit">Search</button>
-          </div>
-        </div>
-      </form>
+    <div class="carousel-container">
+
+      <div class="carousel">
+
+        <div class="image-one"></div>
+
+        <div class="image-two"></div>
+
+        <div class="image-three"></div>
+
+        <div class="image-four"></div>
+
+        <div class="image-five"></div>
+
+      </div>
+
     </div>
+
   </div>
-  <div id="venues-container" class="row">
-    <div class="venue-card"></div>
+</header>
+
+
+
+
+<div id="preloader"></div>
+<div class="overlay"></div>
+
+<div class="text">
+
+  <div class="wrapper">
+
+    <div id="V" class="letter">V</div>
+
+    <div class="shadow">V</div>
+
+  </div>
+
+  <div class="wrapper">
+
+    <div id="E" class="letter">E</div>
+
+    <div class="shadow">E</div>
+
+  </div>
+
+  <div class="wrapper">
+
+    <div id="N" class="letter">N</div>
+
+    <div class="shadow">N</div>
+
+  </div>
+
+  <div class="wrapper">
+
+    <div id="U" class="letter">U</div>
+
+    <div class="shadow">U</div>
+
+  </div>
+
+  <div class="wrapper">
+
+    <div id="?" class="letter">E</div>
+
+    <div class="shadow">E</div>
+
+  </div>
+
+  <div class="wrapper">
+
+    <div id="S" class="letter">S</div>
+
+    <div class="shadow">S</div>
+
   </div>
 
 </div>
 
+<div>
+
+  <div class="wave"></div>
+
+  <div class="wave"></div>
+
+  <div class="wave"></div>
+
+</div>
+
+
+
+<div class="container">
+
+  <!--  <h1>Venue Search</h1>-->
+
+  <br>
+
+  <br>
+
+  <br>
+
+  <br>
+
+  <div class="row mt-4">
+
+    <div class="col-md-6 offset-md-3">
+
+      <form id="search-form">
+
+        <div class="input-group mb-3">
+
+          <input type="text" id="search-input" class="form-control" placeholder="Enter your location">
+
+          <div class="input-group-append">
+
+            <button class="btn btn-primary" type="submit">Search</button>
+
+          </div>
+
+        </div>
+
+      </form>
+
+    </div>
+
+
+
+    <!--  <div id="venues-container" class="row">-->
+
+    <!--    <div class="venue-card"></div>-->
+
+
+
+  </div>
+
+
+
+  <div class="row" id="venues-container">
+
+    <div class="col-sm-6 col-md-3">
+
+      <div class="movie--isloading">
+
+        <div class="loading-image"></div>
+
+        <div class="loading-content">
+
+          <div class="loading-text-container">
+
+            <div class="loading-main-text"></div>
+
+            <div class="loading-sub-text"></div>
+
+          </div>
+
+          <div class="loading-btn"></div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="col-sm-6 col-md-3">
+
+      <div class="movie--isloading">
+
+        <div class="loading-image"></div>
+
+        <div class="loading-content">
+
+          <div class="loading-text-container">
+
+            <div class="loading-main-text"></div>
+
+            <div class="loading-sub-text"></div>
+
+          </div>
+
+          <div class="loading-btn"></div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="col-sm-6 col-md-3">
+
+      <div class="movie--isloading">
+
+        <div class="loading-image"></div>
+
+        <div class="loading-content">
+
+          <div class="loading-text-container">
+
+            <div class="loading-main-text"></div>
+
+            <div class="loading-sub-text"></div>
+
+          </div>
+
+          <div class="loading-btn"></div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="col-sm-6 col-md-3">
+
+      <div class="movie--isloading">
+
+        <div class="loading-image"></div>
+
+        <div class="loading-content">
+
+          <div class="loading-text-container">
+
+            <div class="loading-main-text"></div>
+
+            <div class="loading-sub-text"></div>
+
+          </div>
+
+          <div class="loading-btn"></div>
+
+
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
+<script src="../static/js/keyTM.js"></script>
 
-<script th:src="@{/js/keyTM.js}"></script>
+
+
+
+
 
 
 
 
 </body>
+
 </html>
-
-
-
-

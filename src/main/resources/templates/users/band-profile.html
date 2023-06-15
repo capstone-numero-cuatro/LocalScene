@@ -20,7 +20,7 @@
 <nav th:insert="partials/navbar :: navbar"></nav>
 
 <header>
-
+    <h2 th:text="${band.bandname}"></h2>
 </header>
 
 
@@ -55,7 +55,7 @@
         <button onclick="openProfilePicturePicker()" type="button" id="changeProfilePic" style="--content: 'Hover me!';"><div class="left"> </div> Change Profile Picture<div class="right"></div></button>
 
 
-        <h2 th:text="${band.bandname}">Band Name Placeholder</h2>
+
 
     </div>
     <div class="container">
@@ -141,9 +141,15 @@
                 <div th:each="bandPosts : ${bandPosts}">
                     <div class="card" style="width: 18rem">
                         <div class="card-body">
+                            <p>Band: <span th:text="${band.bandname}"></span></p>
                             <h5 class="card-title" th:text="${bandPosts.title}"></h5>
                             <h6 class="card-body" th:text="${bandPosts.description}"></h6>
                             <!--                        <img th:src="@{'/images/' + ${post.image}}" alt="postImage">-->
+                            <form
+                                    th:action="@{/band-profile/{bandId}/band-posts/{bandPostsId}/delete(bandId=${band.id}, bandPostsId=${bandPosts.id})}"
+                                    method="post" style="display: inline;">
+                                <button type="submit" class="btn btn-danger">Delete</button>
+                            </form>
                         </div>
                     </div>
 
@@ -151,12 +157,19 @@
                 <div th:each="events : ${events}">
                     <div class="card" style="width: 18rem">
                         <div class="card-body">
+                            <p>Band: <span th:text="${band.bandname}"></span></p>
                             <h5 class="card-title" th:text="${events.title}"></h5>
                             <h6 class="card-body" th:text="${events.description}"></h6>
                             <!--                        <img th:src="@{'/images/' + ${post.image}}" alt="postImage">-->
+                            <form
+                                    th:action="@{/band-profile/{bandId}/events/{eventId}/delete(bandId=${band.id}, eventId=${events.id})}"
+                                  method="post" style="display: inline;">
+                                <button type="submit" class="btn btn-danger">Delete</button>
+                            </form>
                         </div>
                     </div>
                 </div>
+
             </div>
         </div>
     </div>
@@ -273,6 +286,9 @@
             bandEvent.close();
         }
     });
+
+
+
 
 </script>
 

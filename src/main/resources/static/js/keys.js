@@ -44,4 +44,3 @@ function hideModal() {
     var modal = document.getElementById('modal');
     modal.style.display = 'none';
 }
-

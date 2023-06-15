@@ -22,38 +22,43 @@
 <nav th:insert="partials/navbar :: navbar"></nav>
 
 <header>
-    <h2 id="userName" th:text="${user.username}" ></h2>
+    <h2 class="logo-1" th:text="${user.username}" ></h2>
 </header>
 
 
 <div class="container text-center" Id="userInfoArea" >
-    <div class="row" style="display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  flex-wrap: wrap;
-  margin-bottom: 20px;">
-        <img th:src="${user.profileImage}" alt="image" id="currentPic" style="background-color: darkgrey; color:white; padding:5px; border:none;outline:none; height: 30vh; width: auto">
+    <div>
+        <div class="profile-settings">
+            <div>
+                <img th:src="${user.profileImage}" alt="image" id="currentPic">
+            </div>
+            <div>
+                <dialog id="changePicture">
+                    <div>
+                        <input type="file" id="imageInput" onchange="handleProfilePictureUpload()">
+                        <img src="" alt="image" id="profilePic">
+                        <button type="submit" class="btn btn-success">Submit!</button>
+                    </div>
+                </dialog>
 
+                <!--    Edit Profile-->
+                <div class="button-edit">
+                    <a th:href="@{/profile/edit}" type="button" class="btn btn-info">Edit profile</a>
+                </div>
+            </div>
 
-<!--Bands List-->
-        <div id="bandsArea">
-<!--            <div th:if="${not #lists.isEmpty(bands)}">-->
-                <h4>Bands:</h4>
-                <ul>
-                    <li th:each="band : ${user.band}">
-                        <a th:href="@{/band-profile/{bandId}(bandId=${band.id})}">
-                            <span th:text="${band.bandname}"></span>
-                        </a>
-                    </li>
-<!--                    <li th:text="band.bandname"></li>-->
-                </ul>
         </div>
+
     </div>
 
-<!--    Edit Profile-->
-    <div>
-        <a th:href="@{/profile/edit}" type="button" class="btn btn-info">Edit profile</a>
+    <!--Bands List-->
+    <div id="bandsArea">
+        <h4>My Band:</h4>
+        <p class="band-name" th:each="band : ${user.band}">
+            <a class="band-link" th:href="@{/band-profile/{bandId}(bandId=${band.id})}">
+                <span th:text="${band.bandname}"></span>
+            </a>
+        </p>
     </div>
 
 <!--    Create a post-->
@@ -115,38 +120,40 @@
                         </div>
 
                     </div>
-                    <button type="submit" class="btn btn-success">Submit!</button>
+                    <button type="submit" class="btn btn-primary">Submit!</button>
                 </form>
             </dialog>
-            <button onclick="bandCreationDialog.showModal()" type="button" class="btn btn-success">Create a Band</button>
+            <button onclick="bandCreationDialog.showModal()" type="button"
+                    class="btn btn-info">Create a Band</button>
         </div>
+    </div>
 
-        <div>
-            <div id="PostsContainer">
-                <div th:each="post : ${posts}">
-                    <div class="card" style="width:20rem;">
+    <div>
+        <div id="posts-container">
+            <div class="text-center" id="recent-activity">
+                <div>
+                    <h4>Recent Activity</h4>
 
-                        <div class="card-body">
-                            <h5 class="card-title" th:text="${post.title}"></h5>
-                            <!--                <h6 class="card-subtitle mb-2 text-body-secondary" th:text="${post.user}"></h6>-->
-                            <p class="card-text" th:text="${post.description}"></p>
-                            <img th:src="${post.post_image}" alt="image" id="bandPic" height="200">
+                </div>
+            </div>
+            <div class="card-layout" th:each="post : ${posts}">
+                <div class="card" style="width:20rem;">
 
-                        </div>
+                    <div class="card-body">
+                        <p>User: <span th:text="${user.username}"></span></p>
+                        <h5 class="card-title" th:text="${post.title}"></h5>
+                        <!--                <h6 class="card-subtitle mb-2 text-body-secondary" th:text="${post.user}"></h6>-->
+                        <p class="card-text" th:text="${post.description}"></p>
+                        <img th:src="${post.post_image}" alt="image" id="bandPic" height="200">
+                        <form
+                                th:action="@{/profile/{id}/posts/{postId}/delete(id=${user.id}, postId=${post.id})}"
+                                method="post" style="display: inline;">
+                            <button type="submit" class="btn btn-danger">Delete</button>
+                        </form>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-</div>
-
-
-
-
-<div class="container text-center" id="recent-activity">
-    <div>
-        <h4>Recent Activity</h4>
-
     </div>
 </div>
 
@@ -195,6 +202,7 @@
         });
     });
 
+    // Function to handle file picker and upload for post image
     const postPic = document.getElementById("postImage");
     const postFileInput = document.getElementById("postImageInput");
     const postImageUrlInput = document.getElementById("postImageUrl");

@@ -1,5 +1,6 @@
 package com.codeup.localscene.controllers;
 
+import com.codeup.localscene.models.Band;
 import com.codeup.localscene.models.Events;
 import com.codeup.localscene.repositories.BandRepository;
 import com.codeup.localscene.repositories.EventRepository;
@@ -25,33 +26,43 @@ public class EventController {
         this.bandRepository = bandRepository;
     }
 
-    @GetMapping("/events")
-    public String events(){
-        return "events";
-    }
+
+//    @GetMapping("/events")
+//    public String events(){
+//        return "events";
+//    }
+
+
+
+
 
     //retrieves list of events
-    @GetMapping("/band-profile/{band_id}/events")
-    public String getEvents(Model model, @PathVariable String band_id) {
+    @GetMapping("/events")
+    public String getEvents(Model model) {
         List<Events> events = eventRepository.findAll();
 
         model.addAttribute("events", events);
         model.addAttribute("newEvent", new Events());
-        return "redirect:/home";
+        return "/events";
     }
 
 //    create event, saves event, redirects to list of events
     @PostMapping("/band-profile/events/create")
-    public String createEvent(@ModelAttribute("event") Events events) {
+    public String createEvent(@ModelAttribute("event") Events events,
+                              @PathVariable("bandId") Long bandId) {
+        Band band = bandRepository.getReferenceById(bandId);
+        events.setBand(band);
         eventRepository.save(events);
-        return "redirect:/home";
+        return "redirect:/band-profile/" + bandId;
     }
-//
-//    //delete
-//    @PostMapping("/band-profile/{band_id}/events/delete")
-//    public String deleteEvents(@ModelAttribute("event") Events event){
-//        eventRepository.delete(event);
-//        return "redirect:/home";
-//    }
+
+
+    //delete
+    @PostMapping("/band-profile/{bandId}/events/{eventId}/delete")
+    public String deleteEvents(@PathVariable("bandId") Long bandId,
+                               @PathVariable("eventId") Long eventId){
+        eventRepository.deleteById(eventId);
+        return "redirect:/band-profile/{bandId}";
+    }
 
 }
