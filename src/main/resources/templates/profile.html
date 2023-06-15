@@ -210,21 +210,6 @@
         });
     });
 
-    // Function to handle file picker and upload for post image
-    function handlePostImageUpload() {
-        const postFile = document.getElementById("postFile");
-        const postFileInput = document.getElementById("postFileInput");
-
-        postFileInput.addEventListener("change", (event) => {
-            const file = event.target.files[0];
-
-            client.upload(file).then((response) => {
-                postFile.src = response.url;
-            }).catch((error) => {
-                console.log(error);
-            });
-        });
-    }
 
     function showForm(formId) {
         if (formId === 'sign-up') {
