@@ -1,6 +1,5 @@
 package com.codeup.localscene.controllers;
 
-import com.codeup.localscene.models.BandPosts;
 import com.codeup.localscene.models.Events;
 import com.codeup.localscene.repositories.EventRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +16,11 @@ public class EventController {
 
     @Autowired
     private EventRepository eventRepository;
+
+    @GetMapping("/events")
+    public String events(){
+        return "events";
+    }
 
     //retrieves list of events
     @GetMapping("/profile/{id}/events")
