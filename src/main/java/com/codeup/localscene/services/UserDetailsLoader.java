@@ -1,13 +1,12 @@
 package com.codeup.localscene.services;
 
-import com.codeup.localscene.models.UserWithRoles;
 import com.codeup.localscene.models.User;
+import com.codeup.localscene.models.UserWithRoles;
 import com.codeup.localscene.repositories.UserRepository;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @Service
 public class UserDetailsLoader implements UserDetailsService {
@@ -23,7 +22,10 @@ public class UserDetailsLoader implements UserDetailsService {
             throw new UsernameNotFoundException("User not found with email: " + email);
         }
 
+        if (!users.isEnabled()) {
+            throw new UsernameNotFoundException("User with email " + email + " is not enabled.");
+        }
+
         return new UserWithRoles(users);
     }
 }
-
