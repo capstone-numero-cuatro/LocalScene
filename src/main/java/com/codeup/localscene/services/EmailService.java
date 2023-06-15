@@ -44,7 +44,7 @@ public class EmailService {
         mailMessage.setTo(user.getEmail());
         mailMessage.setSubject("Email Verification");
         mailMessage.setText("To verify your email, please click the following link: "
-                + "http://localhost:8080/verify?code=" + user.getVerificationCode());
+                + "http://thelocalscene.site/verify?code=" + user.getVerificationCode());
 
         mailSender.send(mailMessage);
     }
