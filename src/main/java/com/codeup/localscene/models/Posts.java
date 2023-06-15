@@ -59,11 +59,11 @@ public class Posts {
         this.description = description;
     }
 
-    public String getPostImage(){
+    public String getPost_image(){
         return post_image;
     }
 
-    public void setPostImage(String post_image) {
+    public void setPost_image(String post_image) {
         this.post_image = post_image;
     }
 
