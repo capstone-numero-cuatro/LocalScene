@@ -1,51 +1,28 @@
-/*.custom-file-upload {*/
-/*    padding: 6px 12px;*/
-/*    cursor: pointer;*/
-/*    background-color: #f8f9fa;*/
-/*    border: 1px solid #ced4da;*/
-/*    border-radius: 4px;*/
-
-/*}*/
+.custom-file-upload {
+    padding: 6px 12px;
+    cursor: pointer;
+    background-color: #f8f9fa;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    display: inline-block;
+}
 body{
-    background: linear-gradient(0deg, #99dcf7, #7ec6f9);
+    background: linear-gradient(90deg, #404066, #2b2c41);
     font-family: 'Permanent Marker', cursive;
-    background-repeat: no-repeat;
-    height: 100vh;
-
 
 }
-.inner{
-    margin-top: 15%;
-
-    background: transparent;
-}
-.screen-content{
-    display: inline-flex;
-    justify-content: space-evenly;
-    align-items: center;
-    margin-right: 20%;
-}
-#signup-image{
-    height: 600px !important;
-        width: 350px !important;
-        border-radius: 20px !important;
-    margin: 1em;
-    box-shadow: 0px 0px 24px #d2ebff;
-}
-form{
-
+.container {
     display: flex;
-    flex-direction: column;
-    margin: .5em;
-    padding: 4em;
-    z-index: 30;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
 }
-
 
 .screen {
     background: linear-gradient(90deg, #404066, #88cafc);
     position: relative;
-
+    height: 600px;
+    width: 360px;
     box-shadow: 0px 0px 24px #d2ebff;
     border-radius: 32px;
     display: flex;
@@ -56,8 +33,16 @@ form{
     z-index: 1;
     position: relative;
     height: 100%;
+    display: flex;
+    flex-direction: column;
 }
+.login{
 
+    width: 320px;
+    padding: 30px;
+
+    /*margin-top: 80px;*/
+}
 .screen__background {
     position: absolute;
     top: 0;
@@ -70,14 +55,14 @@ form{
 }
 
 .screen__background__shape {
-    transform: rotate(45deg);
+    transform: rotate(135deg);
     position: absolute;
 }
 
 .screen__background__shape1 {
-    height: 520px;
-    width: 520px;
-    background: #edcc6f;
+    height: 220px;
+    width: 300px;
+    background: #ca57a5;
     top: -50px;
     right: 120px;
     border-radius: 0 72px 0 0;
@@ -86,7 +71,7 @@ form{
 .screen__background__shape2 {
     height: 220px;
     width: 220px;
-    background: #88cafc;
+    background: #ff4491;
     top: -172px;
     right: 0;
     border-radius: 32px;
@@ -95,7 +80,7 @@ form{
 .screen__background__shape3 {
     height: 540px;
     width: 190px;
-    background: linear-gradient(270deg, #404066, #2b2c41);
+    background: linear-gradient(270deg, #2e5fbe, #2b2c41);
     top: -24px;
     right: 0;
     border-radius: 32px;
@@ -104,27 +89,27 @@ form{
 .screen__background__shape4 {
     height: 400px;
     width: 200px;
-    background: #88cafc;
+    background: #6f7dbc;
     top: 420px;
     right: 50px;
     border-radius: 60px;
 }
 form {
-    width: 50%;
-    padding-top: 36px;
-    padding-left: 45px;
-    padding-right: 45px;
-    flex-basis: 50%;
+    margin-top: 25%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
-/*img{*/
-/*    max-height: 10vh;*/
-/*}*/
+img{
+    max-height: 10vh;
+}
 input{
     border-radius: 25px;
     margin: .5em;
 }
-#criterias{
-    color:white;
+
+#pwResetbox{
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
-
-

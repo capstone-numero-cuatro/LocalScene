@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>Band Profile</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <link rel="stylesheet" th:href="@{/css/navbar.css}">
     <link rel="stylesheet" th:href="@{/css/band-profile.css}">
 
     <!---googlefonts-->
@@ -17,115 +18,225 @@
 <div id="preloader"></div>
 <nav th:insert="partials/navbar :: navbar"></nav>
 
-<div class="container text-center" id="bandInfoArea" style="border: solid plum 2px">
-    <div class="row" style="display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  flex-wrap: wrap;
-  margin-bottom: 20px;">
-        <img th:src="${band.bandImage}" alt="image" id="currentPic" style="background-color: darkgrey; color:white; padding:5px; border:none;outline:none; height: 30vh; width: auto">
+<header>
+
+</header>
 
 
-        <h2 id="bandName" th:text="${band.bandname}" ></h2>
 
-        <div id="membersArea">
-            <div th:if="${not #lists.isEmpty(users)}">
-                <h4>Members:</h4>
-                <ul>
-                    <li th:each="band : ${users}">[[${user.username}]]</li>
-                    <!-- Add more list items for each band -->
-                </ul>
+<div class="container text-center" id="bandInfoArea">
+    <div>
+
+<!--        <div style="position: relative">-->
+<!--            <input type="file" id="imageInput">-->
+<!--            <img src="" alt="image" id="profilePic" style="background-color: darkgrey; color:white; padding:5px; border:none;outline:none; height: 30vh; width: auto">-->
+<!--        </div>-->
+
+        <img th:src="${band.band_image}" alt="image" id="currentPic" style="background-color:
+        darkgrey; color:white; padding:5px; border:none;outline:none; height: 30vh; width: auto">
+
+        <dialog id="changePicture">
+            <div>
+                <input type="file" id="imageInput" onchange="handleProfilePictureUpload()">
+                <img src="" alt="image" id="profilePic" style="background-color: darkgrey; color:white; padding:5px; border:none;outline:none; height: 30vh; width: auto">
+                <button type="submit" class="btn btn-success">Submit!</button>
             </div>
+        </dialog>
+
+        <button onclick="openProfilePicturePicker()" type="button" id="changeProfilePic" style="--content: 'Hover me!';"><div class="left"> </div> Change Profile Picture<div class="right"></div></button>
+
+
+        <h2 th:text="${band.bandname}">Band Name Placeholder</h2>
+
+    </div>
+    <div class="container">
+        <div>
+            <h3>Band Members</h3>
+            <ul>
+                <li th:each="user : ${band.user}">
+                    <span th:text="${user.username}"></span>
+                </li>
+            </ul>
+        </div>
+        <div>
+            <h3>Add Band Member</h3>
+            <form th:action="@{/band-profile/{bandId}/add-user(bandId=${band.id})}" method="post">
+                <input type="text" name="username" placeholder="Username" required>
+                <button class="btn  btn-success" type="submit">Add</button>
+            </form>
+
+
+        </div>
+
+        <div id="bandButtons">
+            <div class="container">
+                <dialog id="bandPostDialog">
+                    <section id="insideModal">
+                        <h2>Shoutout to your fans!</h2>
+                        <form th:object="${newBandPosts}" th:method="post"
+                              th:action="@{/band-profile/{bandId}/band-posts/create(bandId=${band.id})}">
+                            <div class="mb-3">
+                                <label for="BandPostTitle" class="form-label">Title</label>
+                                <input type="text" class="form-control" id="BandPostTitle" name="title" placeholder="Title" th:field="*{title}">
+                            </div>
+                            <div class="mb-3">
+                                <label for="BandPostDescription" class="form-label">Body</label>
+                                <textarea class="form-control" id="BandPostDescription" name="content" rows="3" th:field="*{description}"></textarea>
+                                                                <input type="hidden" th:field="*{id}">
+                                <div >
+                                    <input type="file" id="bandPostImgInput">
+                                    <img src="" alt="image" id="bandPostImg" >
+                                </div>
+
+                            </div>
+                            <button type="submit" class="btn btn-warning">Let it be known!</button>
+                        </form>
+                    </section>
+                </dialog>
+                <button onclick="bandPostDialog.showModal()" type="button" class="band-post-btn">Band Post</button>
+            </div>
+            <div class="container">
+                <dialog id="bandEvent">
+                    <section id="insideEvent">
+                        <h5>What are the deets?!</h5>
+                        <form th:object="${newEvent}" th:method="post"
+                              th:action="@{/band-profile/{bandId}/band-events/create(bandId=${band.id})}">
+                            <div class="mb-3">
+                                <label for="EventsPostTitle" class="form-label">Title</label>
+                                <input type="text" class="form-control" id="EventsPostTitle"
+                                       name="title" placeholder="Title"
+                                       th:text="*{title}">
+                            </div>
+                            <div class="mb-3">
+                                <label for="EventsDescription" class="form-label">Body</label>
+                                <textarea class="form-control" id="EventsDescription" name="content" rows="3" th:field="*{description}"></textarea>
+                                <!--                <input type="hidden">-->
+                                <div style="position: relative">
+                                    <input type="file" id="bandEventInput">
+                                    <img src="" alt="image" id="bandEventFlyer" style="background-color: darkgrey; color:white; padding:5px; border:none;outline:none; height: 30vh; width: auto">
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-danger">Let it be known!</button>
+                        </form>
+                    </section>
+                </dialog>
+                <button onclick="bandEvent.showModal()" type="button" class="band-post-btn">Event Creation</button>
+            </div>
+
         </div>
     </div>
-    <div>
-        <a th:href="@{/profile/band-post/edit}" type="button" class="btn btn-info">Edit Band</a>
-    </div>
-</div>
 
-<div class="container">
-    <dialog id="bandPostDialog">
-        <section id="insideModal">
-            <h2>Shoutout to your fans!</h2>
-            <form th:object="${bandPost}" th:method="post" th:action="@{/bandPostsCreate}">
-                <div class="mb-3">
-                    <label for="BandPostTitle" class="form-label">Title</label>
-                    <input type="text" class="form-control" id="BandPostTitle" name="title" placeholder="Title" th:field="*{title}">
-                </div>
-                <div class="mb-3">
-                    <label for="BandPostDescription" class="form-label">Body</label>
-                    <textarea class="form-control" id="BandPostDescription" name="content" rows="3" th:field="*{description}"></textarea>
-    <!--                                <input type="hidden" th:field="*{id}">-->
-                    <div >
-                        <input type="file" id="bandPostImgInput">
-                        <img src="" alt="image" id="bandPostImg" >
+    <div class="container" id="recent-activity" style="border: solid yellow 2px">
+        <div>
+            <div><h4>Recent Activity Placeholder</h4>
+                <div th:each="bandPosts : ${bandPosts}">
+                    <div class="card" style="width: 18rem">
+                        <div class="card-body">
+                            <h5 class="card-title" th:text="${bandPosts.title}"></h5>
+                            <h6 class="card-body" th:text="${bandPosts.description}"></h6>
+                            <!--                        <img th:src="@{'/images/' + ${post.image}}" alt="postImage">-->
+                        </div>
                     </div>
 
                 </div>
-                <button type="submit" class="btn btn-warning">Let it be known!</button>
-            </form>
-        </section>
-    </dialog>
-    <button onclick="bandPostDialog.showModal()" type="button" class="btn btn-warning">Band Post</button>
-</div>
-<div class="container">
-    <dialog id="bandEvent">
-        <h5>What are the deets?!</h5>
-        <form th:object="${events}" th:method="post" th:action="@{/band-profile/{id}(id=${band.getId()})}">
-            <div class="mb-3">
-                <label for="EventsPostTitle" class="form-label">Title</label>
-                <input type="text" class="form-control" id="EventsPostTitle" name="title" placeholder="Title" th:field="*{title}">
-            </div>
-            <div class="mb-3">
-                <label for="EventsDescription" class="form-label">Body</label>
-                <textarea class="form-control" id="EventsDescription" name="content" rows="3" th:field="*{description}"></textarea>
-                <!--                <input type="hidden">-->
-                <div style="position: relative">
-                    <input type="file" id="bandEventInput">
-                    <img src="" alt="image" id="bandEventFlyer" style="background-color: darkgrey; color:white; padding:5px; border:none;outline:none; height: 30vh; width: auto">
+                <div th:each="events : ${events}">
+                    <div class="card" style="width: 18rem">
+                        <div class="card-body">
+                            <h5 class="card-title" th:text="${events.title}"></h5>
+                            <h6 class="card-body" th:text="${events.description}"></h6>
+                            <!--                        <img th:src="@{'/images/' + ${post.image}}" alt="postImage">-->
+                        </div>
+                    </div>
                 </div>
             </div>
-            <button type="submit" class="btn btn-danger">Let it be known!</button>
-        </form>
+        </div>
+    </div>
 
-    </dialog>
-    <button onclick="bandEvent.showModal()" type="button" class="btn btn-outline-danger">Event Creation</button>
 </div>
 
-<script src="//static.filestackapi.com/filestack-js/3.x.x/filestack.min.js"></script>
+    <script src="//static.filestackapi.com/filestack-js/3.x.x/filestack.min.js"></script>
+
 <script>
-    //Set Preloader
-    let loader = document.getElementById("preloader");
-    const preloaderDuration = 1500;
-    function hidePreloader() {
-        loader.style.display = "none";
-    }
-    loader.style.display = "block";
+    //apikey
+    const client = filestack.init("Abd5534iTviZyWy5jGpswz");
 
-    setTimeout(hidePreloader, preloaderDuration);
-
-    //Show band Image
-    const client = filestack.init(filestackKey);
-
-    function openBandImagePicker() {
+    // Function to open the profile picture picker dialog
+    function openProfilePicturePicker() {
         const dialog = document.getElementById("changePicture");
         dialog.showModal();
     }
 
-    // Band post image
-    const bandPostImg = document.getElementById("bandPostImg");
-    const bandPostImgInput = document.getElementById("bandPostImgInput");
-
-    bandPostImgInput.addEventListener("change", (event) => {
-        const file = event.target.files[0];
+    // Function to handle file picker and upload for profile picture
+    function handleProfilePictureUpload() {
+        const profilePic = document.getElementById("profilePic");
+        const profileFileInput = document.getElementById("imageInput");
+        const file = profileFileInput.files[0];
 
         client.upload(file).then((response) => {
-            bandPostImg.src = response.url;
+            console.log("Filestack api response: " , response);
+            profilePic.src = response.url;
+            // Save the file to the user's profile using a callback or by making an API request
+            saveProfilePicture(response.url);
+            closeProfilePicturePicker();
         }).catch((error) => {
             console.log(error);
         });
-    });
+    }
+
+    // Function to close the profile picture picker dialog
+    function closeProfilePicturePicker() {
+        const dialog = document.getElementById("changePicture");
+        dialog.close();
+    }
+
+    // Function to handle file picker and upload for post image
+    function handlePostImageUpload() {
+        const postFile = document.getElementById("postFile");
+        const postFileInput = document.getElementById("postFileInput");
+
+        postFileInput.addEventListener("change", (event) => {
+            const file = event.target.files[0];
+
+            client.upload(file).then((response) => {
+                postFile.src = response.url;
+            }).catch((error) => {
+                console.log(error);
+            });
+        });
+    }
+
+    // // Function to handle file picker and upload for band image
+    // function handleBandImageUpload() {
+    //     const bandImg = document.getElementById("bandImg");
+    //     const bandCreateImgInput = document.getElementById("bandCreateImg");
+    //
+    //     bandCreateImgInput.addEventListener("change", (event) => {
+    //         const file = event.target.files[0];
+    //
+    //         client.upload(file).then((response) => {
+    //             bandImg.src = response.url;
+    //         }).catch((error) => {
+    //             console.log(error);
+    //         });
+    //     });
+    // }
+
+
+    // const client = filestack.init("Abd5534iTviZyWy5jGpswz");
+    //
+    // // Band post image
+    // const bandPostImg = document.getElementById("bandPostImg");
+    // const bandPostImgInput = document.getElementById("bandPostImgInput");
+    //
+    // bandPostImgInput.addEventListener("change", (event) => {
+    //     const file = event.target.files[0];
+    //
+    //     client.upload(file).then((response) => {
+    //         bandPostImg.src = response.url;
+    //     }).catch((error) => {
+    //         console.log(error);
+    //     });
+    // });
 
     // Band event flyer
     const bandEventFlyer = document.getElementById("bandEventFlyer");
@@ -141,17 +252,13 @@
         });
     });
     window.addEventListener('click', function(e) {
-        var bandPost = document.getElementById('bandPostDialog');
-        if (e.target == bandPost) {
-            bandPost.close();
+        var bandEvent = document.getElementById('bandEvent');
+        if (e.target === bandEvent) {
+            bandEvent.close();
         }
     });
 
 </script>
-
-
-
-
 
 <!--Bootstrap-->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>

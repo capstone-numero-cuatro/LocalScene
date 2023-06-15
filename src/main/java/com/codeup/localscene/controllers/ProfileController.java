@@ -1,9 +1,9 @@
 package com.codeup.localscene.controllers;
 
-import com.codeup.localscene.models.Bands;
+import com.codeup.localscene.models.Band;
 import com.codeup.localscene.models.PasswordResetForm;
 import com.codeup.localscene.models.Posts;
-import com.codeup.localscene.models.Users;
+import com.codeup.localscene.models.User;
 import com.codeup.localscene.repositories.BandRepository;
 import com.codeup.localscene.repositories.PostRepository;
 import com.codeup.localscene.repositories.UserRepository;
@@ -15,10 +15,7 @@ import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.security.Principal;
@@ -46,12 +43,13 @@ public class ProfileController {
 
     @GetMapping("/profile/{id}")
     public String showProfile(@PathVariable long id, Model model) {
-        Users user = userRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("User not found with id " + id));
+        User user = userRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("User not found with id " + id));
 
         List<Posts> posts = postRepository.findByUser(user);
 
-        model.addAttribute("posts", new Posts());
-        model.addAttribute("bands", new Bands());
+        model.addAttribute("posts", posts);
+        model.addAttribute("newPost", new Posts());
+        model.addAttribute("band", new Band());
         model.addAttribute("passwordResetForm", new PasswordResetForm());
         model.addAttribute("user", user);
         return "profile";
@@ -59,32 +57,33 @@ public class ProfileController {
 
     @PostMapping("/profile/posts/create")
     public String createPost(@ModelAttribute Posts posts) {
-        //Access the logged in user (bottom of security)
-        Users loggedInUser = (Users) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
+        User loggedInUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         loggedInUser = userRepository.findByUsername(loggedInUser.getUsername());
 
         posts.setUser(loggedInUser);
 
-        System.out.println("posts.getUser_id().getUsername() = " + posts.getUser().getUsername());
-
         postRepository.save(posts);
-        return "redirect:/home";
+
+        return "redirect:/profile/" + loggedInUser.getId();
     }
 
+    @PostMapping("/profile/bands/create")
+    public String createBand(@ModelAttribute Band band) {
 
-    @PostMapping("/bands/create")
-    public String createBand(@ModelAttribute Bands band) {
-        Bands createdBand = bandService.createBand(band);
-        System.out.println("createdBand = " + createdBand.getBandImage());
-        return "redirect:/band-profile/" + createdBand.getId();
+        User loggedInUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        loggedInUser = userRepository.getReferenceById(loggedInUser.getId());
+        loggedInUser.setBand(band);
+
+        bandRepository.save(band);
+        return "redirect:/band-profile/" + band.getId();
     }
 
     @PostMapping("/profile/reset-password")
     public String handlePasswordReset(@ModelAttribute("passwordResetForm") PasswordResetForm form, Model model, Principal principal, RedirectAttributes redirectAttributes) {
         String username = principal.getName();
 
-        Users user = userRepository.findByUsername(username);
+        User user = userRepository.findByUsername(username);
         if (user == null) {
             model.addAttribute("errorMessage", "User does not exist.");
             return "users/profile";
@@ -111,6 +110,5 @@ public class ProfileController {
         return "redirect:/profile/" + user.getId();
     }
 }
-
 
 

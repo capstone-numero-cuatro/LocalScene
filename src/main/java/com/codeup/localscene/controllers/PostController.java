@@ -18,18 +18,15 @@ public class PostController {
 
     @Autowired
     public PostController(PostRepository postRepository) {
+
         this.postRepository = postRepository;
     }
-
-    ;
-
 
     @GetMapping("/profile/{id}/posts")
     public String getPosts(Model model) {
         List<Posts> posts = postRepository.findAll();
         model.addAttribute("posts", posts);
         model.addAttribute("posts", new Posts());
-
         return "redirect:/posts";
     }
 

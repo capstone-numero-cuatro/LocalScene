@@ -21,7 +21,7 @@ public class Posts {
 
     @ManyToOne
     @JoinColumn(name = "user_id")
-    private Users user;
+    private User user;
 
     public Posts(Posts copy){
         id = copy.id;
@@ -67,11 +67,11 @@ public class Posts {
         this.post_image = post_image;
     }
 
-    public Users getUser() {
+    public User getUser() {
         return user;
     }
 
-    public void setUser(Users user) {
+    public void setUser(User user) {
         this.user = user;
     }
 }

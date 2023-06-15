@@ -7,9 +7,13 @@ function fetchVenues(keyword) {
     return fetch(url)
         .then(function (response) {
             return response.json();
-        }).then(function (data) {
+        })
+        .then(function (data) {
             console.log(data);
             displayVenues(data);
+        })
+        .catch(function (error) {
+            console.error('Error:', error);
         });
 }
 
@@ -41,7 +45,8 @@ function displayVenues(data) {
 function createVenueCard(venue) {
     // Create card element
     var card = document.createElement('div');
-    card.classList.add('card');card.onclick = function () {
+    card.classList.add('card');
+    card.onclick = function () {
         showModal(venue.name);
     };
 
@@ -84,8 +89,9 @@ document.getElementById('search-form').addEventListener('submit', function (even
     event.preventDefault();
     var keyword = document.getElementById('search-input').value;
     fetchVenues(keyword);
-    getLocation(keyword);
+    // getLocation(keyword); // If this is defined and needed, add it here or call it appropriately
 });
 
 document.getElementById('see-more-button').addEventListener('click', function () {
-})
+    // Add the logic here to display more venues or handle any desired functionality
+});

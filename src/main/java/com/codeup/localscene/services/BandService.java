@@ -1,6 +1,6 @@
 package com.codeup.localscene.services;
-import com.codeup.localscene.models.Bands;
-import com.codeup.localscene.models.Users;
+import com.codeup.localscene.models.Band;
+import com.codeup.localscene.models.User;
 import com.codeup.localscene.repositories.BandRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,19 +16,19 @@ public class BandService {
         this.bandRepository = bandRepository;
     }
 
-    public Bands createBand(Bands band) {
+    public Band createBand(Band band) {
         return bandRepository.save(band);
     }
 
-    public List<Bands> getAllBands() {
+    public List<Band> getAllBands() {
         return bandRepository.findAll();
     }
 
-    public Bands getBandById(Long id) {
+    public Band getBandById(Long id) {
         return bandRepository.findById(id).orElse(null);
     }
 
-    public Bands updateBand(Bands band) {
+    public Band updateBand(Band band) {
         return bandRepository.save(band);
     }
 
@@ -36,8 +36,5 @@ public class BandService {
         bandRepository.deleteById(id);
     }
 
-    public List<Bands> getBandsByUser(Users user) {
-        return bandRepository.findByUser(user);
-    }
 }
 

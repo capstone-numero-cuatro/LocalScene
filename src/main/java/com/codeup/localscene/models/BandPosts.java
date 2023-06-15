@@ -7,8 +7,8 @@ import jakarta.persistence.*;
 public class BandPosts {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private long band_post_id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
 
     @Column(nullable = false, length = 45)
     private String title;
@@ -21,25 +21,25 @@ public class BandPosts {
 
     @ManyToOne
     @JoinColumn(name = "band_id")
-    private Bands band_id;
+    private Band band;
 
     public BandPosts(BandPosts copy){
-        band_post_id = copy.band_post_id;
+        id = copy.id;
         title = copy.title;
         description = copy.description;
         post_image = copy.post_image;
-        band_id = copy.band_id;
+        band = copy.band;
     }
 
     public BandPosts() {
     }
 
-    public long getBandPostId() {
-        return band_post_id;
+    public long getId() {
+        return id;
     }
 
-    public void setBandPostId(long band_post_id) {
-        this.band_post_id = band_post_id;
+    public void setId(long id) {
+        this.id = id;
     }
 
     public String getTitle() {
@@ -66,4 +66,11 @@ public class BandPosts {
         this.post_image = post_image;
     }
 
+    public Band getBand(){
+        return band;
+    }
+
+    public void setBand(Band band) {
+        this.band = band;
+    }
 }
