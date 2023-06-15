@@ -152,6 +152,7 @@ body {
     border:5px solid rgba(48, 47, 47);
     border-radius: 10px;
 }
+
 .band{
     display: inline-block;
     height: 200px;
@@ -349,3 +350,4 @@ body {
     align-items: center;
     font-family: 'Permanent Marker', cursive;
 }
+
