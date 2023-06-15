@@ -256,9 +256,10 @@ body {
 
 .user-card {
     box-shadow: 0 1rem 2rem hsl(0 0% 0% / 20%);
-
-    background: hsl(0 0% 100%);
-    color: hsl(200 50% 20%);
+    align-items: center;
+    justify-content: center;
+    background: #26202a;
+    color: white;
     line-height: 1.5;
     font-size: 1.5rem;
     font-weight: 300;
@@ -270,6 +271,16 @@ body {
     border-radius: 2ch;
     border: 1px solid hsl(0 0% 83%);
     margin-right:40px;
+}
+.user-card img{
+    border: solid white 2px;
+    width: 100%;
+    height: auto;
+}
+#ryan{
+    background-image: url("../img/firstFunko.png");
+    background-size: cover;
+    position: center;
 }
 
 #myTab {
