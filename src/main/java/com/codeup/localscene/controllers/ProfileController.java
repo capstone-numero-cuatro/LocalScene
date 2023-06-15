@@ -42,7 +42,13 @@ public class ProfileController {
     }
 
     @GetMapping("/profile/{id}")
-    public String showProfile(@PathVariable long id, Model model) {
+    public String showProfile(@PathVariable long id, Model model, Principal principal) {
+        User currentUser = userRepository.findByUsername(principal.getName());
+
+        if (currentUser.getId() != id) {
+            throw new ResourceNotFoundException("Profile not found");
+        }
+
         User user = userRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("User not found with id " + id));
 
         List<Posts> posts = postRepository.findByUser(user);
@@ -52,8 +58,10 @@ public class ProfileController {
         model.addAttribute("band", new Band());
         model.addAttribute("passwordResetForm", new PasswordResetForm());
         model.addAttribute("user", user);
+
         return "profile";
     }
+
 
     @PostMapping("/profile/posts/create")
     public String createPost(@ModelAttribute Posts posts) {
