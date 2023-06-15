@@ -21,14 +21,14 @@ import java.util.UUID;
 
 @Controller
 public class UserController {
-    private final UserRepository userDao;
+    private final UserRepository userRepository;
     private final EmailService emailService;
     private final UserDetailsLoader userDetailsLoader;
     private final BCryptPasswordEncoder passwordEncoder;
 
     @Autowired
-    public UserController(UserRepository userDao, EmailService emailService, UserDetailsLoader userDetailsLoader, BCryptPasswordEncoder passwordEncoder) {
-        this.userDao = userDao;
+    public UserController(UserRepository userRepository, EmailService emailService, UserDetailsLoader userDetailsLoader, BCryptPasswordEncoder passwordEncoder) {
+        this.userRepository = userRepository;
         this.emailService = emailService;
         this.userDetailsLoader = userDetailsLoader;
         this.passwordEncoder = passwordEncoder;
@@ -46,12 +46,26 @@ public class UserController {
     @PostMapping("/sign-up")
     public ResponseEntity<String> signUp(@ModelAttribute User user) {
         try {
+            // Check if username or email already exists
+            User existingUserByUsername = userRepository.findByUsername(user.getUsername());
+            User existingUserByEmail = userRepository.findByEmail(user.getEmail());
+
+            if(existingUserByUsername != null) {
+                return ResponseEntity.badRequest().body("Error during registration. Username already exists.");
+            }
+
+            if(existingUserByEmail != null) {
+                return ResponseEntity.badRequest().body("Error during registration. Email already in use.");
+            }
+
+            // Registration process
             emailService.registerUser(user);
             return ResponseEntity.ok("Registration successful. Please check your email for verification link.");
         } catch (Exception e) {
             return ResponseEntity.badRequest().body("Error during registration. Please try again.");
         }
     }
+
 
     @GetMapping("/verify")
     public String verifyEmail(@RequestParam String code, Model model) {
