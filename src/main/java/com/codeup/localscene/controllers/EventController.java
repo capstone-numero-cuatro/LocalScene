@@ -25,13 +25,13 @@ public class EventController {
         this.bandRepository = bandRepository;
     }
 
-    @GetMapping("/events")
-    public String events(){
-        return "events";
-    }
+//    @GetMapping("/events")
+//    public String events(){
+//        return "events";
+//    }
 
     //retrieves list of events
-    @GetMapping("/band-profile/{band_id}/events")
+    @GetMapping("/events")
     public String getEvents(Model model, @PathVariable String band_id) {
         List<Events> events = eventRepository.findAll();
 
