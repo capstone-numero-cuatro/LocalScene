@@ -31,71 +31,94 @@ public class BandProfileController {
         this.userRepository = userRepository;
     }
 
-//    @Autowired
-//    public BandProfileController(BandPostRepository bandPostRepository) {
-//        this.bandPostRepository = bandPostRepository;
-//    }
-
     @GetMapping("/band-profile/{bandId}")
     public String showBandProfile( Model model, @PathVariable("bandId") Long bandId){
         Band band = bandRepository.getReferenceById(bandId);
-        if (band == null){
-            return "redirect:/404";
-        }
-
         User users = userRepository.getReferenceById(bandId);
 
-        // Get the currently logged-in user
-//        User loggedInUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-
-        // Check if the logged-in user is associated with the band
-//        if (!band.getUser().equals(loggedInUser)) {
-//            return "redirect:/404"; // Redirect to error page if user doesn't have access to this band profile
-//        }
+        List<BandPosts> bandPosts = bandPostRepository.findByBand(band);
 
         model.addAttribute("events", new Events());
-        model.addAttribute("bandPost", new BandPosts());
+        model.addAttribute("bandPosts", bandPosts);
+        model.addAttribute("newBandPosts", new BandPosts());
         model.addAttribute("band", band);
         model.addAttribute("bandId", bandId);
         model.addAttribute("users", users);
         return "users/band-profile";
     }
 
+//    @PostMapping("/band-profile/{bandId}")
+//    public String createPostBandProfile(@ModelAttribute Events events){
+//
+//        eventRepository.save(events);
+//        return "redirect:/home";
+//    }
 
+//    @GetMapping("/band-profile/{bandId}/edit")
+//    public String editBandProfile(@PathVariable("bandId") Long bandId, Model model) {
+//        Band band = bandRepository.findById(bandId).orElse(null);
+//        if (band == null) {
+//            return "redirect:/404";
+//        }
+//        model.addAttribute("band", band);
+//        return "users/band-profile";
+//    }
+//
+//    @GetMapping("/band-profile/{bandId}/delete")
+//    public String deleteBandProfile(@PathVariable("bandId") Long bandId) {
+//        Band band = bandRepository.findById(bandId).orElse(null);
+//        if (band == null) {
+//            return "redirect:/404";
+//        }
+//        bandRepository.delete(band);
+//        return "redirect:/profile";
+//    }
 
-    @PostMapping("/band-profile/{bandId}")
-    public String createPostBandProfile(@ModelAttribute Events events){
+    @PostMapping("/band-profile/{bandId}/band-posts/create")
+    public String createBandPost(@ModelAttribute BandPosts bandPost,
+                             @PathVariable("bandId") Long bandId) {
+        Band band = bandRepository.getReferenceById(bandId);
 
-        eventRepository.save(events);
-        return "redirect:/home";
-    }
+//        Band loggedInUser = (Band) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+//        loggedInUser = bandRepository.findByUsername(loggedInUser);
 
-    @GetMapping("/band-profile/{bandId}/edit")
-    public String editBandProfile(@PathVariable("bandId") Long bandId, Model model) {
-        Band band = bandRepository.findById(bandId).orElse(null);
-        if (band == null) {
-            return "redirect:/404";
-        }
-        model.addAttribute("band", band);
-        return "users/band-profile";
-    }
+        bandPost.setBand(band);
+        List<BandPosts> bandPosts = bandPostRepository.findByBand(band);
 
-    @GetMapping("/band-profile/{bandId}/delete")
-    public String deleteBandProfile(@PathVariable("bandId") Long bandId) {
-        Band band = bandRepository.findById(bandId).orElse(null);
-        if (band == null) {
-            return "redirect:/404";
-        }
-        bandRepository.delete(band);
-        return "redirect:/profile";
-    }
-    @PostMapping("/bandPostsCreate")
-    public String createBandPost(@ModelAttribute BandPosts bandPost ){
+//        System.out.println("posts.getUser_id().getUsername() = " + posts.getUser().getUsername());
+
         bandPostRepository.save(bandPost);
 
-
-        return "redirect:/home";
+        return "redirect:/band-profile/" + band.getId();
     }
+
+//    @PostMapping("/band-profile/{band_id}/bandPosts/create")
+//    public String createBandPost(@ModelAttribute BandPosts bandPosts, @PathVariable Long id){
+//        Band band = bandRepository.findById(id).orElse(null);
+//
+////        Band loggedInUser = (Band) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+////        loggedInUser = bandRepository.findByBandname(loggedInUser.getBandname());
+////
+////        bandPosts.setBand(loggedInUser);
+//
+//        bandPosts.setBand(band);
+//        bandPostRepository.save(bandPosts);
+//
+//        return "redirect:/band-profile" + id;
+//    }
+
+//    @PostMapping("/band-profile/band-posts/create")
+//    public String createBandPost(@ModelAttribute("bandPost") BandPosts bandPost) {
+//        Band loggedInUser = (Band) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+//        Band band = bandRepository.findByBandname(loggedInUser.getBandname());
+//
+//
+//        bandPost.setBand(band);
+//        bandPostRepository.save(bandPost);
+//
+//        return "redirect:/band-profile";
+//    }
+
 
     @PostMapping("/bandEventCreate")
     public String createEventPost(@ModelAttribute Events events){
@@ -103,21 +126,6 @@ public class BandProfileController {
 
         return "redirect:/home";
     }
-
-//    @PostMapping("/band-profile/{bandId}/add-user")
-//    public String addUserToBand(@RequestParam("username") String username){
-//
-//        User users = userRepository.findByUsername(username);
-//        if (users == null) {
-//            System.err.println("User not found for username: " + username);
-//            return "redirect:/404";
-//        }
-//
-//        band.getUser().add(users);
-//        bandRepository.save(band);
-//
-//        return "redirect:/users/band-profile";
-//    }
 
     @PostMapping("/band-profile/{bandId}/add-user")
     public String addUserToBand(@PathVariable("bandId") Long bandId, @RequestParam("username") String username) {
