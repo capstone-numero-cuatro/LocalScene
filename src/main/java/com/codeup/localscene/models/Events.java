@@ -7,8 +7,8 @@ import jakarta.persistence.*;
 public class Events {
 
     @Id
-    @Column(name = "event_id")
-    private long event_id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
 
     @Column(nullable = false, length = 45)
     private String title;
@@ -17,29 +17,29 @@ public class Events {
     private String description;
 
     @Column
-    private long event_image;
+    private String event_image;
 
     @ManyToOne
     @JoinColumn(name = "band_id")
-    private Bands band_id;
+    private Band band;
 
     public Events(Events copy){
-        event_id = copy.event_id;
+        id = copy.id;
         title = copy.title;
         description = copy.description;
         event_image = copy.event_image;
-        band_id = copy.band_id;
+        band = copy.band;
     }
 
     public Events() {
     }
 
-    public long getEventsId() {
-        return event_id;
+    public long getId() {
+        return id;
     }
 
-    public void setEventsId(long event_id) {
-        this.event_id = event_id;
+    public void setId(long id) {
+        this.id = id;
     }
 
     public String getTitle() {
@@ -58,12 +58,19 @@ public class Events {
         this.description = description;
     }
 
-    public long getEventImage(){
+    public String getEventImage(){
         return event_image;
     }
 
-    public void setEventImage(long event_image) {
+    public void setEventImage(String event_image) {
         this.event_image = event_image;
     }
 
+    public Band getBand(){
+        return band;
+    }
+
+    public void setBand(Band band) {
+        this.band = band;
+    }
 }

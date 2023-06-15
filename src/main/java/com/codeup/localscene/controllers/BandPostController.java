@@ -1,8 +1,12 @@
 package com.codeup.localscene.controllers;
 
 import com.codeup.localscene.models.BandPosts;
+import com.codeup.localscene.models.Posts;
+import com.codeup.localscene.models.User;
 import com.codeup.localscene.repositories.BandPostRepository;
+import com.codeup.localscene.repositories.BandRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,29 +19,36 @@ import java.util.List;
 @Controller
 public class BandPostController {
 
-    @Autowired
-    private BandPostRepository bandPostRepository;
+    private final BandPostRepository bandPostRepository;
+    private final BandRepository bandRepository;
 
-    //retrieves list of band posts to add to model
-    @GetMapping("/profile/{id}/band-posts")
-    public String getBandPosts(Model model) {
-        List<BandPosts> bandPosts = bandPostRepository.findAll();
-        model.addAttribute("bandPosts", bandPosts);
-        model.addAttribute("bandPost", new BandPosts());
-        return "band-posts";
+    @Autowired
+    public BandPostController(BandPostRepository bandPostRepository, BandRepository bandRepository){
+        this.bandPostRepository = bandPostRepository;
+        this.bandRepository = bandRepository;
     }
 
-    //create post, saves post, redirects to list of band-posts
-    @PostMapping("/profile/{id}/band-posts/create")
-    public String createPost(@ModelAttribute("bandPost") BandPosts bandPost) {
-        bandPostRepository.save(bandPost);
-        return "redirect:/band-posts";
+    //retrieves list of band posts to add to model
+    @GetMapping("/band-profile/{band_id}/band-posts")
+    public String getBandPosts(Model model, @PathVariable String band_id) {
+        List<BandPosts> bandPosts = bandPostRepository.findAll();
+
+        model.addAttribute("bandPosts", bandPosts);
+        model.addAttribute("newBandPosts", new BandPosts());
+        return "redirect:/home";
+    }
+
+//    create post, saves post, redirects to list of band-posts
+    @PostMapping("/band-profile/band-posts/create")
+    public String createPost(@ModelAttribute("bandPost") BandPosts bandPosts) {
+        bandPostRepository.save(bandPosts);
+        return "redirect:/home";
     }
 
     //delete
     @PostMapping("/profile/{id}/band-posts/delete")
-    public String deleteBandPost(@ModelAttribute("bandPost") BandPosts bandPost){
-        bandPostRepository.delete(bandPost);
+    public String deleteBandPost(@ModelAttribute("bandPost") BandPosts bandPosts){
+        bandPostRepository.delete(bandPosts);
         return "redirect:/band-posts";
     }
 }

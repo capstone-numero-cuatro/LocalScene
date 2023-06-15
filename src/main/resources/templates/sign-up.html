@@ -1,31 +1,325 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
   <meta charset="UTF-8">
-  <title>Title</title>
+  <title>Sign-up</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+  <link rel="stylesheet" th:href="@{/css/navbar.css}">
+  <link rel="stylesheet" th:href="@{/css/sign-up.css}">
+
+  <!---googlefonts-->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Slackside+One&display=swap" rel="stylesheet">
+
+  <script src="https://kit.fontawesome.com/3d0b015fdb.js" crossorigin="anonymous"></script>
+
+
 </head>
 <body>
-<form action="#" th:action="@{/sign-up}" th:object="${user}" method="post">
-  <label for="username">Username</label>
-  <input id="username" th:field="*{username}" />
-
-  <label for="email">Email</label>
-  <input id="email" th:field="*{email}" />
-
-  <label for="password">Password</label>
-  <input id="password" type="password" th:field="*{password}" />
-
-  <label for="confirmPassword">Confirm Password</label>
-  <input id="confirmPassword" type="password" th:field="*{confirmPassword}" />
+<!--<div th:fragment="navbar">-->
+<!--    &lt;!&ndash; Include navbar partial &ndash;&gt;-->
+<!--    <div th:replace="partials/navbar"></div>-->
+<!--</div>-->
 
 
-  <label for="instrument">Instrument</label>
-  <input id="instrument" th:field="*{instrument}" />
 
-  <label for="bandMember">Are you a band member?</label>
-  <input id="bandMember" type="checkbox" th:field="*{band_member}" />
+    <div class="container">
+        <div class="inner">
+            <div class="screen">
+                <div class="screen-content">
 
-  <input value="Sign me up!" type="submit" />
-</form>
+                    <div class="image-holder">
+                        <img id="signup-image" th:src="@{/img/stratocaster.jpeg}">
+                    </div>
+                    <form action="#" th:action="@{/sign-up}" th:object="${user}" method="post">
+                        <h1>Register with us</h1>
+                        <div class="form-group">
+                            <label for="username">Username</label>
+                            <input id="username" th:field="*{username}">
+                        </div>
+
+                        <div class="form-wrapper">
+                            <label for="email">Email</label>
+                            <input id="email" th:field="*{email}">
+                        </div>
+
+                        <div class="form-wrapper">
+                            <label for="password">Password</label>
+                            <input id="password" type="password" th:field="*{password}">
+                        </div>
+
+                        <div class="form-wrapper">
+                            <label for="confirmPassword">Confirm Password</label>
+                            <input id="confirmPassword" type="password">
+                        </div>
+
+                        <div class="form-wrapper">
+                            <label for="profileImageInput" class="custom-file-upload">
+                                Choose your profile image
+                            </label>
+                            <input type="file" id="profileImageInput" style="display: none;">
+                            <img src="" alt="image" id="profileImage" style="background-color: darkgrey; color:white; padding:5px; border:none;outline:none; height: 10vh; width: auto">
+                            <input type="hidden" id="profileImageUrl" name="profileImage">
+                        </div>
+                        <div class="form-wrapper">
+                            <input value="Sign me up!" type="submit" id="submitBtn" disabled>
+                        </div>
+                    </form>
+                    <div id="criterias" style="color: white;">
+                        <div id="usernameCriteria" style="display: none;">
+                            <h5>Name must be:</h5>
+                            <ul>
+                                <li id="usernameChar" class="criteria">Only letters and numbers</li>
+                                <li id="usernameLength" class="criteria">Between 3 and 15 characters</li>
+                            </ul>
+                        </div>
+                        <div id="emailCriteria" style="display: none;">
+                            <h5>Email must be:</h5>
+                            <ul>
+                                <li id="emailSymbol" class="criteria">A valid email address</li>
+                            </ul>
+                        </div>
+                        <div id="passwordCriteria" style="display: none;">
+                            <h5>Password must include at least:</h5>
+                            <ul>
+                                <li id="lowercase" class="criteria">A lowercase letter</li>
+                                <li id="uppercase" class="criteria">An uppercase letter</li>
+                                <li id="number" class="criteria">A number</li>
+                                <li id="specialChar" class="criteria">A special character ($, %,@,#,^, or &)</li>
+                                <li id="length" class="criteria">Between 4 and 15 characters</li>
+                            </ul>
+                        </div>
+                        <div id="confirmPasswordCriteria" style="display: none;">
+                            <h5>Confirm password must be:</h5>
+                            <ul>
+                                <li id="passwordMatch" class="criteria">Match the password</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="screen__background">
+                    <span class="screen__background__shape screen__background__shape4"></span>
+                    <span class="screen__background__shape screen__background__shape3"></span>
+                    <span class="screen__background__shape screen__background__shape2"></span>
+                    <span class="screen__background__shape screen__background__shape1"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+<script src="https://static.filestackapi.com/filestack-js/3.x.x/filestack.min.js"></script>
+<script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+
+<!-- preloader -->
+<script>
+    $(window).on("load", function() {
+        let loader = $("#preloader");
+
+        // Hide the preloader after the page finishes loading
+        loader.fadeOut("slow");
+    });
+
+    $(document).on("keyup", "input", function(event) {
+        const targetValue = event.target.value.toLowerCase(); // Get the value of the targeted input field
+
+        const regex = /\bbluey\b/; // Regular expression to match the whole word "bluey"
+        if (regex.test(targetValue)) {
+            window.location.href = "https://www.youtube.com/watch?v=8nv1m-aTCZI";
+        }
+
+        console.log(targetValue);
+    });
+</script>
+
+<script th:inline="javascript">
+  /*<![CDATA[*/
+  var filestackKey = /*[[${filestackKey}]]*/ 'default';
+  /*]]>*/
+</script>
+
+<script>
+  const client = filestack.init(filestackKey);
+  const profilePic = document.getElementById("profileImage");
+  const profileFileInput = document.getElementById("profileImageInput");
+  const profileImageUrlInput = document.getElementById("profileImageUrl");
+
+  profileFileInput.addEventListener("change", (event) => {
+    const file = event.target.files[0];
+
+    client.upload(file).then((response) => {
+      profilePic.src = response.url;
+      profileImageUrlInput.value = response.url;
+    }).catch((error) => {
+      console.log(error);
+    });
+  });
+
+//Check Password
+  document.getElementById('password').addEventListener('focus', () => {
+    document.getElementById('passwordCriteria').style.display = 'block';
+  });
+
+  document.getElementById('password').addEventListener('blur', () => {
+    document.getElementById('passwordCriteria').style.display = 'none';
+  });
+
+  document.getElementById('password').addEventListener('keyup', function() {
+    const password = document.getElementById('password').value;
+    checkPasswordCriteria(password);
+  });
+
+  function checkPasswordCriteria(password) {
+    const lowercaseRegex = /[a-z]/g;
+    const uppercaseRegex = /[A-Z]/g;
+    const numbersRegex = /[0-9]/g;
+    const specialCharsRegex = /[$%@#^&]/g;
+
+    if (password.match(lowercaseRegex)) {
+      document.getElementById('lowercase').style.color = 'limegreen';
+    } else {
+      document.getElementById('lowercase').style.color = 'grey';
+    }
+
+    if (password.match(uppercaseRegex)) {
+      document.getElementById('uppercase').style.color = 'limegreen';
+    } else {
+      document.getElementById('uppercase').style.color = 'grey';
+    }
+
+    if (password.match(numbersRegex)) {
+      document.getElementById('number').style.color = 'limegreen';
+    } else {
+      document.getElementById('number').style.color = 'grey';
+    }
+
+    if (password.match(specialCharsRegex)) {
+      document.getElementById('specialChar').style.color = 'limegreen';
+    } else {
+      document.getElementById('specialChar').style.color = 'grey';
+    }
+
+    if (password.length >= 4 && password.length <= 15) {
+      document.getElementById('length').style.color = 'limegreen';
+    } else {
+      document.getElementById('length').style.color = 'grey';
+    }
+    checkCriteria()
+  }
+
+//Check Username
+  document.getElementById('username').addEventListener('focus', () => {
+    document.getElementById('usernameCriteria').style.display = 'block';
+  });
+
+  document.getElementById('username').addEventListener('blur', () => {
+    document.getElementById('usernameCriteria').style.display = 'none';
+  });
+
+  document.getElementById('username').addEventListener('keyup', function() {
+    const username = document.getElementById('username').value;
+    checkUsernameCriteria(username);
+  });
+  function checkUsernameCriteria(username) {
+    const charRegex = /^[a-z0-9]+$/i;
+    let isCharValid = false, isLengthValid = false;
+
+    if (username.match(charRegex)) {
+      document.getElementById('usernameChar').style.color = 'limegreen';
+      isCharValid = true;
+    } else {
+      document.getElementById('usernameChar').style.color = 'grey';
+    }
+
+    if (username.length >= 3 && username.length <= 15) {
+      document.getElementById('usernameLength').style.color = 'limegreen';
+      isLengthValid = true;
+    } else {
+      document.getElementById('usernameLength').style.color = 'grey';
+    }
+    checkCriteria()
+  }
+
+  //Check email
+  document.getElementById('email').addEventListener('focus', () => {
+    document.getElementById('emailCriteria').style.display = 'block';
+  });
+
+  document.getElementById('email').addEventListener('blur', () => {
+    document.getElementById('emailCriteria').style.display = 'none';
+  });
+
+  document.getElementById('email').addEventListener('keyup', function() {
+    const email = document.getElementById('email').value;
+    checkEmailCriteria(email);
+  });
+  function checkEmailCriteria(email) {
+    const emailSymbolRegex = /@/;
+    let isSymbolValid = false;
+
+    if (email.match(emailSymbolRegex)) {
+      document.getElementById('emailSymbol').style.color = 'limegreen';
+      isSymbolValid = true;
+    } else {
+      document.getElementById('emailSymbol').style.color = 'grey';
+    }
+    checkCriteria()
+  }
+
+  //Check confirmPassword
+  document.getElementById('confirmPassword').addEventListener('focus', () => {
+    document.getElementById('confirmPasswordCriteria').style.display = 'block';
+  });
+
+  document.getElementById('confirmPassword').addEventListener('blur', () => {
+    document.getElementById('confirmPasswordCriteria').style.display = 'none';
+  });
+
+  document.getElementById('confirmPassword').addEventListener('keyup', function() {
+    checkConfirmPasswordCriteria();
+  });
+  function checkConfirmPasswordCriteria() {
+    var password = document.getElementById("password").value;
+    var confirmPassword = document.getElementById("confirmPassword").value;
+    var passwordMatchCriteria = document.getElementById("passwordMatch");
+
+    if (password === confirmPassword) {
+      passwordMatchCriteria.style.color = "limegreen";
+    } else {
+      passwordMatchCriteria.style.color = "red";
+    }
+
+    checkCriteria();
+  }
+
+  //Check all Criteria
+  function allCriteriaMet() {
+    let criteria = document.getElementsByClassName('criteria');
+
+    for (let i = 0; i < criteria.length; i++) {
+      if (criteria[i].style.color !== 'limegreen') {
+        return false;
+      }
+    }
+    return true;
+  }
+  function checkCriteria() {
+    if (allCriteriaMet()) {
+      document.getElementById("submitBtn").disabled = false;
+      console.log("Criteria not met yet")
+    } else {
+      document.getElementById("submitBtn").disabled = true;
+      console.log("Criteria met")
+    }
+  }
+
+</script>
 </body>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
 </html>
+

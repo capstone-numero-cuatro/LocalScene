@@ -4,14 +4,17 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
+
+import java.util.List;
 
 @Entity
-@Table(name="users")
-public class Users {
+@Table(name="user")
+public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false)
     private Long id;
 
     @Column(nullable = false, unique = true, length = 45)
@@ -32,46 +35,29 @@ public class Users {
     @Column()
     private boolean enabled;
 
-    @Column(length = 45)
-    private String instrument;
+    @Column(name = "profile_image", length = 500)
+    private String profileImage;
 
-    @Column
-    private boolean band_member;
-
-    @Column()
-    private long user_image;
-
-    @Column()
-    private String instagram;
-
-    @Column()
-    private String facebook;
-
-    @Column()
-    private String twitter;
+    @ManyToOne
+    @JoinColumn(name = "band_id")
+    private Band band;
 
 
-    @Transient
-    private String confirmPassword;
 
-
-    public Users(Users copy) {
+    public User(User copy) {
         id = copy.id;
         username = copy.username;
         password = copy.password;
         verificationCode = copy.verificationCode;
         resetPasswordToken = copy.resetPasswordToken;
         enabled = copy.enabled;
-        instrument = copy.instrument;
-        band_member = copy.band_member;
-        user_image = copy.user_image;
-        instagram = copy.instagram;
-        facebook = copy.facebook;
-        twitter = copy.twitter;
+        profileImage = copy.profileImage;
+        band = copy.band;
     }
 
-    public Users (){
+    public User (){
     }
+
 
     public Long getId() {
         return id;
@@ -95,14 +81,6 @@ public class Users {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public String getConfirmPassword() {
-        return confirmPassword;
-    }
-
-    public void setConfirmPassword(String confirmPassword) {
-        this.confirmPassword = confirmPassword;
     }
 
     public String getEmail() {
@@ -129,22 +107,6 @@ public class Users {
         this.enabled = enabled;
     }
 
-    public String getInstrument() {
-        return instrument;
-    }
-
-    public void setInstrument(String instrument) {
-        this.instrument = instrument;
-    }
-
-    public boolean isBand_member() {
-        return band_member;
-    }
-
-    public void setBand_member(boolean band_member) {
-        this.band_member = band_member;
-    }
-
     public String getResetPasswordToken() {
         return resetPasswordToken;
     }
@@ -153,27 +115,19 @@ public class Users {
         this.resetPasswordToken = resetPasswordToken;
     }
 
-    public String getInstagram() {
-        return instagram;
+    public String getProfileImage() {
+        return profileImage;
     }
 
-    public void setInstagram(String instagram) {
-        this.instagram = instagram;
+    public void setProfileImage(String profileImage) {
+        this.profileImage = profileImage;
     }
 
-    public String getFacebook() {
-        return facebook;
+    public Band getBand(){
+        return this.band;
     }
 
-    public void setFacebook(String facebook) {
-        this.facebook = facebook;
-    }
-
-    public String getTwitter() {
-        return twitter;
-    }
-
-    public void setTwitter(String twitter) {
-        this.twitter = twitter;
+    public void setBand(Band band){
+        this.band = band;
     }
 }

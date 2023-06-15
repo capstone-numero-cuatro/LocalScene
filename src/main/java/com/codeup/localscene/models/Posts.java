@@ -7,7 +7,7 @@ import jakarta.persistence.*;
 public class Posts {
 
     @Id
-    @Column(name = "post_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     @Column(nullable = false, length = 45)
@@ -17,17 +17,18 @@ public class Posts {
     private String description;
 
     @Column
-    private long post_image;
+    private String post_image;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
-    private Users user;
+    private User user;
 
     public Posts(Posts copy){
         id = copy.id;
         title = copy.title;
         description = copy.description;
         post_image = copy.post_image;
+        user = copy.user;
     }
 
     public Posts() {
@@ -37,7 +38,7 @@ public class Posts {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(long post_id) {
         this.id = id;
     }
 
@@ -58,20 +59,19 @@ public class Posts {
         this.description = description;
     }
 
-    public long getPostImage(){
+    public String getPostImage(){
         return post_image;
     }
 
-    public void setPostImage(long post_image) {
+    public void setPostImage(String post_image) {
         this.post_image = post_image;
     }
 
-    public Users getUser() {
+    public User getUser() {
         return user;
     }
 
-    public void setUser(Users user) {
+    public void setUser(User user) {
         this.user = user;
     }
-
 }
