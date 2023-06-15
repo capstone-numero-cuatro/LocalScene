@@ -120,12 +120,47 @@
                         </div>
                     </div>
                 </div>
+
+            </form>
+</div>
+    <div>
+        <div id="map"></div>
+    </div>
+        <div class="NavtabContainer">
+            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">Posts</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false">Events</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact" type="button" role="tab" aria-controls="contact" aria-selected="false">List of Bands</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="venues-tab" data-bs-toggle="tab" data-bs-target="#venues" type="button" role="tab" aria-controls="venues" aria-selected="false">Venues</button>
+                </li>
+            </ul>
+            <div class="tab-content">
+                <div class="tab-pane fade" id="home" role="tabpanel" aria-labelledby="home-tab">
+                    <h2>Posts</h2>
+                    <div id="PostsContainer">
+                        <div th:each="post : ${posts}">
+                            <div class="card" style="width:20rem;">
+                                <div class="card-body">
+                                    <p >User: <span th:each="user : ${users}" th:if="${user.id == post.user.id}" th:text="${user.username}"></span></p>
+                                    <h5 class="card-title" th:text="${post.title}"></h5>
+                                    <!--                <h6 class="card-subtitle mb-2 text-body-secondary" th:text="${post.user}"></h6>-->
+                                    <p class="card-text" th:text="${post.description}"></p>
+                                </div>
+                            </div>
+
                 <div th:each="bandPosts : ${bandPosts}">
                     <div class="card" style="width: 18rem">
                         <div class="card-body">
                             <h5 class="card-title" th:text="${bandPosts.title}"></h5>
                             <h6 class="card-body" th:text="${bandPosts.description}"></h6>
-                            <!--                        <img th:src="@{'/images/' + ${post.image}}" alt="postImage">-->
+
                         </div>
                     </div>
                 </div>
@@ -142,29 +177,39 @@
                         <div th:each="events : ${events}">
                             <div class="card" style="width: 18rem">
                                 <div class="card-body">
-                                    <h5 class="card-title" th:text="${events.title}"></h5>
-                                    <h6 class="card-body" th:text="${events.description}"></h6>
+
+                                    <p th:each="band : ${band}">Band:
+                                        <span th:text="${band.bandname}"></span></p>
+                                    <h5 class="card-title" th:text="${bandPosts.title}"></h5>
+                                    <h6 class="card-body" th:text="${bandPosts.description}"></h6>
+
+
                                     <!--                        <img th:src="@{'/images/' + ${post.image}}" alt="postImage">-->
                                 </div>
                             </div>
                         </div>
-                        <!-- Event cards will be dynamically added here -->
-                        <!--                                    <div class="card">-->
-                        <!--                                        <img src="../static/img/event1.jpg" alt="Event 1">-->
-                        <!--                                        <div class="card-body">-->
-                        <!--                                            <h5>Event 1</h5>-->
-                        <!--                                            <p>Event description</p>-->
-                        <!--                                            <a href="#" onclick="showModal('Event 1')">More Info</a>-->
-                        <!--                                        </div>-->
-                        <!--                                    </div>-->
-                        <!--                                    <div class="card">-->
-                        <!--                                        <img src="../static/img/event2.jpg" alt="Event 2">-->
-                        <!--                                        <div class="card-body">-->
-                        <!--                                            <h5>Event 2</h5>-->
-                        <!--                                            <p>Event description</p>-->
-                        <!--                                            <a href="#" onclick="showModal('Event 2')">More Info</a>-->
-                        <!--                                        </div>-->
-                        <!--                                    </div>-->
+
+                    </div>
+                </div>
+            </div>
+            <div class="tab-content">
+                <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                    <h2>Events</h2>
+                        <div id="events-container">
+                            <div id="events-card" class="tab-pane fade">
+                                <h2>Events</h2>
+                                <div class="row row-events">
+                                    <div th:each="events : ${events}">
+                                        <div class="card" style="width: 18rem">
+                                            <div class="card-body">
+                                                <p th:each="band : ${band}">Band
+                                                    :<span th:text="${band.bandname}"></span></p>
+                                                <h5 class="card-title" th:text="${events.title}"></h5>
+                                                <h6 class="card-body" th:text="${events.description}"></h6>
+                                                <!--                        <img th:src="@{'/images/' + ${post.image}}" alt="postImage">-->
+                                            </div>
+                                        </div>
+                                    </div>
 
                     </div>
 

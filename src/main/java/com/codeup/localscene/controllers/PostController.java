@@ -1,12 +1,15 @@
 package com.codeup.localscene.controllers;
 
 import com.codeup.localscene.models.Posts;
+import com.codeup.localscene.models.User;
 import com.codeup.localscene.repositories.PostRepository;
+import com.codeup.localscene.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.List;
@@ -15,11 +18,12 @@ import java.util.List;
 public class PostController {
 
     private final PostRepository postRepository;
+    private final UserRepository userRepository;
 
     @Autowired
-    public PostController(PostRepository postRepository) {
-
+    public PostController(PostRepository postRepository, UserRepository userRepository) {
         this.postRepository = postRepository;
+        this.userRepository = userRepository;
     }
 
     @GetMapping("/profile/{id}/posts")
@@ -30,28 +34,14 @@ public class PostController {
         return "redirect:/posts";
     }
 
-    //create post, saves post, redirects to list of posts
-    @PostMapping("/profile/{id}/posts/create")
-    public String createPosts(@ModelAttribute("posts") Posts posts) {
-        postRepository.save(posts);
-        return "redirect:/home";
-    }
-
-    //create post, saves post, redirects to list of posts
-//    @PostMapping("/profile/posts/create")
-//    public String createPosts(@ModelAttribute("posts") Posts posts) {
-//        postRepository.save(posts);
-//        return "redirect:/home";
-//    }
-
-
     //delete
-    @PostMapping("/profile/{id}/posts/delete")
+    @PostMapping("/profile/{id}/posts/{postId}/delete")
 
-    public String deletePosts(@ModelAttribute("posts") Posts posts) {
-        postRepository.delete(posts);
+    public String deletePosts(@PathVariable("id") Long Id,
+                              @PathVariable("postId") Long postId) {
+        postRepository.deleteById(postId);
 
-        return "redirect:/home";
+        return "redirect:/profile/{id}";
 
         }
     }
