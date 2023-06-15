@@ -45,22 +45,6 @@ public class BandPostController {
         return "redirect:/home";
     }
 
-//    @PostMapping("/profile/posts/create")
-//    public String createPost(@ModelAttribute Posts posts) {
-//
-//        Band loggedInUser =
-//                (Band) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-//        loggedInUser = bandRepository.findByUsername(loggedInUser);
-//
-//        posts.setUser(loggedInUser);
-//
-////        System.out.println("posts.getUser_id().getUsername() = " + posts.getUser().getUsername());
-//
-//        postRepository.save(posts);
-//
-//        return "redirect:/band-profile/" + loggedInUser.getId();
-//    }
-
     //delete
     @PostMapping("/profile/{id}/band-posts/delete")
     public String deleteBandPost(@ModelAttribute("bandPost") BandPosts bandPosts){

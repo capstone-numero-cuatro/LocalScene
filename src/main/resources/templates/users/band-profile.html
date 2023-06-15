@@ -95,10 +95,13 @@
                 <dialog id="bandEvent">
                     <section id="insideEvent">
                         <h5>What are the deets?!</h5>
-                        <form th:object="${events}" th:method="post" th:action="@{/band-profile/{id}(id=${band.getId()})}">
+                        <form th:object="${newEvent}" th:method="post"
+                              th:action="@{/band-profile/{bandId}/band-events/create(bandId=${band.id})}">
                             <div class="mb-3">
                                 <label for="EventsPostTitle" class="form-label">Title</label>
-                                <input type="text" class="form-control" id="EventsPostTitle" name="title" placeholder="Title" th:field="*{title}">
+                                <input type="text" class="form-control" id="EventsPostTitle"
+                                       name="title" placeholder="Title"
+                                       th:text="*{title}">
                             </div>
                             <div class="mb-3">
                                 <label for="EventsDescription" class="form-label">Body</label>
@@ -127,6 +130,16 @@
                         <div class="card-body">
                             <h5 class="card-title" th:text="${bandPosts.title}"></h5>
                             <h6 class="card-body" th:text="${bandPosts.description}"></h6>
+                            <!--                        <img th:src="@{'/images/' + ${post.image}}" alt="postImage">-->
+                        </div>
+                    </div>
+
+                </div>
+                <div th:each="events : ${events}">
+                    <div class="card" style="width: 18rem">
+                        <div class="card-body">
+                            <h5 class="card-title" th:text="${events.title}"></h5>
+                            <h6 class="card-body" th:text="${events.description}"></h6>
                             <!--                        <img th:src="@{'/images/' + ${post.image}}" alt="postImage">-->
                         </div>
                     </div>
