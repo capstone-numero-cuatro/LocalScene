@@ -47,10 +47,10 @@ body {
 }
 
 .flux {
-    animation: flux 2s linear infinite;
-    -moz-animation: flux 2s linear infinite;
-    -webkit-animation: flux 2s linear infinite;
-    -o-animation: flux 2s linear infinite;
+    animation: flux 1s ease infinite;
+    -moz-animation: flux 1s ease infinite;
+    -webkit-animation: flux 1s ease infinite;
+    -o-animation: flux 1s ease infinite;
 }
 
 @keyframes flux {
@@ -85,6 +85,11 @@ body {
     text-align: center;
     position:relative;
 }
+.mission-container p{
+    font-family: 'Permanent Marker', cursive;
+    color: #88cafc;
+    font-size: 32px;
+}
 .t-title {
     margin: calc(20vh - 40px) auto 0 auto;
     font-size: 65px;
@@ -94,7 +99,7 @@ body {
     display: block;
     height: auto;
     text-align: center;
-    color: skyblue;
+    color: white;
     animation: neon 3s infinite;
 }
 
@@ -113,8 +118,8 @@ body {
 }
 
 :root {
-    --shadow-color: blue;
-    --shadow-color-light: lightblue;
+    --shadow-color: #FF9E9E;
+    --shadow-color-light: white;
 }
 
 @keyframes neon {
