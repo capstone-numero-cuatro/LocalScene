@@ -8,7 +8,7 @@ public class Events {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long event_id;
+    private long id;
 
     @Column(nullable = false, length = 45)
     private String title;
@@ -21,25 +21,25 @@ public class Events {
 
     @ManyToOne
     @JoinColumn(name = "band_id")
-    private Band band_id;
+    private Band band;
 
     public Events(Events copy){
-        event_id = copy.event_id;
+        id = copy.id;
         title = copy.title;
         description = copy.description;
         event_image = copy.event_image;
-        band_id = copy.band_id;
+        band = copy.band;
     }
 
     public Events() {
     }
 
-    public long getEventsId() {
-        return event_id;
+    public long getId() {
+        return id;
     }
 
-    public void setEventsId(long event_id) {
-        this.event_id = event_id;
+    public void setId(long id) {
+        this.id = id;
     }
 
     public String getTitle() {
@@ -66,4 +66,11 @@ public class Events {
         this.event_image = event_image;
     }
 
+    public Band getBand(){
+        return band;
+    }
+
+    public void setBand(Band band) {
+        this.band = band;
+    }
 }

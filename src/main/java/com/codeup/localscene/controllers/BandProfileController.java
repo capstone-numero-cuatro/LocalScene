@@ -31,43 +31,23 @@ public class BandProfileController {
         this.userRepository = userRepository;
     }
 
-//    @Autowired
-//    public BandProfileController(BandPostRepository bandPostRepository) {
-//        this.bandPostRepository = bandPostRepository;
-//    }
-
     @GetMapping("/band-profile/{bandId}")
     public String showBandProfile( Model model, @PathVariable("bandId") Long bandId){
         Band band = bandRepository.getReferenceById(bandId);
-        if (band == null){
-            return "redirect:/404";
-        }
-
         User users = userRepository.getReferenceById(bandId);
 
-        // Get the currently logged-in user
-//        User loggedInUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        List<BandPosts> bandPosts = bandPostRepository.findByBand(band);
+        List<Events> events = eventRepository.findByBand(band);
 
-        // Check if the logged-in user is associated with the band
-//        if (!band.getUser().equals(loggedInUser)) {
-//            return "redirect:/404"; // Redirect to error page if user doesn't have access to this band profile
-//        }
 
-        model.addAttribute("events", new Events());
-        model.addAttribute("bandPost", new BandPosts());
+        model.addAttribute("events", events);
+        model.addAttribute("newEvent", new Events());
+        model.addAttribute("bandPosts", bandPosts);
+        model.addAttribute("newBandPosts", new BandPosts());
         model.addAttribute("band", band);
         model.addAttribute("bandId", bandId);
         model.addAttribute("users", users);
         return "users/band-profile";
-    }
-
-
-
-    @PostMapping("/band-profile/{bandId}")
-    public String createPostBandProfile(@ModelAttribute Events events){
-
-        eventRepository.save(events);
-        return "redirect:/home";
     }
 
     @GetMapping("/band-profile/{bandId}/edit")
@@ -89,35 +69,33 @@ public class BandProfileController {
         bandRepository.delete(band);
         return "redirect:/profile";
     }
-    @PostMapping("/bandPostsCreate")
-    public String createBandPost(@ModelAttribute BandPosts bandPost ){
+
+    @PostMapping("/band-profile/{bandId}/band-posts/create")
+    public String createBandPost(@ModelAttribute BandPosts bandPost,
+                             @PathVariable("bandId") Long bandId) {
+        Band band = bandRepository.getReferenceById(bandId);
+
+        bandPost.setBand(band);
+        List<BandPosts> bandPosts = bandPostRepository.findByBand(band);
+
         bandPostRepository.save(bandPost);
 
-
-        return "redirect:/home";
+        return "redirect:/band-profile/" + band.getId();
     }
 
-    @PostMapping("/bandEventCreate")
-    public String createEventPost(@ModelAttribute Events events){
-        eventRepository.save(events);
+    @PostMapping("/band-profile/{bandId}/band-events/create")
+    public String createEventPost(@ModelAttribute Events event,
+                                  @PathVariable("bandId") Long bandId){
+        Band band = bandRepository.getReferenceById(bandId);
 
-        return "redirect:/home";
+        event.setBand(band);
+
+        List<Events> events = eventRepository.findByBand(band);
+
+        eventRepository.save(event);
+
+        return "redirect:/band-profile/" + band.getId();
     }
-
-//    @PostMapping("/band-profile/{bandId}/add-user")
-//    public String addUserToBand(@RequestParam("username") String username){
-//
-//        User users = userRepository.findByUsername(username);
-//        if (users == null) {
-//            System.err.println("User not found for username: " + username);
-//            return "redirect:/404";
-//        }
-//
-//        band.getUser().add(users);
-//        bandRepository.save(band);
-//
-//        return "redirect:/users/band-profile";
-//    }
 
     @PostMapping("/band-profile/{bandId}/add-user")
     public String addUserToBand(@PathVariable("bandId") Long bandId, @RequestParam("username") String username) {

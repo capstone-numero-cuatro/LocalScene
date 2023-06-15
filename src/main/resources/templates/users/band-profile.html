@@ -70,7 +70,8 @@
                 <dialog id="bandPostDialog">
                     <section id="insideModal">
                         <h2>Shoutout to your fans!</h2>
-                        <form th:object="${bandPost}" th:method="post" th:action="@{/bandPostsCreate}">
+                        <form th:object="${newBandPosts}" th:method="post"
+                              th:action="@{/band-profile/{bandId}/band-posts/create(bandId=${band.id})}">
                             <div class="mb-3">
                                 <label for="BandPostTitle" class="form-label">Title</label>
                                 <input type="text" class="form-control" id="BandPostTitle" name="title" placeholder="Title" th:field="*{title}">
@@ -78,7 +79,7 @@
                             <div class="mb-3">
                                 <label for="BandPostDescription" class="form-label">Body</label>
                                 <textarea class="form-control" id="BandPostDescription" name="content" rows="3" th:field="*{description}"></textarea>
-                                <!--                                <input type="hidden" th:field="*{id}">-->
+                                                                <input type="hidden" th:field="*{id}">
                                 <div >
                                     <input type="file" id="bandPostImgInput">
                                     <img src="" alt="image" id="bandPostImg" >
@@ -95,10 +96,13 @@
                 <dialog id="bandEvent">
                     <section id="insideEvent">
                         <h5>What are the deets?!</h5>
-                        <form th:object="${events}" th:method="post" th:action="@{/band-profile/{id}(id=${band.getId()})}">
+                        <form th:object="${newEvent}" th:method="post"
+                              th:action="@{/band-profile/{bandId}/band-events/create(bandId=${band.id})}">
                             <div class="mb-3">
                                 <label for="EventsPostTitle" class="form-label">Title</label>
-                                <input type="text" class="form-control" id="EventsPostTitle" name="title" placeholder="Title" th:field="*{title}">
+                                <input type="text" class="form-control" id="EventsPostTitle"
+                                       name="title" placeholder="Title"
+                                       th:text="*{title}">
                             </div>
                             <div class="mb-3">
                                 <label for="EventsDescription" class="form-label">Body</label>
@@ -119,34 +123,33 @@
         </div>
     </div>
 
-</div>
+    <div class="container" id="recent-activity" style="border: solid yellow 2px">
+        <div>
+            <div><h4>Recent Activity Placeholder</h4>
+                <div th:each="bandPosts : ${bandPosts}">
+                    <div class="card" style="width: 18rem">
+                        <div class="card-body">
+                            <h5 class="card-title" th:text="${bandPosts.title}"></h5>
+                            <h6 class="card-body" th:text="${bandPosts.description}"></h6>
+                            <!--                        <img th:src="@{'/images/' + ${post.image}}" alt="postImage">-->
+                        </div>
+                    </div>
 
-
-
-
-
-
-
-
-<div class="container" id="recent-activity" style="border: solid yellow 2px">
-    <div>
-        <div><h4>Recent Activity Placeholder</h4>
-            <div th:each="post : ${bandPosts}">
-                <div class="card" style="width: 18rem">
-                    <div class="card-body">
-                        <h5 class="card-title" th:text="${post.title}"></h5>
-                        <h6 class="card-body" th:text="${post.description}"></h6>
-                        <img th:src="@{'/images/' + ${post.image}}" alt="postImage">
+                </div>
+                <div th:each="events : ${events}">
+                    <div class="card" style="width: 18rem">
+                        <div class="card-body">
+                            <h5 class="card-title" th:text="${events.title}"></h5>
+                            <h6 class="card-body" th:text="${events.description}"></h6>
+                            <!--                        <img th:src="@{'/images/' + ${post.image}}" alt="postImage">-->
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
 </div>
-
-
-
-<script>
 
     <script src="//static.filestackapi.com/filestack-js/3.x.x/filestack.min.js"></script>
 
