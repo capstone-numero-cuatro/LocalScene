@@ -25,10 +25,10 @@ public class EventController {
         this.bandRepository = bandRepository;
     }
 
-//    @GetMapping("/events")
-//    public String events(){
-//        return "events";
-//    }
+    @GetMapping("/events")
+    public String events(){
+        return "events";
+    }
 
     //retrieves list of events
     @GetMapping("/events")
