@@ -21,7 +21,7 @@ public class Band {
     @Column(nullable = false, length = 200)
     private String description;
 
-    @Column
+    @Column(name = "band_image", length = 500)
     private String band_image;
 
     @OneToMany(mappedBy = "band", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
@@ -29,7 +29,6 @@ public class Band {
 
     public Band(Band copy){
         id = copy.id;
-//        bands = copy.bands;
         bandname = copy.bandname;
         description = copy.description;
         band_image = copy.band_image;
