@@ -50,16 +50,16 @@ public class HomeController {
         return "home";}
 
 
-    @GetMapping("/")
-    public String home(Model model){
-        List<Posts> posts =postRepository.findAll();
-        List<BandPosts> bandPosts = bandPostRepository.findAll();
-        List<Events> events = eventRepository.findAll();
-
-        model.addAttribute("events", events);
-        model.addAttribute("posts", posts);
-        model.addAttribute("bandPosts", bandPosts);
-
-        return "home";}
+//    @GetMapping("/")
+//    public String home(Model model){
+//        List<Posts> posts =postRepository.findAll();
+//        List<BandPosts> bandPosts = bandPostRepository.findAll();
+//        List<Events> events = eventRepository.findAll();
+//
+//        model.addAttribute("events", events);
+//        model.addAttribute("posts", posts);
+//        model.addAttribute("bandPosts", bandPosts);
+//
+//        return "home";}
 
 }
