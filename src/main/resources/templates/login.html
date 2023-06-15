@@ -20,6 +20,7 @@
     <div class="container">
       <div class="screen">
         <div class="screen-content">
+
           <h2>Log in</h2>
           <div th:if="${param.error}">
             Invalid username and password.
@@ -33,9 +34,15 @@
             <label for="password">Password</label>
             <input id="password" name="password" type="password" />
             <input type="submit" value="Log In" />
+
           </form>
+          <div class="buttons-container">
+            <button class="button-arounder"><a th:href="@{/sign-up}">Not a member? Sign up!</a></button>
+          </div>
+
         </div>
         <div class="screen__background">
+
           <span class="screen__background__shape screen__background__shape4"></span>
           <span class="screen__background__shape screen__background__shape3"></span>
           <span class="screen__background__shape screen__background__shape2"></span>
