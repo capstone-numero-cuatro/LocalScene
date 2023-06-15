@@ -23,6 +23,10 @@ public class UserDetailsLoader implements UserDetailsService {
             throw new UsernameNotFoundException("User not found with email: " + email);
         }
 
+        if (!users.isEnabled()) {
+            throw new UsernameNotFoundException("User with email " + email + " is not enabled.");
+        }
+
         return new UserWithRoles(users);
     }
 }
