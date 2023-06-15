@@ -27,18 +27,13 @@ public class ProfileController {
     private final UserRepository userRepository;
     private final PostRepository postRepository;
     private final BandRepository bandRepository;
-    private final PasswordResetService passwordResetService;
-    private final EmailService emailService;
-    private final BandService bandService;
+
 
     @Autowired
-    public ProfileController(UserRepository userRepository, PostRepository postRepository, BandRepository bandRepository, PasswordResetService passwordResetService, EmailService emailService, BandService bandService) {
+    public ProfileController(UserRepository userRepository, PostRepository postRepository, BandRepository bandRepository) {
         this.userRepository = userRepository;
         this.postRepository = postRepository;
         this.bandRepository = bandRepository;
-        this.passwordResetService = passwordResetService;
-        this.emailService = emailService;
-        this.bandService = bandService;
     }
 
     @GetMapping("/profile/{id}")
@@ -87,36 +82,6 @@ public class ProfileController {
         return "redirect:/band-profile/" + band.getId();
     }
 
-    @PostMapping("/profile/reset-password")
-    public String handlePasswordReset(@ModelAttribute("passwordResetForm") PasswordResetForm form, Model model, Principal principal, RedirectAttributes redirectAttributes) {
-        String username = principal.getName();
-
-        User user = userRepository.findByUsername(username);
-        if (user == null) {
-            model.addAttribute("errorMessage", "User does not exist.");
-            return "users/profile";
-        }
-        String email = user.getEmail();
-
-        // check if current password is correct
-        if (!passwordResetService.authenticateUser(email, form.getCurrentPassword())) {
-            model.addAttribute("errorMessage", "Current password is incorrect.");
-            return "users/profile";
-        }
-
-        // check if new password and confirmation match
-        if (!form.getNewPassword().equals(form.getConfirmPassword())) {
-            model.addAttribute("errorMessage", "New password and confirmation do not match.");
-            return "users/profile";
-        }
-
-        // update password
-        passwordResetService.updatePassword(user, form.getNewPassword());
-
-        redirectAttributes.addFlashAttribute("message", "Password successfully updated.");
-
-        return "redirect:/profile/" + user.getId();
-    }
 }
 
 

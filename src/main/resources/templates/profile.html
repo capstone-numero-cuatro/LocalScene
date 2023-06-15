@@ -35,13 +35,6 @@
   margin-bottom: 20px;">
         <img th:src="${user.profileImage}" alt="image" id="currentPic" style="background-color: darkgrey; color:white; padding:5px; border:none;outline:none; height: 30vh; width: auto">
 
-        <dialog id="changePicture">
-            <div>
-                <input type="file" id="imageInput" onchange="handleProfilePictureUpload()">
-                <img src="" alt="image" id="profilePic" style="background-color: darkgrey; color:white; padding:5px; border:none;outline:none; height: 30vh; width: auto">
-                <button type="submit" class="btn btn-success">Submit!</button>
-            </div>
-        </dialog>
 
 <!--Bands List-->
         <div id="bandsArea">
@@ -213,23 +206,6 @@
         });
     }
 
-
-
-    // Function to handle file picker and upload for band image
-    function handleBandImageUpload() {
-        const bandImg = document.getElementById("bandImg");
-        const bandCreateImgInput = document.getElementById("bandCreateImg");
-
-        bandCreateImgInput.addEventListener("change", (event) => {
-            const file = event.target.files[0];
-
-            client.upload(file).then((response) => {
-                bandImg.src = response.url;
-            }).catch((error) => {
-                console.log(error);
-            });
-        });
-    }
     function showForm(formId) {
         if (formId === 'sign-up') {
             fetch('sign-up')
