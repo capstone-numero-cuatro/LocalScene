@@ -44,8 +44,8 @@ public class ProfileController {
 
         List<Posts> posts = postRepository.findByUser(user);
 
-
-        model.addAttribute("posts", new Posts());
+        model.addAttribute("posts", posts);
+        model.addAttribute("newPost", new Posts());
         model.addAttribute("band", new Band());
         model.addAttribute("passwordResetForm", new PasswordResetForm());
         model.addAttribute("user", user);
@@ -54,17 +54,17 @@ public class ProfileController {
 
     @PostMapping("/profile/posts/create")
     public String createPost(@ModelAttribute Posts posts) {
-        //Access the logged in user (bottom of security)
-        User loggedInUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
+        User loggedInUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         loggedInUser = userRepository.findByUsername(loggedInUser.getUsername());
 
         posts.setUser(loggedInUser);
 
-        System.out.println("posts.getUser_id().getUsername() = " + posts.getUser().getUsername());
+//        System.out.println("posts.getUser_id().getUsername() = " + posts.getUser().getUsername());
 
         postRepository.save(posts);
-        return "redirect:/home";
+
+        return "redirect:/profile/" + loggedInUser.getId();
     }
 
 
