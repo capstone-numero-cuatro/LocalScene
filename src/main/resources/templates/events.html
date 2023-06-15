@@ -1,8 +1,6 @@
 <!DOCTYPE html>
-
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
-
-      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity6" xmlns="http://www.w3.org/1999/html">
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
 
 <head>
 
@@ -11,28 +9,14 @@
   <title>Events Search</title>
 
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-
-  <link rel="stylesheet" href="../static/css/venues.css">
+  <link rel="stylesheet" th:href="@{/css/nav-card.css}">
+  <link rel="stylesheet" th:href="@{/css/venues.css}">
 
 </head>
 
 
 
 <body>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
-<script src="../static/js/events.js"></script>
-
-</div>
-
-</body>
-
-</html>
-
-
 
 <header class="text-center">
 
@@ -200,11 +184,12 @@
 
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
-<script src="../static/js/events.js"></script>
+<script th:src="@{/js/events.js}"></script>
 
-</div>
+
 
 </body>
 
 </html>
+
 

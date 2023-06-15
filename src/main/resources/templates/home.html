@@ -114,21 +114,24 @@
                 <div th:each="post : ${posts}">
                     <div class="card" style="width:20rem;">
                         <div class="card-body">
+                            <p >User: <span th:each="user : ${users}" th:if="${user.id == post.user.id}" th:text="${user.username}"></span></p>
                             <h5 class="card-title" th:text="${post.title}"></h5>
                             <!--                <h6 class="card-subtitle mb-2 text-body-secondary" th:text="${post.user}"></h6>-->
                             <p class="card-text" th:text="${post.description}"></p>
                         </div>
                     </div>
-                </div>
-                <div th:each="bandPosts : ${bandPosts}">
-                    <div class="card" style="width: 18rem">
-                        <div class="card-body">
-                            <h5 class="card-title" th:text="${bandPosts.title}"></h5>
-                            <h6 class="card-body" th:text="${bandPosts.description}"></h6>
-                            <!--                        <img th:src="@{'/images/' + ${post.image}}" alt="postImage">-->
+
+                    <div th:each="bandPosts : ${bandPosts}">
+                        <div class="card" style="width: 18rem">
+                            <div class="card-body">
+                                <p th:each="band : ${band}">Band:
+                                    <span th:text="${band.bandname}"></span></p>
+                                <h5 class="card-title" th:text="${bandPosts.title}"></h5>
+                                <h6 class="card-body" th:text="${bandPosts.description}"></h6>
+
+                            </div>
                         </div>
                     </div>
-                </div>
             </div>
         </div>
     </div>
@@ -142,8 +145,13 @@
                         <div th:each="events : ${events}">
                             <div class="card" style="width: 18rem">
                                 <div class="card-body">
-                                    <h5 class="card-title" th:text="${events.title}"></h5>
-                                    <h6 class="card-body" th:text="${events.description}"></h6>
+
+                                    <p th:each="band : ${band}">Band:
+                                        <span th:text="${band.bandname}"></span></p>
+                                    <h5 class="card-title" th:text="${bandPosts.title}"></h5>
+                                    <h6 class="card-body" th:text="${bandPosts.description}"></h6>
+
+
                                     <!--                        <img th:src="@{'/images/' + ${post.image}}" alt="postImage">-->
                                 </div>
                             </div>
