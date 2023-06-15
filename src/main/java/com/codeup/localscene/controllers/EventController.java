@@ -27,6 +27,13 @@ public class EventController {
     }
 
 
+
+    @GetMapping("/events")
+    public String events(){
+       return "events";
+    }
+
+
     //retrieves list of events
     @GetMapping("/events")
     public String getEvents(Model model, @PathVariable String band_id) {

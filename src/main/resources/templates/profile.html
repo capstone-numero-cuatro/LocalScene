@@ -1,19 +1,19 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <title>Profile</title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
-</head>
     <link rel="stylesheet" th:href="@{/css/navbar.css}">
     <link rel="stylesheet" th:href="@{/css/profile.css}" type="text/css" >
-
-
     <!---googlefonts-->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Slackside+One&display=swap" rel="stylesheet">
+    <!--    Font awesome-->
+    <script src="https://kit.fontawesome.com/3d0b015fdb.js" crossorigin="anonymous"></script>
 </head>
 <body>
 
@@ -98,6 +98,7 @@
                         <label for="BandName" class="form-label">Band Name</label>
                         <input type="text" class="form-control" id="BandName" name="bandName" placeholder="Band Name"
                                th:field="*{bandname}">
+
                     </div>
 
                     <div class="mb-3">
@@ -106,8 +107,12 @@
                                   rows="3"           th:field="*{description}"></textarea>
                         <!--                    <input type="hidden" th:field="*{id}">-->
                         <div style="position: relative">
-                            <input type="file" id="bandCreateImg" onchange="handleBandImageUpload()">
-                            <img src="" alt="image" id="bandImg" style="background-color: darkgrey; color:white; padding:5px; border:none;outline:none; height: 30vh; width: auto">
+                            <label for="bandImageInput" class="custom-file-upload">
+                                Choose your profile image
+                            </label>
+                            <input type="file" id="bandImageInput" style="display: none;">
+                            <img src="" alt="image" id="bandImage" style="background-color: darkgrey; color:white; padding:5px; border:none;outline:none; height: 10vh; width: auto">
+                            <input type="hidden" id="bandImageUrl" name="band_image">
                         </div>
 
                     </div>
@@ -147,6 +152,19 @@
     </div>
 </div>
 
+
+
+
+
+
+<div class="container text-center" id="recent-activity">
+    <div>
+        <h4>Recent Activity</h4>
+
+    </div>
+</div>
+
+
 <th:block th:replace="partials/navbar-scripts :: navbar-scripts"></th:block>
 <!--preloader-->
 <script>
@@ -170,42 +188,27 @@
 
 <!--File Stack-->
 <script src="//static.filestackapi.com/filestack-js/3.x.x/filestack.min.js"></script>
-
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    var filestackKey = /*[[${filestackKey}]]*/ 'default';
+    /*]]>*/
+</script>
 <script>
-    //apikey
     const client = filestack.init("Abd5534iTviZyWy5jGpswz");
+    const bandPic = document.getElementById("bandImage");
+    const bandFileInput = document.getElementById("bandImageInput");
+    const bandImageUrlInput = document.getElementById("bandImageUrl");
 
-    // Function to open the profile picture picker dialog
-    function openProfilePicturePicker() {
-        const dialog = document.getElementById("changePicture");
-        dialog.showModal();
-    }
-
-    // Function to handle file picker and upload for profile picture
-    function handleProfilePictureUpload() {
-        const profilePic = document.getElementById("profilePic");
-        const profileFileInput = document.getElementById("imageInput");
-        const file = profileFileInput.files[0];
+   bandFileInput.addEventListener("change", (event) => {
+        const file = event.target.files[0];
 
         client.upload(file).then((response) => {
-            console.log("Filestack api response: " , response);
-            profilePic.src = response.url;
-            // Save the file to the user's profile using a callback or by making an API request
-            saveProfilePicture(response.url);
-            closeProfilePicturePicker();
+            bandPic.src = response.url;
+            bandImageUrlInput.value = response.url;
         }).catch((error) => {
             console.log(error);
         });
-    }
-
-
-    // Function to close the profile picture picker dialog
-    function closeProfilePicturePicker() {
-        const dialog = document.getElementById("changePicture");
-        dialog.close();
-    }
-
-
+    });
 
     // Function to handle file picker and upload for post image
     function handlePostImageUpload() {
@@ -240,8 +243,6 @@
             });
         });
     }
-
-
     function showForm(formId) {
         if (formId === 'sign-up') {
             fetch('sign-up')
@@ -254,20 +255,20 @@
         }
     }
 
-        window.addEventListener('click', function(e) {
-            var postCreationDialog = document.getElementById('postCreationDialog');
-            if (e.target == postCreationDialog ) {
-                postCreationDialog.close();
-            }
-        });
+    window.addEventListener('click', function(e) {
+        var postCreationDialog = document.getElementById('postCreationDialog');
+        if (e.target == postCreationDialog ) {
+            postCreationDialog.close();
+        }
+    });
 
 
-        window.addEventListener('click', function(e) {
-            var bandCreationDialog = document.getElementById('bandCreationDialog');
-            if (e.target == bandCreationDialog) {
-               bandCreationDialog.close();
-            }
-        });
+    window.addEventListener('click', function(e) {
+        var bandCreationDialog = document.getElementById('bandCreationDialog');
+        if (e.target == bandCreationDialog) {
+           bandCreationDialog.close();
+        }
+    });
 
 
 

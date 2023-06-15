@@ -4,6 +4,7 @@ import com.codeup.localscene.models.*;
 
 import com.codeup.localscene.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
@@ -58,6 +59,22 @@ public class BandProfileController {
         }
         model.addAttribute("band", band);
         return "users/band-profile";
+    }
+    @PostMapping("/band-profile/{bandId}/change-image")
+    public String changeBandImage(@ModelAttribute("band") Band band, @PathVariable long bandId, @AuthenticationPrincipal UserDetails currentUser) {
+            // get the authenticated user
+            User user = userRepository.findByUsername(currentUser.getUsername());
+
+            // get the band from the database
+            Band existingBand = bandRepository.findById(bandId).orElse(null);
+
+            // update the image
+            existingBand.setBand_image(band.getBand_image());
+
+            // save the band
+            bandRepository.save(existingBand);
+
+            return "redirect:/band-profile/" + bandId;
     }
 
     @GetMapping("/band-profile/{bandId}/delete")
