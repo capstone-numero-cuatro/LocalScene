@@ -47,10 +47,10 @@ body {
 }
 
 .flux {
-    animation: flux 2s linear infinite;
-    -moz-animation: flux 2s linear infinite;
-    -webkit-animation: flux 2s linear infinite;
-    -o-animation: flux 2s linear infinite;
+    animation: flux 1s ease infinite;
+    -moz-animation: flux 1s ease infinite;
+    -webkit-animation: flux 1s ease infinite;
+    -o-animation: flux 1s ease infinite;
 }
 
 @keyframes flux {
@@ -85,6 +85,11 @@ body {
     text-align: center;
     position:relative;
 }
+.mission-container p{
+    font-family: 'Permanent Marker', cursive;
+    color: #88cafc;
+    font-size: 32px;
+}
 .t-title {
     margin: calc(20vh - 40px) auto 0 auto;
     font-size: 65px;
@@ -94,7 +99,7 @@ body {
     display: block;
     height: auto;
     text-align: center;
-    color: skyblue;
+    color: white;
     animation: neon 3s infinite;
 }
 
@@ -113,8 +118,8 @@ body {
 }
 
 :root {
-    --shadow-color: blue;
-    --shadow-color-light: lightblue;
+    --shadow-color: #FF9E9E;
+    --shadow-color-light: white;
 }
 
 @keyframes neon {
@@ -273,16 +278,90 @@ body {
     margin-right:40px;
 }
 .user-card img{
-    border: solid white 2px;
-    width: 100%;
+
+    width: 350%;
     height: auto;
 }
-#ryan{
-    background-image: url("../img/firstFunko.png");
-    background-size: cover;
-    position: center;
+#Ryan{
+    margin-bottom: 70px;
+    max-width: 250px;
+    position: absolute;
 }
+#Paul{
+position: absolute;
+    max-width: 480px;
+}
+#lilly{
+    margin-bottom: 30px;
+    max-width: 480px;
+    position: absolute;
+}
+#lillyCard a{
+    position: relative;
+    margin-top: 180px;
+    color: #ff1493;
+    text-decoration: none;
+    font-family: 'Permanent Marker', cursive;
+}
+#lillyCard a:hover{
+    color: #C24CF6
+}
+#Marc{
+    max-width: 250px;
+    margin-bottom:85px;
+    position: absolute;
+}
+#Jaewoo{
+    max-width: 275px;
+    margin-bottom:  80px;
+    position: absolute;
 
+}
+#jaewooCard {
+    display: flex;
+    flex-direction: column;
+
+}
+#jaewooCard a{
+    color: aquamarine;
+    font-family: 'Permanent Marker', cursive;
+    text-decoration: none;
+    position: relative;
+    margin-top: 180px;
+}
+#jaewooCard a:hover{
+    color: #ff1493;
+}
+#paulCard a{
+    color: #22e800;
+    font-family: 'Permanent Marker', cursive;
+    text-decoration: none;
+    position: relative;
+    margin-top: 190px;
+}
+#paulCard a:hover{
+    color: #af3dff;
+}
+#ryanCard a{
+    color: #FFFF66;
+    font-family: 'Permanent Marker', cursive;
+    text-decoration: none;
+    position: relative;
+    margin-top: 190px;
+}
+#ryanCard a:hover{
+    color: #fc6e22;
+}
+#marcCard a{
+    color: #af3dff;
+    font-family: 'Permanent Marker', cursive;
+    text-decoration: none;
+    position: relative;
+    margin-top: 190px;
+}
+#marcCard a:hover{
+    color: #55ffe1;
+}
 #myTab {
     display:flex;
     text-align: center;
@@ -316,11 +395,7 @@ body {
     position: relative;
     margin-top: 5%;
 }
-@media (max-width: 768px) {
-    .event-card {
-        width: 100%; /* Change the width to 100% for smaller screens to stack the cards vertically */
-    }
-}
+
 #preloader{
     background: #26202a url("../img/preloader.gif") no-repeat center;
     height: 100vh;
@@ -348,4 +423,71 @@ body {
     justify-content: center;
     align-items: center;
     font-family: 'Permanent Marker', cursive;
+}
+
+@media (max-width: 767px) {
+    /* Adjust the font size of the main title */
+    #main-title {
+        font-size: 7vw;
+        flex-direction: column;
+        position: relative;
+        margin-bottom: 13%;
+    }
+
+    /* Make the navbar items stack vertically */
+    .main-nav {
+        flex-direction: column;
+    }
+
+    /* Adjust the layout of the tab navigation */
+    .nav-tabs {
+        flex-wrap: wrap;
+    }
+    .t-title {
+        font-size: 50px;
+    }
+
+    /* Adjust the width of the tab content */
+    .tab-content {
+        width: 100%;
+    }
+
+    /* Make the card width 100% on small screens */
+    .card {
+        width: 100%;
+    }
+
+    #map {
+        width:300px;
+        height:300px;
+    }
+
+    .bg {
+        width: 100%;
+        display:inline-list-item;
+    }
+    .event-card {
+        width: 100%; /* Change the width to 100% for smaller screens to stack the cards vertically */
+    }
+    img {
+        max-width:100%;
+        height:auto;
+    }
+
+    .people-card {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .user-card {
+        margin-bottom: 20px;
+    }
+
+    .people-card{
+        display: flex;
+        flex-wrap: wrap;
+    }
+    /* Adjust other styles as needed */
+    /* ... */
 }
