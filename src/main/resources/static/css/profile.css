@@ -1,8 +1,15 @@
+:root {
+    --shadow-color: #FF9E9E;
+    --shadow-color-light: white;
+    --logo-color: rgba(245, 128, 253, 1);
+}
 
 body {
-    background: linear-gradient(90deg, #404066, #2b2c41);
+    /*background: linear-gradient(90deg, #404066, #2b2c41);*/
+    background-color: #26202a !important;
     font-family: 'Permanent Marker', cursive;
 }
+
 header {
     background: url('../img/BaltimoreVenue.jpg');
     text-align: center;
@@ -17,72 +24,166 @@ header {
     background-position: center top;
 
 }
-header h2{
-    color:  rgba(245, 128, 253, 1);
-    font-size: 100px;
 
+/*.username {*/
+/*    margin: calc(20vh - 40px) auto 0 auto;*/
+/*    font-size: 65px;*/
+/*    text-transform: uppercase;*/
+/*    font-family: "Archivo Black", "Archivo", sans-serif;*/
+/*    font-weight: normal;*/
+/*    display: block;*/
+/*    height: auto;*/
+/*    text-align: center;*/
+/*    color: skyblue;*/
+/*    animation: neon 3s infinite;*/
+/*}*/
+header h2{
+    color: skyblue;
+    animation: neon 3s infinite;
+    margin-top: 2em;
+    font-size: 65px;
+    text-transform: uppercase;
+    font-family: "Archivo Black", "Archivo", sans-serif;
+    font-weight: normal;
 }
-#currentPic{
-    background-color: darkgrey;
+
+
+
+.logo-1 {
     color: white;
-    padding: 5px;
-    border: none;
-    outline: none;
-    height: 15vh;
-    width: auto;
-    border-radius: 50%;
-    object-fit: cover;
-    position: absolute;
-    z-index: 2;
-    top: -75px;
+    animation: neon 3s infinite;
 }
+
+@keyframes neon {
+    0% {
+        text-shadow: -1px -1px 1px var(--logo-color), -1px 1px 1px var(--logo-color), 1px -1px 1px var(--logo-color), 1px 1px 1px var(--logo-color),
+        0 0 3px var(--logo-color), 0 0 10px var(--logo-color), 0 0 20px var(--logo-color),
+        0 0 30px var(--logo-color), 0 0 40px var(--logo-color), 0 0 50px var(--logo-color), 0 0 70px var(--logo-color), 0 0 100px var(--logo-color), 0 0 200px var(--logo-color);
+    }
+    50% {
+        text-shadow: -1px -1px 1px var(--logo-color), -1px 1px 1px var(--logo-color), 1px -1px 1px var(--logo-color), 1px 1px 1px var(--logo-color),
+        0 0 5px var(--logo-color), 0 0 15px var(--logo-color), 0 0 25px var(--logo-color),
+        0 0 40px var(--logo-color), 0 0 50px var(--logo-color), 0 0 60px var(--logo-color), 0 0 80px var(--logo-color), 0 0 110px var(--logo-color), 0 0 210px var(--logo-color);
+    }
+    100% {
+        text-shadow: -1px -1px 1px var(--logo-color), -1px 1px 1px var(--logo-color), 1px -1px 1px var(--logo-color), 1px 1px 1px var(--logo-color),
+        0 0 3px var(--logo-color), 0 0 10px var(--logo-color), 0 0 20px var(--logo-color),
+        0 0 30px var(--logo-color), 0 0 40px var(--logo-color), 0 0 50px var(--logo-color), 0 0 70px var(--logo-color), 0 0 100px var(--logo-color), 0 0 200px var(--logo-color);
+    }
+}
+
+h4{
+    color: skyblue;
+
+    font-size: 30px;
+    text-transform: uppercase;
+
+    font-weight: normal;
+}
+
+
+/*.back-row{*/
+/*    display: flex;*/
+/*    flex-direction: row;*/
+/*    align-items: center;*/
+/*    justify-content: center;*/
+/*    flex-wrap: wrap;*/
+/*    margin-bottom: 20px;*/
+/*}*/
+
 #userInfoArea {
+    background-color: dimgray;
     display: flex;
-    height: 65vh;
+    height: 40vh;
     flex-direction: column;
     align-items: center;
     padding: 20px;
     position: absolute;
     z-index: 1;
-    background-color: antiquewhite;
     border-radius: 25px;
-    top: 20%;
     left: 0;
     right: 0;
     bottom: 0;
-}
-
-#currentPic,
-#profilePic {
-    background-color: darkgrey;
-    color: white;
-    padding: 5px;
-    border: none;
-    outline: none;
-    height: 30vh;
-    width: auto;
+    transform: translateY(-50%);
 }
 
 
-
-
-
-#bandsArea {
-
-    margin-right: 10px;
-    padding: 10px;
-    margin-top: 25vh;
-}
-
-
-
-#postsButtons {
-
+.profile-settings {
     display: flex;
     justify-content: space-evenly;
     align-items: center;
-    margin-top: 18vh;
-    width: 60%;
+}
+
+.profile-settings img {
+    margin-right: 50px; /* Adjust the value as needed */
+}
+
+.profile-settings .button-edit {
+    margin-left: 50px; /* Adjust the value as needed */
+}
+
+#currentPic, #profilePic{
+
+    color: white;
+    border: none;
+    outline: none;
+    height: 15vh;
+    width: 15vh;
+    border-radius: 50%;
+    object-fit: cover;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 5px 2em 5px 5px;
+    /*position: absolute;*/
+    /*z-index: 2;*/
+    /*top: -75px;*/
+}
+
+/*#currentPic,*/
+/*#profilePic {*/
+/*    background-color: darkgrey;*/
+/*    color: white;*/
+/*    padding: 5px;*/
+/*    border: none;*/
+/*    outline: none;*/
+/*    height: 30vh;*/
+/*    width: auto;*/
+/*}*/
+
+.button-edit{
+    margin-top: 3em;
+}
+
+#bandsArea {
+    display: flex;
+    align-items: center;
+}
+#bandsArea h4{
+    padding-right: 1em;
+}
+
+.band-name span {
+    font-size: 40px; /* Adjust the value as needed */
+}
+
+.band-link {
+    text-decoration: none;
+}
+
+
+#bandsArea {
+    margin-right: 10px;
+    padding: 5px;
+    margin-top: 5vh;
+}
+
+#postsButtons {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    margin-top: 5vh;
+    width: 90%;
 }
 
 #postCreationDialog,#bandCreationDialog {
@@ -122,11 +223,6 @@ dialog:hover .x {
     transform: scale(1.1);
 }
 
-h5 {
-    font-weight: 600;
-    font-size: 2rem;
-    padding-bottom: 1rem;
-}
 
 label {
     font-size: 1rem;
@@ -148,4 +244,17 @@ label {
     color: black;
 
 }
+
+#posts-container{
+    margin-top: 2em;
+    margin-bottom: 5em;
+}
+
+.card-layout{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 20px;
+}
+
+.card
 
