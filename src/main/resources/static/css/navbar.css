@@ -5,6 +5,9 @@
 navbar {
     background-color: #55ffe1;
 }
+.nav-item{
+    margin: 1em;
+}
 #c{
     max-width: fit-content;
     width: fit-content;
@@ -139,3 +142,4 @@ navbar {
     margin: auto;
     z-index: 9000;
 }
+
