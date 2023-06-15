@@ -114,27 +114,27 @@
 
 
 <script src="https://static.filestackapi.com/filestack-js/3.x.x/filestack.min.js"></script>
+<script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
 
-
-
-<!--preloader-->
+<!-- preloader -->
 <script>
-  let loader = document.getElementById("preloader");
+    $(window).on("load", function() {
+        let loader = $("#preloader");
 
-  // Set the duration in milliseconds for the preloader to be displayed
-  const preloaderDuration = 1500; // Change this value as desired (e.g., 3000 for 3 seconds)
+        // Hide the preloader after the page finishes loading
+        loader.fadeOut("slow");
+    });
 
-  // Function to hide the preloader after the specified duration
-  function hidePreloader() {
-    loader.style.display = "none";
-  }
+    $(document).on("keyup", "input", function(event) {
+        const targetValue = event.target.value.toLowerCase(); // Get the value of the targeted input field
 
-  // Show the preloader initially
-  loader.style.display = "block";
+        const regex = /\bbluey\b/; // Regular expression to match the whole word "bluey"
+        if (regex.test(targetValue)) {
+            window.location.href = "https://www.youtube.com/watch?v=8nv1m-aTCZI";
+        }
 
-  // Set a timeout to hide the preloader after the specified duration
-  setTimeout(hidePreloader, preloaderDuration);
-
+        console.log(targetValue);
+    });
 </script>
 
 <script th:inline="javascript">

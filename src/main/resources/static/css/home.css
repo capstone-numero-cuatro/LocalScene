@@ -1,5 +1,5 @@
 body {
-    background-color: #000000 !important;
+    background-color: #26202a !important;
 }
 
 @font-face {
@@ -215,7 +215,9 @@ body {
 #events-container {
     margin-bottom: 20px;
     padding: 20px;
-    background-color: #f5f5f5;
+    background-color: #212529;
+    display: flex;
+    justify-content: center;
 }
 
 .event-card {
@@ -318,3 +320,21 @@ body {
 }
 
 @import url(https://fonts.googleapis.com/css?family=PT+Sans);
+
+
+.card{
+    width: 420px !important;
+    margin: 1em;
+    box-shadow: rgba(17, 17, 26, 0.1) 0px 8px 24px, rgba(17, 17, 26, 0.1) 0px 16px 56px, rgba(17, 17, 26, 0.1) 0px 24px 80px;
+}
+.card-body{
+    max-height: 500px;
+    max-width: 500px;
+}
+#PostsContainer .card{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Permanent Marker', cursive;
+}

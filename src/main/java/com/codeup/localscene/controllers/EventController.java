@@ -1,6 +1,5 @@
 package com.codeup.localscene.controllers;
 
-import com.codeup.localscene.models.BandPosts;
 import com.codeup.localscene.models.Events;
 import com.codeup.localscene.repositories.BandRepository;
 import com.codeup.localscene.repositories.EventRepository;
@@ -24,6 +23,11 @@ public class EventController {
     public EventController(EventRepository eventRepository, BandRepository bandRepository){
         this.eventRepository = eventRepository;
         this.bandRepository = bandRepository;
+    }
+
+    @GetMapping("/events")
+    public String events(){
+        return "events";
     }
 
     //retrieves list of events

@@ -47,7 +47,7 @@ function displayEvents(data) {
         var cardBody = document.createElement('div');
         cardBody.classList.add('card-body');
 
-        var name = document.createElement('h5');
+        var name = document.createElement('h1');
         name.classList.add('card-title');
         name.textContent = event.name;
 
