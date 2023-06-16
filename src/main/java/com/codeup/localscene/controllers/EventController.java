@@ -43,7 +43,7 @@ public class EventController {
 
         model.addAttribute("events", events);
         model.addAttribute("newEvent", new Events());
-        return "/events";
+        return "events";
     }
 
 //    create event, saves event, redirects to list of events
