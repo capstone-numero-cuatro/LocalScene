@@ -51,7 +51,7 @@ public class SecurityConfiguration {
                                 "/verify", "/home","/forgot-password","/reset-password",
                                 "/band-profile/{bandId}", "/venues/**", "/events/**","/profile/bands/create", "/band-profile/{bandId}").permitAll()
                         .requestMatchers("/profile/{id}","/profile/edit/**","/profile/edit", "/profile/posts/create","/band-profile/{bandId}/add-user").authenticated()
-//                        .anyRequest().authenticated()
+                        .anyRequest().authenticated()
                 );
 //
 //        http /* Login configuration */
