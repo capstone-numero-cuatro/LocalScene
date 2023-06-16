@@ -9,7 +9,6 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 import static org.springframework.security.config.Customizer.withDefaults;
 
@@ -56,7 +55,10 @@ public class SecurityConfiguration {
 ////                        .anyRequest().authenticated()
 //                );
 
-        http.authorizeHttpRequests((requests) -> requests
+        http /* Login configuration */
+                .formLogin((login) -> login.loginPage("/login").defaultSuccessUrl("/home"))
+                /* Logout configuration */
+                .authorizeHttpRequests((requests) -> requests
                         /* Pages that require authentication
                          * only authenticated users can create and edit ads */
                         .requestMatchers("/profile/{id}","/profile/edit").authenticated()
@@ -68,11 +70,9 @@ public class SecurityConfiguration {
                         // allow loading of static resources
                         .requestMatchers("/css/**", "/js/**", "/img/**").permitAll()
                 )
-                /* Login configuration */
-                .formLogin((login) -> login.loginPage("/login").defaultSuccessUrl("/home"))
-                /* Logout configuration */
                 .logout((logout) -> logout.logoutSuccessUrl("/home"))
-                .httpBasic(withDefaults());
+                .httpBasic(withDefaults()
+                );
 
 
 
