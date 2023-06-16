@@ -1,23 +1,22 @@
 package com.codeup.localscene.controllers;
 
 import com.codeup.localscene.models.PasswordResetForm;
+import com.codeup.localscene.models.User;
+import com.codeup.localscene.repositories.UserRepository;
+import com.codeup.localscene.services.PasswordResetService;
+import com.codeup.localscene.services.UserDetailsLoader;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.ui.Model;
-import com.codeup.localscene.models.User;
-import com.codeup.localscene.repositories.UserRepository;
-import com.codeup.localscene.services.UserDetailsLoader;
-import com.codeup.localscene.services.PasswordResetService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.security.Principal;
@@ -44,7 +43,7 @@ public class EditController {
         model.addAttribute("filestackKey", filestackApiKey);
         model.addAttribute("passwordResetForm", new PasswordResetForm());
 
-        return "/users/edit-profile";
+        return "users/edit-profile";
     }
 
     @PostMapping("/profile/edit")
