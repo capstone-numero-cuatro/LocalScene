@@ -634,7 +634,7 @@ h1 {
 
     background-clip: text;
 
-    background-image: linear-gradient(to right, #09f1b8, #00a2ff, #ff00d2, #fed90f);
+    /*background-image: linear-gradient(to right, #09f1b8, #00a2ff, #ff00d2, #fed90f);*/
 
     color: var(--color-background);
 

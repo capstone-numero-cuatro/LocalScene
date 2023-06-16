@@ -25,6 +25,10 @@
 
 
 <body>
+<div th:fragment="navbar">
+  <!-- Include navbar partial -->
+  <div th:replace="partials/navbar"></div>
+</div>
 
 <header class="text-center">
 
@@ -53,10 +57,7 @@
 </header>
 
 
-<div th:fragment="navbar">
-  <!-- Include navbar partial -->
-  <div th:replace="partials/navbar"></div>
-</div>
+
 
 
 

@@ -109,7 +109,7 @@
     </ul>
     <div class="tab-content">
         <div class="tab-pane fade" id="home" role="tabpanel" aria-labelledby="home-tab">
-            <h2>Posts</h2>
+            <h2 class="search-title">Posts</h2>
             <div id="PostsContainer">
                 <div th:each="post : ${posts}">
                     <div class="card" style="width:20rem;">
@@ -138,25 +138,25 @@
     </div>
     <div class="tab-content">
         <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-            <h2>Events</h2>
+            <h2 class="search-title">Events</h2>
             <div id="events-container">
                 <div id="events-card" class="tab-pane fade">
                     <h2>Events</h2>
                     <div class="row row-events">
-<!--                        <div th:each="events : ${events}">-->
-<!--                            <div class="card" style="width: 18rem">-->
-<!--                                <div class="card-body">-->
+                        <div th:each="events : ${events}">
+                            <div class="card" style="width: 18rem">
+                                <div class="card-body">
 
-<!--                                    <p th:each="band : ${band}">Band:-->
-<!--                                        <span th:text="${band.bandname}"></span></p>-->
-<!--                                    <h5 class="card-title" th:text="${bandPosts.title}"></h5>-->
-<!--                                    <h6 class="card-body" th:text="${bandPosts.description}"></h6>-->
+                                    <p th:each="band : ${band}">Band:
+                                        <span th:text="${band.bandname}"></span></p>
+                                    <h5 class="card-title" th:text="${events.title}"></h5>
+                                    <h6 class="card-body" th:text="${events.description}"></h6>
 
 
-<!--                                    &lt;!&ndash;                        <img th:src="@{'/images/' + ${post.image}}" alt="postImage">&ndash;&gt;-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                        </div>-->
+                                    <!--                        <img th:src="@{'/images/' + ${post.image}}" alt="postImage">-->
+                                </div>
+                            </div>
+                        </div>
                         <!-- Event cards will be dynamically added here -->
                         <!--                                    <div class="card">-->
                         <!--                                        <img src="../static/img/event1.jpg" alt="Event 1">-->
@@ -181,31 +181,20 @@
             </div>
         </div>
         <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
-            <h2>List of Bands</h2>
+            <h2 class="search-title">List of Bands</h2>
             <div id="BandsContainer">
-                <div class="band">
-                    <p class="Band-title">Band 1</p>
-                    <p class="Band-description">Loading....</p>
-                    <div class="Band-image">
-                        <img src="img/Localscene.jpg" alt="">
-                    </div>
-                </div>
-                <div class="band">
-                    <p class="Band-title">Band 1</p>
-                    <p class="Band-description">Loading....</p>
-                    <div class="Band-image">
-                        <img src="img/Localscene.jpg" alt="">
-                    </div>
-                </div>
-                <div class="band">
-                    <p class="Band-title">Band 1</p>
-                    <p class="Band-description">Loading....</p>
-                    <div class="Band-image">
-                        <img src="img/Localscene.jpg" alt="">
+                <div th:each="band : ${band}">
+                    <div class="card" style="width: 18rem">
+                        <div class="card-body">
+                            <h3 th:text="${band.bandname}"></h3>
+
+                            <h6 class="card-body" th:text="${band.description}"></h6>
+
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
+
         <div class="tab-pane fade" id="venues" role="tabpanel" aria-labelledby="venues-tab">
             <h2>Venues</h2>
             <div class="row">

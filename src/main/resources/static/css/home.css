@@ -93,6 +93,10 @@ body {
     color: #88cafc;
     font-size: 32px;
 }
+.search-title{
+    color: white;
+    animation: neon 3s infinite;
+}
 .t-title {
     margin: calc(20vh - 40px) auto 0 auto;
     font-size: 65px;
@@ -238,6 +242,7 @@ body {
     padding: 20px;
     background-color: #212529;
     display: flex;
+    flex-wrap: wrap;
     justify-content: center;
 }
 
