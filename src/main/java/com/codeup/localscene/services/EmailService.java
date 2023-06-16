@@ -76,7 +76,7 @@ public class EmailService {
             mailMessage.setTo(user.getEmail());
             mailMessage.setSubject("Password Reset");
             mailMessage.setText("To reset your password, please click the following link: "
-                    + "http://localhost:8080/reset-password?token=" + resetToken);
+                    + "http://thelocalscene.site/reset-password?token=" + resetToken);
 
             mailSender.send(mailMessage);
         } else {
