@@ -12,7 +12,6 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 
-
 @Configuration
 @EnableWebSecurity
 public class SecurityConfiguration {
@@ -50,11 +49,30 @@ public class SecurityConfiguration {
                 .authorizeHttpRequests((authorize) -> authorize
                         .requestMatchers("/404","/img/**","/js/**", "/css/**", "/", "/sign-up",
                                 "/verify", "/home","/forgot-password","/reset-password",
-                                "/band-profile/{bandId}", "/venues", "/events").permitAll()
-                        .requestMatchers("/profile/{id}","/profile/edit","/profile/posts/create","/profile/bands/create").authenticated()
-                        .anyRequest().authenticated()
-                )
-        ;
+                                "/band-profile/{bandId}", "/venues/**", "/events/**","/profile/bands/create", "/band-profile/{bandId}").permitAll()
+                        .requestMatchers("/profile/{id}","/profile/edit/**","/profile/edit", "/profile/posts/create","/band-profile/{bandId}/add-user").authenticated()
+//                        .anyRequest().authenticated()
+                );
+//
+//        http /* Login configuration */
+//                .formLogin((login) -> login.loginPage("/login").defaultSuccessUrl("/home"))
+//                /* Logout configuration */
+//                .authorizeHttpRequests((requests) -> requests
+//                        /* Pages that require authentication
+//                         * only authenticated users can create and edit ads */
+//                        .requestMatchers("/profile/{id}","/profile/edit").authenticated()
+//                        /* Pages that do not require authentication
+//                         * anyone can visit the home page, register, login, and view ads */
+//                        .requestMatchers("/404", "/", "/sign-up",
+//                                "/verify", "/home","/forgot-password","/reset-password",
+//                                "/band-profile/{bandId}", "/venues", "/events").permitAll()
+//                        // allow loading of static resources
+//                        .requestMatchers("/css/**", "/js/**", "/img/**").permitAll()
+//                )
+//                .logout((logout) -> logout.logoutSuccessUrl("/home"))
+//                .httpBasic(withDefaults()
+//                );
+
         return http.build();
     }
 }

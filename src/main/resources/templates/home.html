@@ -142,20 +142,20 @@
                 <div id="events-card" class="tab-pane fade">
                     <h2>Events</h2>
                     <div class="row row-events">
-                        <div th:each="events : ${events}">
-                            <div class="card" style="width: 18rem">
-                                <div class="card-body">
+<!--                        <div th:each="events : ${events}">-->
+<!--                            <div class="card" style="width: 18rem">-->
+<!--                                <div class="card-body">-->
 
-                                    <p th:each="band : ${band}">Band:
-                                        <span th:text="${band.bandname}"></span></p>
-                                    <h5 class="card-title" th:text="${bandPosts.title}"></h5>
-                                    <h6 class="card-body" th:text="${bandPosts.description}"></h6>
+<!--                                    <p th:each="band : ${band}">Band:-->
+<!--                                        <span th:text="${band.bandname}"></span></p>-->
+<!--                                    <h5 class="card-title" th:text="${bandPosts.title}"></h5>-->
+<!--                                    <h6 class="card-body" th:text="${bandPosts.description}"></h6>-->
 
 
-                                    <!--                        <img th:src="@{'/images/' + ${post.image}}" alt="postImage">-->
-                                </div>
-                            </div>
-                        </div>
+<!--                                    &lt;!&ndash;                        <img th:src="@{'/images/' + ${post.image}}" alt="postImage">&ndash;&gt;-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
                         <!-- Event cards will be dynamically added here -->
                         <!--                                    <div class="card">-->
                         <!--                                        <img src="../static/img/event1.jpg" alt="Event 1">-->
@@ -241,23 +241,23 @@
 <h1 class="aboutUs">About Us</h1>
 <div class="people-card">
     <div class="user-card"  id="ryanCard">
-        <img th:src="@{/img/Ryan.png}" alt="Ryan" id="Ryan">
-        <a href="https://www.linkedin.com/in/zhang1120/">Ryan Zhang</a>
+        <img th:src="@{/img/RyanResize.png}" alt="Ryan" id="Ryan">
+        <a href="https://www.linkedin.com/in/zhang1120/">Ryan <br> Zhang</a>
     </div>
     <div class="user-card" id="lillyCard">
-        <img th:src="@{/img/Lilly.png}"  alt="Lilly" id="lilly">
+        <img th:src="@{/img/Lilly2.png}"  alt="Lilly" id="lilly">
         <a href="https://www.linkedin.com/in/lillian-arcos/">Lillian Arcos</a>
     </div>
     <div class="user-card" id="paulCard">
-        <img th:src="@{/img/Paul.png}" alt="Paul" id="Paul">
+        <img th:src="@{/img/Paul copy.png}" alt="Paul" id="Paul">
         <a href="https://www.linkedin.com/in/paul-garcia-tx/">Paul Garcia</a>
     </div>
     <div class="user-card" id="jaewooCard">
-        <img th:src="@{/img/Jaewoo1.png}" alt="Jaewoo" id="Jaewoo">
+        <img th:src="@{/img/JaewooResize.png}" alt="Jaewoo" id="Jaewoo">
         <a href="https:www.linkedin.com/in/jaewoo-baek/">Jaewoo Baek</a>
     </div>
     <div class="user-card" id="marcCard">
-        <img th:src="@{/img/Marc1.png}" alt="Marc" id="Marc">
+        <img th:src="@{/img/Mar.png}" alt="Marc" id="Marc">
         <a href="https://www.linkedin.com/in/marc-newman25/">Marc Newman</a>
     </div>
 </div>
