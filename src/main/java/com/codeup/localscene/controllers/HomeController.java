@@ -28,8 +28,6 @@ public class HomeController {
         this.bandRepository = bandRepository;
     }
 
-
-
     @GetMapping("/home")
     public String welcome(Model model){
         List<Band> bands = bandRepository.findAll();
