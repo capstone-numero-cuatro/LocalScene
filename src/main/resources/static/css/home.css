@@ -260,7 +260,7 @@ body {
 }
 
 .user-card {
-    box-shadow: 0 1rem 2rem hsl(0 0% 0% / 20%);
+    box-shadow: 0 1rem 2rem #ff1493 ;
     align-items: center;
     justify-content: center;
     background: #26202a;
@@ -274,7 +274,7 @@ body {
     text-align: center;
     padding: 3ch;
     border-radius: 2ch;
-    border: 1px solid hsl(0 0% 83%);
+
     margin-right:40px;
 }
 .user-card img{
@@ -284,12 +284,13 @@ body {
 }
 #Ryan{
     margin-bottom: 70px;
-    max-width: 250px;
+    max-width: 281px;
     position: absolute;
 }
 #Paul{
 position: absolute;
-    max-width: 480px;
+    max-width: 230px;
+    margin-bottom: 100px;
 }
 #lilly{
     margin-bottom: 30px;
@@ -298,22 +299,22 @@ position: absolute;
 }
 #lillyCard a{
     position: relative;
-    margin-top: 180px;
-    color: #ff1493;
+    margin-top: 199px;
+    color: #af3dff;
     text-decoration: none;
     font-family: 'Permanent Marker', cursive;
 }
 #lillyCard a:hover{
-    color: #C24CF6
+    color: aquamarine;
 }
 #Marc{
-    max-width: 250px;
-    margin-bottom:85px;
+    max-width: 230px;
+    margin-bottom:96px;
     position: absolute;
 }
 #Jaewoo{
     max-width: 275px;
-    margin-bottom:  80px;
+    margin-bottom:  90px;
     position: absolute;
 
 }
@@ -327,7 +328,7 @@ position: absolute;
     font-family: 'Permanent Marker', cursive;
     text-decoration: none;
     position: relative;
-    margin-top: 180px;
+    margin-top: 200px;
 }
 #jaewooCard a:hover{
     color: #ff1493;
@@ -337,7 +338,7 @@ position: absolute;
     font-family: 'Permanent Marker', cursive;
     text-decoration: none;
     position: relative;
-    margin-top: 190px;
+    margin-top: 200px;
 }
 #paulCard a:hover{
     color: #af3dff;
@@ -347,7 +348,7 @@ position: absolute;
     font-family: 'Permanent Marker', cursive;
     text-decoration: none;
     position: relative;
-    margin-top: 190px;
+    margin-top: 199px;
 }
 #ryanCard a:hover{
     color: #fc6e22;
@@ -357,7 +358,7 @@ position: absolute;
     font-family: 'Permanent Marker', cursive;
     text-decoration: none;
     position: relative;
-    margin-top: 190px;
+    margin-top: 199px;
 }
 #marcCard a:hover{
     color: #55ffe1;

@@ -44,7 +44,7 @@ public class EmailService {
         mailMessage.setTo(user.getEmail());
         mailMessage.setSubject("Email Verification");
         mailMessage.setText("To verify your email, please click the following link: "
-                + "http://localhost:8080/verify?code=" + user.getVerificationCode());
+                + "http://thelocalscene.site/verify?code=" + user.getVerificationCode());
 
         mailSender.send(mailMessage);
     }
@@ -76,7 +76,7 @@ public class EmailService {
             mailMessage.setTo(user.getEmail());
             mailMessage.setSubject("Password Reset");
             mailMessage.setText("To reset your password, please click the following link: "
-                    + "http://localhost:8080/reset-password?token=" + resetToken);
+                    + "http://thelocalscene.site/reset-password?token=" + resetToken);
 
             mailSender.send(mailMessage);
         } else {

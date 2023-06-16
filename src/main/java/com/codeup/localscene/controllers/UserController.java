@@ -1,22 +1,19 @@
 package com.codeup.localscene.controllers;
+
+import com.codeup.localscene.models.User;
 import com.codeup.localscene.repositories.UserRepository;
 import com.codeup.localscene.services.EmailService;
-import com.codeup.localscene.models.User;
 import com.codeup.localscene.services.UserDetailsLoader;
-import jakarta.servlet.http.HttpServletRequest;
-import org.apache.tomcat.util.net.openssl.ciphers.Authentication;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
-import org.springframework.mail.SimpleMailMessage;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-
-import java.util.Map;
-import java.util.UUID;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 
 @Controller
@@ -45,7 +42,7 @@ public class UserController {
 
     @PostMapping("/sign-up")
     public ResponseEntity<String> signUp(@ModelAttribute User user) {
-        try {
+
             // Check if username or email already exists
             User existingUserByUsername = userRepository.findByUsername(user.getUsername());
             User existingUserByEmail = userRepository.findByEmail(user.getEmail());
@@ -61,9 +58,7 @@ public class UserController {
             // Registration process
             emailService.registerUser(user);
             return ResponseEntity.ok("Registration successful. Please check your email for verification link.");
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().body("Error during registration. Please try again.");
-        }
+
     }
 
 

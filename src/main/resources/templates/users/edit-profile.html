@@ -14,105 +14,103 @@
     <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Slackside+One&display=swap" rel="stylesheet">
 
     <script src="https://kit.fontawesome.com/3d0b015fdb.js" crossorigin="anonymous"></script>
-
-
 </head>
 <body>
 <div id="preloader"></div>
+<div th:fragment="navbar">
+    <div th:replace="partials/navbar"></div>
+</div>
 
 
-<div>
-    <div>
-        <div class="container">
-            <div class="screen">
-                <div class="screen-content">
-                    <form action="#" th:action="@{/sign-up}" th:object="${user}" method="post">
-                        <label for="username">Username</label>
-                        <input id="username" th:field="*{username}" />
 
-                        <label for="email">Email</label>
-                        <input id="email" th:field="*{email}" />
+<div class="container">
+    <div class="screen">
+        <div class="screen-content">
+            <form action="#" th:action="@{/profile/edit}" th:object="${user}" method="post" enctype="multipart/form-data">
+                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
 
-                        <label for="password">Password</label>
-                        <input id="password" type="password" th:field="*{password}" />
+                <label for="username">Name</label>
+                <input id="username" th:field="*{username}" />
 
-                        <label for="confirmPassword">Confirm Password</label>
-                        <input id="confirmPassword" type="password" />
+                <label for="userEmail">Email</label>
+                <input id="userEmail" th:field="*{email}" />
 
-                        <label for="profileImageInput" class="custom-file-upload">
-                            Choose your profile image
-                        </label>
-                        <input type="file" id="profileImageInput" style="display: none;"/>
-                        <img src="" alt="image" id="profileImage" style="background-color: darkgrey; color:white; padding:5px; border:none;outline:none; height: 30vh; width: auto">
-                        <input type="hidden" id="profileImageUrl" name="profileImage">
+                <label for="profileImageInput" class="custom-file-upload">
+                    Choose your profile image
+                </label>
+                <input type="file" id="profileImageInput" style="display: none;" onchange="enableSubmitButton()"/>
+                <img src="" th:src="${user.profileImage}" alt="image" id="profileImage" height="34" class="rounded-circle">
+                <input type="hidden" id="profileImageUrl" name="profileImage">
 
-                        <input value="Sign me up!" type="submit" id="submitBtn" disabled />
-                    </form>
-                    <div id="usernameCriteria" style="display: none;">
-                        <h5>Name must be:</h5>
-                        <ul>
-                            <li id="usernameChar" class="criteria">Only letters and numbers</li>
-                            <li id="usernameLength" class="criteria">Between 3 and 15 characters</li>
-                        </ul>
-                    </div>
-                    <div id="emailCriteria" style="display: none;">
-                        <h5>Email must be:</h5>
-                        <ul>
-                            <li id="emailSymbol" class="criteria">A valid email address</li>
-                        </ul>
-                    </div>
-                    <div id="passwordCriteria" style="display: none;">
-                        <h5>Password must include at least:</h5>
-                        <ul>
-                            <li id="lowercase" class="criteria">A lowercase letter</li>
-                            <li id="uppercase" class="criteria">An uppercase letter</li>
-                            <li id="number" class="criteria">A number</li>
-                            <li id="specialChar" class="criteria">A special character ($, %,@,#,^, or &)</li>
-                            <li id="length" class="criteria">Between 4 and 15 characters</li>
-                        </ul>
-                    </div>
-                    <div id="confirmPasswordCriteria" style="display: none;">
-                        <h5>Confirm password must be:</h5>
-                        <ul>
-                            <li id="passwordMatch" class="criteria">Match the password</li>
-                        </ul>
-                    </div>
+                <div sec:authorize="isAuthenticated()">
+                    <input value="Save changes" id="submitBtn" type="submit" disabled/>
                 </div>
-                <div class="screen__background">
-                    <span class="screen__background__shape screen__background__shape4"></span>
-                    <span class="screen__background__shape screen__background__shape3"></span>
-                    <span class="screen__background__shape screen__background__shape2"></span>
-                    <span class="screen__background__shape screen__background__shape1"></span>
-                </div>
+            </form>
+            <div id="usernameCriteria" style="display: none;">
+                <h5>Name must be:</h5>
+                <ul>
+                    <li id="usernameChar" class="username-criteria">Only letters and numbers</li>
+                    <li id="usernameLength" class="username-criteria">Between 3 and 15 characters</li>
+                </ul>
             </div>
+            <div id="emailCriteria" style="display: none;">
+                <h5>Email must be:</h5>
+                <ul>
+                    <li id="emailSymbol" class="email-criteria">A valid email address</li>
+                </ul>
+            </div>
+            <div>
+                <dialog id="pwreset">
+                    <h1>Reset Password</h1>
+                    <form th:action="@{/profile/edit/reset-password}" th:object="${passwordResetForm}" method="post">
+                        <div class="form-group">
+                            <label for="currentPassword">Current password</label>
+                            <input type="password" class="form-control" id="currentPassword" th:field="*{currentPassword}" required />
+                        </div>
+                        <div class="form-group">
+                            <label for="newPassword">New password</label>
+                            <input type="password" class="form-control" id="newPassword" th:field="*{newPassword}" required />
+                        </div>
+                        <div class="form-group">
+                            <label for="confirmPassword">Confirm New Password</label>
+                            <input type="password" class="form-control" id="confirmPassword" th:field="*{confirmPassword}" required />
+                        </div>
+                        <input type="checkbox" id="showPasswords" onclick="togglePasswordVisibility()">
+                        <label for="showPasswords">Show Passwords</label>
+                        <div>
+                            <button class="btn btn-info" type="submit">Reset Password</button>
+                        </div>
+                    </form>
+                </dialog>
+                <button onclick="pwreset.showModal()" type="button" class="btn btn-info">Reset Password?</button>
+            </div>
+            <div th:if="${message}" th:class="${alertClass}" th:text="${message}"></div>
+            <div th:if="${errorMessage}" th:class="${alertClass}" th:text="${errorMessage}"></div>
+        </div>
+        <div class="screen__background">
+            <span class="screen__background__shape screen__background__shape4"></span>
+            <span class="screen__background__shape screen__background__shape3"></span>
+            <span class="screen__background__shape screen__background__shape2"></span>
+            <span class="screen__background__shape screen__background__shape1"></span>
         </div>
     </div>
 </div>
 
-<script src="https://static.filestackapi.com/filestack-js/3.x.x/filestack.min.js"></script>
-
-
-
 <!--preloader-->
 <script>
     let loader = document.getElementById("preloader");
-
     // Set the duration in milliseconds for the preloader to be displayed
     const preloaderDuration = 1500; // Change this value as desired (e.g., 3000 for 3 seconds)
-
     // Function to hide the preloader after the specified duration
     function hidePreloader() {
         loader.style.display = "none";
     }
-
     // Show the preloader initially
     loader.style.display = "block";
-
     // Set a timeout to hide the preloader after the specified duration
     setTimeout(hidePreloader, preloaderDuration);
-
 </script>
-
+<script src="https://static.filestackapi.com/filestack-js/3.x.x/filestack.min.js"></script>
 <script th:inline="javascript">
     /*<![CDATA[*/
     var filestackKey = /*[[${filestackKey}]]*/ 'default';
@@ -125,6 +123,8 @@
     const profileFileInput = document.getElementById("profileImageInput");
     const profileImageUrlInput = document.getElementById("profileImageUrl");
 
+    profileImageUrlInput.value = profilePic.src;
+
     profileFileInput.addEventListener("change", (event) => {
         const file = event.target.files[0];
 
@@ -135,59 +135,42 @@
             console.log(error);
         });
     });
+    //Keep the image
+    document.getElementById('profileImageInput').addEventListener('change', function(e) {
+        var file = e.target.files[0];
+        var reader = new FileReader();
 
-    //Check Password
-    document.getElementById('password').addEventListener('focus', () => {
-        document.getElementById('passwordCriteria').style.display = 'block';
+        reader.onloadend = function() {
+            document.getElementById('profileImageUrl').value = reader.result;
+            document.getElementById('profileImage').src = reader.result;
+        }
+
+        if (file) {
+            reader.readAsDataURL(file);
+        }
     });
-
-    document.getElementById('password').addEventListener('blur', () => {
-        document.getElementById('passwordCriteria').style.display = 'none';
+    //Password reset
+    window.addEventListener('click', function(e) {
+        var dialog = document.getElementById('pwreset');
+        if (e.target == dialog) {
+            dialog.close();
+        }
     });
+    function togglePasswordVisibility() {
+        const newPassword = document.getElementById('newPassword');
+        const confirmPassword = document.getElementById('confirmPassword');
+        const checkbox = document.getElementById('showPasswords');
 
-    document.getElementById('password').addEventListener('keyup', function() {
-        const password = document.getElementById('password').value;
-        checkPasswordCriteria(password);
-    });
-
-    function checkPasswordCriteria(password) {
-        const lowercaseRegex = /[a-z]/g;
-        const uppercaseRegex = /[A-Z]/g;
-        const numbersRegex = /[0-9]/g;
-        const specialCharsRegex = /[$%@#^&]/g;
-
-        if (password.match(lowercaseRegex)) {
-            document.getElementById('lowercase').style.color = 'green';
+        if (checkbox.checked) {
+            // Show the password
+            newPassword.type = 'text';
+            confirmPassword.type = 'text';
         } else {
-            document.getElementById('lowercase').style.color = 'grey';
+            // Hide the password
+            newPassword.type = 'password';
+            confirmPassword.type = 'password';
         }
-
-        if (password.match(uppercaseRegex)) {
-            document.getElementById('uppercase').style.color = 'green';
-        } else {
-            document.getElementById('uppercase').style.color = 'grey';
-        }
-
-        if (password.match(numbersRegex)) {
-            document.getElementById('number').style.color = 'green';
-        } else {
-            document.getElementById('number').style.color = 'grey';
-        }
-
-        if (password.match(specialCharsRegex)) {
-            document.getElementById('specialChar').style.color = 'green';
-        } else {
-            document.getElementById('specialChar').style.color = 'grey';
-        }
-
-        if (password.length >= 4 && password.length <= 15) {
-            document.getElementById('length').style.color = 'green';
-        } else {
-            document.getElementById('length').style.color = 'grey';
-        }
-        checkCriteria()
     }
-
     //Check Username
     document.getElementById('username').addEventListener('focus', () => {
         document.getElementById('usernameCriteria').style.display = 'block';
@@ -218,20 +201,20 @@
         } else {
             document.getElementById('usernameLength').style.color = 'grey';
         }
-        checkCriteria()
+        checkUsernameCriteriaMet()
     }
 
     //Check email
-    document.getElementById('email').addEventListener('focus', () => {
+    document.getElementById('userEmail').addEventListener('focus', () => {
         document.getElementById('emailCriteria').style.display = 'block';
     });
 
-    document.getElementById('email').addEventListener('blur', () => {
+    document.getElementById('userEmail').addEventListener('blur', () => {
         document.getElementById('emailCriteria').style.display = 'none';
     });
 
-    document.getElementById('email').addEventListener('keyup', function() {
-        const email = document.getElementById('email').value;
+    document.getElementById('userEmail').addEventListener('keyup', function() {
+        const email = document.getElementById('userEmail').value;
         checkEmailCriteria(email);
     });
     function checkEmailCriteria(email) {
@@ -244,55 +227,43 @@
         } else {
             document.getElementById('emailSymbol').style.color = 'grey';
         }
-        checkCriteria()
+        checkEmailCriteriaMet()
     }
-
-    //Check confirmPassword
-    document.getElementById('confirmPassword').addEventListener('focus', () => {
-        document.getElementById('confirmPasswordCriteria').style.display = 'block';
-    });
-
-    document.getElementById('confirmPassword').addEventListener('blur', () => {
-        document.getElementById('confirmPasswordCriteria').style.display = 'none';
-    });
-
-    document.getElementById('confirmPassword').addEventListener('keyup', function() {
-        checkConfirmPasswordCriteria();
-    });
-    function checkConfirmPasswordCriteria() {
-        var password = document.getElementById("password").value;
-        var confirmPassword = document.getElementById("confirmPassword").value;
-        var passwordMatchCriteria = document.getElementById("passwordMatch");
-
-        if (password === confirmPassword) {
-            passwordMatchCriteria.style.color = "green";
-        } else {
-            passwordMatchCriteria.style.color = "red";
-        }
-
-        checkCriteria();
-    }
-
-    //Check all Criteria
-    function allCriteriaMet() {
-        let criteria = document.getElementsByClassName('criteria');
+    //Check username Criteria
+    function checkUsernameCriteriaMet() {
+        let criteria = document.getElementsByClassName('username-criteria');
 
         for (let i = 0; i < criteria.length; i++) {
             if (criteria[i].style.color !== 'green') {
-                return false;
+                document.getElementById("submitBtn").disabled = true;
+                return;
+            } else {
+                document.getElementById("submitBtn").disabled = false;
+                return;
             }
         }
-        return true;
     }
-    function checkCriteria() {
-        if (allCriteriaMet()) {
-            document.getElementById("submitBtn").disabled = false;
-        } else {
-            document.getElementById("submitBtn").disabled = true;
+    //Check email Criteria
+    function checkEmailCriteriaMet() {
+        let criteria = document.getElementsByClassName('email-criteria');
+
+        for (let i = 0; i < criteria.length; i++) {
+            if (criteria[i].style.color !== 'green') {
+                document.getElementById("submitBtn").disabled = true;
+                return;
+            } else {
+                document.getElementById("submitBtn").disabled = false;
+                return;
+            }
         }
+    }
+    //Image change
+    function enableSubmitButton() {
+        document.getElementById('submitBtn').disabled = false;
     }
 
 </script>
+<th:block th:replace="partials/navbar-scripts :: navbar-scripts"></th:block>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
 </body>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
 </html>
