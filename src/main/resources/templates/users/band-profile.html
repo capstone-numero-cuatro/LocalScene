@@ -92,9 +92,13 @@
                                 <label for="BandPostDescription" class="form-label">Body</label>
                                 <textarea class="form-control" id="BandPostDescription" name="content" rows="3" th:field="*{description}"></textarea>
                                                                 <input type="hidden" th:field="*{id}">
-                                <div >
-                                    <input type="file" id="bandPostImgInput">
-                                    <img src="" alt="image" id="bandPostImg" >
+                                <div style="position: relative">
+                                    <label for="bandPostImageInput" class="custom-file-upload">
+                                        Choose your band image
+                                    </label>
+                                    <input type="file" id="bandPostImageInput" style="display: none;">
+                                    <img src="" alt="image" id="bandPostImage" style="background-color: darkgrey; color:white; padding:5px; border:none;outline:none; height: 10vh; width: auto">
+                                    <input type="hidden" id="bandPostImageUrl" name="post_image">
                                 </div>
 
                             </div>
@@ -197,6 +201,23 @@
         client.upload(file).then((response) => {
             bandPic.src = response.url;
             bandImageUrlInput.value = response.url;
+        }).catch((error) => {
+            console.log(error);
+        });
+    });
+
+    const bandPostPic = document.getElementById("bandPostImage");
+    const bandPostFileInput = document.getElementById("bandPostImageInput");
+    const bandPostImageUrlInput = document.getElementById("bandPostImageUrl");
+
+    bandPostImageUrlInput.value = bandPostPic.src;
+
+    bandPostFileInput.addEventListener("change", (event) => {
+        const file = event.target.files[0];
+
+        client.upload(file).then((response) => {
+            bandPostPic.src = response.url;
+            bandPostImageUrlInput.value = response.url;
         }).catch((error) => {
             console.log(error);
         });
