@@ -48,7 +48,6 @@ public class EditController {
     }
 
     @PostMapping("/profile/edit")
-
     public String updateUserProfile(@ModelAttribute("user") User user, @RequestParam("profileImage") String profileImageUrl, Model model, Principal principal) {
 
         try {
