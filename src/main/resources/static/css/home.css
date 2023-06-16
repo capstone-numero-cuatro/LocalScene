@@ -64,7 +64,10 @@ body {
         color: #146C80;
     }
 }
-
+#PostsContainer{
+    display: flex;
+    flex-wrap: wrap;
+}
 
 .post{
     display: inline-block;
@@ -102,7 +105,18 @@ body {
     color: white;
     animation: neon 3s infinite;
 }
-
+.aboutUs{
+    margin: calc(20vh - 40px) auto 0 auto;
+    font-size: 45px;
+    text-transform: uppercase;
+    font-family: "Archivo Black", "Archivo", sans-serif;
+    font-weight: normal;
+    display: block;
+    height: auto;
+    text-align: center;
+    color: white;
+    animation: neon 3s infinite;
+}
 
 .t-text{
     font-size: 15px;
