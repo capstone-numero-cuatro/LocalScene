@@ -50,7 +50,7 @@ public class SecurityConfiguration {
                         .requestMatchers("/404","/img/**","/js/**", "/css/**", "/", "/sign-up",
                                 "/verify", "/home","/forgot-password","/reset-password",
                                 "/band-profile/{bandId}", "/venues", "/events").permitAll()
-                        .requestMatchers("/profile/{id}","/profile/edit").authenticated()
+                        .requestMatchers("/profile/{id}","/profile/edit", "/profile/posts/create").authenticated()
 //                        .anyRequest().authenticated()
                 );
 //
