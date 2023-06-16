@@ -20,6 +20,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.security.Principal;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 public class ProfileController {
@@ -41,10 +42,15 @@ public class ProfileController {
         User currentUser = userRepository.findByUsername(principal.getName());
 
         if (currentUser.getId() != id) {
-            throw new ResourceNotFoundException("Profile not found");
+            return "redirect:/error";
         }
 
-        User user = userRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("User not found with id " + id));
+        Optional<User> optionalUser = userRepository.findById(id);
+        if (!optionalUser.isPresent()) {
+            return "redirect:/error";
+        }
+
+        User user = optionalUser.get();
 
         List<Posts> posts = postRepository.findByUser(user);
 
