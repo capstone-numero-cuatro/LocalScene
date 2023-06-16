@@ -74,6 +74,7 @@
                         <div class="form-group">
                             <label for="confirmPassword">Confirm New Password</label>
                             <input type="password" class="form-control" id="confirmPassword" th:field="*{confirmPassword}" required />
+                            <span id="password-check" style="display: none;">✔ Confirmed</span>
                         </div>
                         <input type="checkbox" id="showPasswords" onclick="togglePasswordVisibility()">
                         <label for="showPasswords">Show Passwords</label>
@@ -84,8 +85,6 @@
                 </dialog>
                 <button onclick="pwreset.showModal()" type="button" class="btn btn-info">Reset Password?</button>
             </div>
-            <div th:if="${message}" th:class="${alertClass}" th:text="${message}"></div>
-            <div th:if="${errorMessage}" th:class="${alertClass}" th:text="${errorMessage}"></div>
         </div>
         <div class="screen__background">
             <span class="screen__background__shape screen__background__shape4"></span>
@@ -171,6 +170,18 @@
             confirmPassword.type = 'password';
         }
     }
+    document.getElementById('confirmPassword').addEventListener('keyup', function() {
+        const newPassword = document.getElementById('newPassword').value;
+        const confirmPassword = document.getElementById('confirmPassword').value;
+
+        if (newPassword === confirmPassword) {
+            document.getElementById('password-check').style.display = 'inline';
+        } else {
+            document.getElementById('password-check').style.display = 'none';
+            document.getElementById('password-check').style.color = 'green';
+        }
+    });
+
     //Check Username
     document.getElementById('username').addEventListener('focus', () => {
         document.getElementById('usernameCriteria').style.display = 'block';
