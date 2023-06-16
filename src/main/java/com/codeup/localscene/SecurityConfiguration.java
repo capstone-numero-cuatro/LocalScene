@@ -49,8 +49,8 @@ public class SecurityConfiguration {
                 .authorizeHttpRequests((authorize) -> authorize
                         .requestMatchers("/404","/img/**","/js/**", "/css/**", "/", "/sign-up",
                                 "/verify", "/home","/forgot-password","/reset-password",
-                                "/band-profile/{bandId}", "/venues", "/events","/profile/bands/create", "/band-profile/{bandId}").permitAll()
-                        .requestMatchers("/profile/{id}","/profile/edit", "/profile/posts/create","/band-profile/{bandId}/add-user").authenticated()
+                                "/band-profile/{bandId}", "/venues/**", "/events/**","/profile/bands/create", "/band-profile/{bandId}").permitAll()
+                        .requestMatchers("/profile/{id}","/profile/edit/**", "/profile/posts/create","/band-profile/{bandId}/add-user").authenticated()
 //                        .anyRequest().authenticated()
                 );
 //
