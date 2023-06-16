@@ -37,17 +37,17 @@ public class BandPostController {
 
         model.addAttribute("bandPosts", bandPosts);
         model.addAttribute("newBandPosts", new BandPosts());
-        return "redirect:/home";
+        return "home";
     }
 
 //    create post, saves post, redirects to list of band-posts
-    @PostMapping("/band-profile/band-posts/create")
-    public String createPost(@ModelAttribute("bandPost") BandPosts bandPosts, @PathVariable("bandId") Long bandId) {
-        Band band = bandRepository.getReferenceById(bandId);
-        bandPosts.setBand(band);
-        bandPostRepository.save(bandPosts);
-        return "redirect:/home";
-    }
+//    @PostMapping("/band-profile/{bandId}/band-posts/create")
+//    public String createPost(@ModelAttribute("bandPost") BandPosts bandPosts, @PathVariable("bandId") Long bandId) {
+//        Band band = bandRepository.getReferenceById(bandId);
+//        bandPosts.setBand(band);
+//        bandPostRepository.save(bandPosts);
+//        return "redirect:/home";
+//    }
 
 
 

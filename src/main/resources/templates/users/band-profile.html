@@ -32,127 +32,130 @@
 <!--            <input type="file" id="imageInput">-->
 <!--            <img src="" alt="image" id="profilePic" style="background-color: darkgrey; color:white; padding:5px; border:none;outline:none; height: 30vh; width: auto">-->
 <!--        </div>-->
-
-        <img th:src="${band.band_image}" alt="image" id="currentPic" style="background-color:
-        darkgrey; color:white; padding:5px; border:none;outline:none; height: 30vh; width: auto">
-
-        <dialog id="changePicture">
-            <form th:method="post" th:action="@{/band-profile/{bandId}/change-image(bandId=${band.id})}" th:object="${band}">
+        <div class="profile-settings">
             <div>
-                <label for="bandImageInput" class="custom-file-upload">
-                    Choose your Band image
-                </label>
-                <input type="file" id="bandImageInput" style="display: none;" onchange="enableSubmitButton()"/>
-                <img src="" th:src="${band.band_image}" alt="image" id="bandImage" style="background-color: darkgrey; color:white; padding:5px; border:none;outline:none; height: 30vh; width: auto">
-                <input type="hidden" id="bandImageUrl" name="band_image">
-                <div sec:authorize="isAuthenticated()">
-                    <input value="Save changes" id="submitBtn" type="submit" disabled/>
+                <img th:src="${band.band_image}" alt="image" id="currentPic">
+            </div>
+            <div>
+                <dialog id="changePicture">
+                    <form th:method="post" th:action="@{/band-profile/{bandId}/change-image(bandId=${band.id})}" th:object="${band}">
+                    <div>
+                        <label for="bandImageInput" class="custom-file-upload">
+                            Choose your Band image
+                        </label>
+                        <input type="file" id="bandImageInput" style="display: none;" onchange="enableSubmitButton()"/>
+                        <img src="" th:src="${band.band_image}" alt="image" id="bandImage" style="background-color: darkgrey; color:white; padding:5px; border:none;outline:none; height: 30vh; width: auto">
+                        <input type="hidden" id="bandImageUrl" name="band_image">
+                        <div sec:authorize="isAuthenticated()">
+                            <input value="Save changes" id="submitBtn" type="submit" disabled/>
+                        </div>
+                    </div>
+                    </form>
+                </dialog>
+                <div>
+                    <button onclick="openProfilePicturePicker()" type="button" id="changeProfilePic" style="--content: 'Hover me!';"><div class="left"> </div> Change Profile Picture<div class="right"></div></button>
                 </div>
             </div>
-            </form>
-        </dialog>
-
-        <button onclick="openProfilePicturePicker()" type="button" id="changeProfilePic" style="--content: 'Hover me!';"><div class="left"> </div> Change Profile Picture<div class="right"></div></button>
-
-
-
-
-    </div>
-    <div class="container">
-        <div>
-            <h3>Band Members</h3>
-            <ul>
-                <li th:each="user : ${band.user}">
-                    <span th:text="${user.username}"></span>
-                </li>
-            </ul>
         </div>
-        <div>
+    </div>
+
+<!--    Users list-->
+    <div id="usersArea">
+        <h3>Band Members</h3>
+        <ul>
+            <li class="user-name" th:each="user : ${band.user}">
+                <span th:text="${user.username}"></span>
+            </li>
+        </ul>
+        <div class="ml-1">
             <h3>Add Band Member</h3>
             <form th:action="@{/band-profile/{bandId}/add-user(bandId=${band.id})}" method="post">
                 <input type="text" name="username" placeholder="Username" required>
                 <button class="btn  btn-success" type="submit">Add</button>
             </form>
-
-
-        </div>
-
-        <div id="bandButtons">
-            <div class="container">
-                <dialog id="bandPostDialog">
-                    <section id="insideModal">
-                        <h2>Shoutout to your fans!</h2>
-                        <form th:object="${newBandPosts}" th:method="post"
-                              th:action="@{/band-profile/{bandId}/band-posts/create(bandId=${band.id})}">
-                            <div class="mb-3">
-                                <label for="BandPostTitle" class="form-label">Title</label>
-                                <input type="text" class="form-control" id="BandPostTitle" name="title" placeholder="Title" th:field="*{title}">
-                            </div>
-                            <div class="mb-3">
-                                <label for="BandPostDescription" class="form-label">Body</label>
-                                <textarea class="form-control" id="BandPostDescription" name="content" rows="3" th:field="*{description}"></textarea>
-                                                                <input type="hidden" th:field="*{id}">
-                                <div >
-                                    <input type="file" id="bandPostImgInput">
-                                    <img src="" alt="image" id="bandPostImg" >
-                                </div>
-
-                            </div>
-                            <button type="submit" class="btn btn-warning">Let it be known!</button>
-                        </form>
-                    </section>
-                </dialog>
-                <button onclick="bandPostDialog.showModal()" type="button" class="band-post-btn">Band Post</button>
-            </div>
-            <div class="container">
-                <dialog id="bandEvent">
-                    <section id="insideEvent">
-                        <h5>What are the deets?!</h5>
-                        <form th:object="${newEvent}" th:method="post"
-                              th:action="@{/band-profile/{bandId}/band-events/create(bandId=${band.id})}">
-                            <div class="mb-3">
-                                <label for="EventsPostTitle" class="form-label">Title</label>
-                                <input type="text" class="form-control" id="EventsPostTitle"
-                                       name="title" placeholder="Title"
-                                       th:text="*{title}">
-                            </div>
-                            <div class="mb-3">
-                                <label for="EventsDescription" class="form-label">Body</label>
-                                <textarea class="form-control" id="EventsDescription" name="content" rows="3" th:field="*{description}"></textarea>
-                                <!--                <input type="hidden">-->
-                                <div style="position: relative">
-                                    <input type="file" id="bandEventInput">
-                                    <img src="" alt="image" id="bandEventFlyer" style="background-color: darkgrey; color:white; padding:5px; border:none;outline:none; height: 30vh; width: auto">
-                                </div>
-                            </div>
-                            <button type="submit" class="btn btn-danger">Let it be known!</button>
-                        </form>
-                    </section>
-                </dialog>
-                <button onclick="bandEvent.showModal()" type="button" class="band-post-btn">Event Creation</button>
-            </div>
-
         </div>
     </div>
 
-    <div class="container" id="recent-activity" style="border: solid yellow 2px">
+<!--    Create bandposts and events-->
+    <div id="bandButtons">
         <div>
-            <div><h4>Recent Activity Placeholder</h4>
-                <div th:each="bandPosts : ${bandPosts}">
-                    <div class="card" style="width: 18rem">
-                        <div class="card-body">
-                            <p>Band: <span th:text="${band.bandname}"></span></p>
-                            <h5 class="card-title" th:text="${bandPosts.title}"></h5>
-                            <h6 class="card-body" th:text="${bandPosts.description}"></h6>
-                            <!--                        <img th:src="@{'/images/' + ${post.image}}" alt="postImage">-->
-                            <form
-                                    th:action="@{/band-profile/{bandId}/band-posts/{bandPostsId}/delete(bandId=${band.id}, bandPostsId=${bandPosts.id})}"
-                                    method="post" style="display: inline;">
-                                <button type="submit" class="btn btn-danger">Delete</button>
-                            </form>
+            <dialog id="bandPostDialog">
+<!--                <section id="insideModal">-->
+                    <h5>Shoutout to your fans!</h5>
+                    <form th:object="${newBandPosts}" th:method="post"
+                          th:action="@{/band-profile/{bandId}/band-posts/create(bandId=${band.id})}">
+                        <div class="mb-3">
+                            <label for="BandPostTitle" class="form-label">Title</label>
+                            <input type="text" class="form-control" id="BandPostTitle" name="title" placeholder="Title" th:field="*{title}">
+                        </div>
+                        <div class="mb-3">
+                            <label for="BandPostDescription" class="form-label">Body</label>
+                            <textarea class="form-control" id="BandPostDescription" name="content" rows="3" th:field="*{description}"></textarea>
+                                                            <input type="hidden" th:field="*{id}">
+                            <div >
+                                <input type="file" id="bandPostImgInput">
+                                <img src="" alt="image" id="bandPostImg" >
+                            </div>
+
+                        </div>
+                        <button type="submit" class="btn btn-primary">Let it be known!</button>
+                    </form>
+<!--                </section>-->
+            </dialog>
+            <button onclick="bandPostDialog.showModal()" type="button" class="btn btn-info">Band
+                Post</button>
+        </div>
+
+        <div class="container">
+            <dialog id="bandEventDialog">
+<!--                <section id="insideEvent">-->
+                <h5>What are the deets?!</h5>
+                <form th:object="${newEvent}" th:method="post"
+                      th:action="@{/band-profile/{bandId}/band-events/create(bandId=${band.id})}">
+                    <div class="mb-3">
+                        <label for="EventsPostTitle" class="form-label">Title</label>
+                        <input type="text" class="form-control" id="EventsPostTitle"
+                               name="title" placeholder="Title"
+                               th:text="*{title}">
+                    </div>
+                    <div class="mb-3">
+                        <label for="EventsDescription" class="form-label">Body</label>
+                        <textarea class="form-control" id="EventsDescription" name="content" rows="3" th:field="*{description}"></textarea>
+                        <!--                <input type="hidden">-->
+                        <div style="position: relative">
+                            <input type="file" id="bandEventInput">
+                            <img src="" alt="image" id="bandEventFlyer" style="background-color: darkgrey; color:white; padding:5px; border:none;outline:none; height: 30vh; width: auto">
                         </div>
                     </div>
+                    <button type="submit" class="btn btn-primary">Let it be known!</button>
+                </form>
+<!--                </section>-->
+            </dialog>
+            <button onclick="bandEvent.showModal()" type="button" class="btn btn-info">Event
+                Creation</button>
+        </div>
+    </div>
 
+    <div>
+        <div id="bandposts-container">
+            <div class="container" id="recent-activity">
+                <div>
+                    <h4>Recent Activity Placeholder</h4>
+                </div>
+            </div>
+            <div class="card-layout" th:each="bandPosts : ${bandPosts}">
+                <div class="card" style="width: 20rem">
+                    <div class="card-body">
+                        <p>Band: <span th:text="${band.bandname}"></span></p>
+                        <h5 class="card-title" th:text="${bandPosts.title}"></h5>
+                        <h6 class="card-text" th:text="${bandPosts.description}"></h6>
+                        <!--                        <img th:src="@{'/images/' + ${post.image}}" alt="postImage">-->
+                        <form
+                                th:action="@{/band-profile/{bandId}/band-posts/{bandPostsId}/delete(bandId=${band.id}, bandPostsId=${bandPosts.id})}"
+                                method="post" style="display: inline;">
+                            <button type="submit" class="btn btn-danger">Delete</button>
+                        </form>
+                    </div>
                 </div>
                 <div th:each="events : ${events}">
                     <div class="card" style="width: 18rem">
@@ -169,7 +172,6 @@
                         </div>
                     </div>
                 </div>
-
             </div>
         </div>
     </div>

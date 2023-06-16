@@ -46,9 +46,7 @@
                     <a th:href="@{/profile/edit}" type="button" class="btn btn-info">Edit profile</a>
                 </div>
             </div>
-
         </div>
-
     </div>
 
     <!--Bands List-->
@@ -61,7 +59,7 @@
         </p>
     </div>
 
-<!--    Create a post-->
+    <!--    Create a post-->
     <div id="postsButtons">
         <div  id="blog-post">
             <dialog id="postCreationDialog">
@@ -115,7 +113,8 @@
                                 Choose your band image
                             </label>
                             <input type="file" id="bandImageInput" style="display: none;">
-                            <img src="" alt="image" id="bandImage" style="background-color: darkgrey; color:white; padding:5px; border:none;outline:none; height: 10vh; width: auto">
+                            <img src="" alt="image" id="bandImage" style="background-color: white;
+                            color:white; padding:5px; border:none;outline:none; height: 10vh; width: auto">
                             <input type="hidden" id="bandImageUrl" name="band_image">
                         </div>
 
@@ -138,11 +137,9 @@
             </div>
             <div class="card-layout" th:each="post : ${posts}">
                 <div class="card" style="width:20rem;">
-
                     <div class="card-body">
                         <p>User: <span th:text="${user.username}"></span></p>
                         <h5 class="card-title" th:text="${post.title}"></h5>
-                        <!--                <h6 class="card-subtitle mb-2 text-body-secondary" th:text="${post.user}"></h6>-->
                         <p class="card-text" th:text="${post.description}"></p>
                         <img th:src="${post.post_image}" alt="image" id="bandPic" height="200">
                         <form

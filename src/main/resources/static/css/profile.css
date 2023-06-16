@@ -47,8 +47,6 @@ header h2{
     font-weight: normal;
 }
 
-
-
 .logo-1 {
     color: white;
     animation: neon 3s infinite;
@@ -118,9 +116,9 @@ h4{
     margin-right: 50px; /* Adjust the value as needed */
 }
 
-.profile-settings .button-edit {
-    margin-left: 50px; /* Adjust the value as needed */
-}
+/*.profile-settings .button-edit {*/
+/*    margin-left: 50px; !* Adjust the value as needed *!*/
+/*}*/
 
 #currentPic, #profilePic{
 
@@ -256,5 +254,5 @@ label {
     grid-gap: 20px;
 }
 
-.card
+
 
