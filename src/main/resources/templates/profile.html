@@ -27,29 +27,17 @@
 
 
 <div class="container text-center" Id="userInfoArea" >
-    <div>
-        <div class="profile-settings">
-            <div>
-                <img th:src="${user.profileImage}" alt="image" id="currentPic">
-            </div>
-            <div>
-                <dialog id="changePicture">
-                    <div>
-                        <input type="file" id="imageInput" onchange="handleProfilePictureUpload()">
-                        <img src="" alt="image" id="profilePic">
-                        <button type="submit" class="btn btn-success">Submit!</button>
-                    </div>
-                </dialog>
 
-                <!--    Edit Profile-->
-                <div class="button-edit">
-                    <a th:href="@{/profile/edit}" type="button" class="btn btn-info">Edit profile</a>
-                </div>
-            </div>
-
+    <div class="profile-settings">
+        <div>
+            <img th:src="${user.profileImage}" alt="image" id="currentPic">
         </div>
-
+        <!--    Edit Profile-->
+        <div class="button-edit">
+            <a th:href="@{/profile/edit}" type="button" class="btn btn-info">Edit profile</a>
+        </div>
     </div>
+
 
     <!--Bands List-->
     <div id="bandsArea">
