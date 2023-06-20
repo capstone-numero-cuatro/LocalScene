@@ -1,16 +1,12 @@
 package com.codeup.localscene.controllers;
 
 import com.codeup.localscene.models.BandPosts;
-import com.codeup.localscene.models.Posts;
-import com.codeup.localscene.models.User;
 import com.codeup.localscene.repositories.BandPostRepository;
 import com.codeup.localscene.repositories.BandRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
@@ -37,18 +33,23 @@ public class BandPostController {
         model.addAttribute("newBandPosts", new BandPosts());
         return "redirect:/home";
     }
+//
+////    create post, saves post, redirects to list of band-posts
+//    @PostMapping("/band-profile/band-posts/create")
+//    public String createPost(@ModelAttribute("bandPost") BandPosts bandPosts, @PathVariable("bandId") Long bandId) {
+//        Band band = bandRepository.getReferenceById(bandId);
+//        bandPosts.setBand(band);
+//        bandPostRepository.save(bandPosts);
+//        return "redirect:/home";
+//    }
 
-//    create post, saves post, redirects to list of band-posts
-    @PostMapping("/band-profile/band-posts/create")
-    public String createPost(@ModelAttribute("bandPost") BandPosts bandPosts) {
-        bandPostRepository.save(bandPosts);
-        return "redirect:/home";
-    }
+
 
     //delete
-    @PostMapping("/profile/{id}/band-posts/delete")
-    public String deleteBandPost(@ModelAttribute("bandPost") BandPosts bandPosts){
-        bandPostRepository.delete(bandPosts);
-        return "redirect:/band-posts";
+    @PostMapping("/band-profile/{bandId}/band-posts/{bandPostsId}/delete")
+    public String deleteBandPost(@PathVariable("bandId") Long bandId,
+                                 @PathVariable("bandPostsId") Long bandPostsId){
+        bandPostRepository.deleteById(bandPostsId);
+        return "redirect:/band-profile/{bandId}";
     }
 }

@@ -1,8 +1,15 @@
+:root {
+    --shadow-color: #FF9E9E;
+    --shadow-color-light: white;
+    --logo-color: rgba(245, 128, 253, 1);
+}
 
 body {
-    background: var(--clr-bg);
+    /*background: var(--clr-bg);*/
+    /*font-family: 'Permanent Marker', cursive;*/
+    /*color: whitesmoke;*/
+    background-color: #26202a !important;
     font-family: 'Permanent Marker', cursive;
-    color: whitesmoke;
 }
 header {
     background: url('../img/santana.jpg');
@@ -17,158 +24,263 @@ header {
     border-radius: 0 0 85% 85% / 30%;
     background-position: center top;
 }
+
+header h2{
+    color: skyblue;
+    animation: neon 3s infinite;
+    margin-top: 2em;
+    font-size: 65px;
+    text-transform: uppercase;
+    font-family: "Archivo Black", "Archivo", sans-serif;
+    font-weight: normal;
+}
+
+.logo-1 {
+    color: white;
+    animation: neon 3s infinite;
+}
+
+@keyframes neon {
+    0% {
+        text-shadow: -1px -1px 1px var(--logo-color), -1px 1px 1px var(--logo-color), 1px -1px 1px var(--logo-color), 1px 1px 1px var(--logo-color),
+        0 0 3px var(--logo-color), 0 0 10px var(--logo-color), 0 0 20px var(--logo-color),
+        0 0 30px var(--logo-color), 0 0 40px var(--logo-color), 0 0 50px var(--logo-color), 0 0 70px var(--logo-color), 0 0 100px var(--logo-color), 0 0 200px var(--logo-color);
+    }
+    50% {
+        text-shadow: -1px -1px 1px var(--logo-color), -1px 1px 1px var(--logo-color), 1px -1px 1px var(--logo-color), 1px 1px 1px var(--logo-color),
+        0 0 5px var(--logo-color), 0 0 15px var(--logo-color), 0 0 25px var(--logo-color),
+        0 0 40px var(--logo-color), 0 0 50px var(--logo-color), 0 0 60px var(--logo-color), 0 0 80px var(--logo-color), 0 0 110px var(--logo-color), 0 0 210px var(--logo-color);
+    }
+    100% {
+        text-shadow: -1px -1px 1px var(--logo-color), -1px 1px 1px var(--logo-color), 1px -1px 1px var(--logo-color), 1px 1px 1px var(--logo-color),
+        0 0 3px var(--logo-color), 0 0 10px var(--logo-color), 0 0 20px var(--logo-color),
+        0 0 30px var(--logo-color), 0 0 40px var(--logo-color), 0 0 50px var(--logo-color), 0 0 70px var(--logo-color), 0 0 100px var(--logo-color), 0 0 200px var(--logo-color);
+    }
+}
+
+h4{
+    color: skyblue;
+
+    font-size: 30px;
+    text-transform: uppercase;
+
+    font-weight: normal;
+}
+
 #bandInfoArea{
+    background-color: dimgray;
     display: flex;
-    height: 65vh;
+    height: 40vh;
     flex-direction: column;
     align-items: center;
     padding: 20px;
     position: absolute;
     z-index: 1;
-    background: var(--clr-bg);
     border-radius: 25px;
-    top: 50%;
     left: 0;
     right: 0;
     bottom: 0;
-    color: var(--clr-neon);
-    box-shadow: rgba(6, 24, 44, 0.4) 0px 0px 0px 2px, rgba(6, 24, 44, 0.65) 0px 4px 6px -1px, rgba(255, 255, 255, 0.08) 0px 1px 0px inset;
+    transform: translateY(-50%);
 }
-header h2{
-    color:  rgba(245, 128, 253, 1);
-    font-size: 100px;
 
+.profile-settings {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
 }
-#currentPic{
-    background-color: darkgrey;
+
+.profile-settings img {
+    margin-right: 50px; /* Adjust the value as needed */
+}
+
+/*.profile-settings .button-edit {*/
+/*    margin-left: 50px; !* Adjust the value as needed *!*/
+/*}*/
+
+
+#currentPic, #band-img{
     color: white;
-    padding: 5px;
-    border: var(--clr-neon) 4px solid;
+    border: none;
     outline: none;
     height: 15vh;
-    width: auto;
+    width: 15vh;
     border-radius: 50%;
     object-fit: cover;
-    position: absolute;
-    z-index: 2;
-    top: -250px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 5px 2em 5px 5px;
 }
+
+#usersArea {
+    margin-right: 10px;
+    padding: 5px;
+    margin-top: 5vh;
+}
+
+#usersArea {
+    display: flex;
+    align-items: center;
+}
+
+#usersArea h4{
+    padding-right: 1em;
+}
+
+.user-name span {
+    font-size: 40px; /* Adjust the value as needed */
+}
+
+
 #bandButtons{
-    /*border:solid red 2px;*/
-    display: inline-flex;
-    justify-content: center;
+    display: flex;
+    justify-content: space-evenly;
     align-items: center;
-    margin: 2em;
+    margin-top: 5vh;
+    width: 90%;
+    margin-left: 25em;
 }
-#bandPostDialog {
+
+#bandPostDialog, #bandEventDialog {
     background: url("../img/Image about black and white shared by Eirené Grace.jpeg");
+    color: #fff;
+    padding: 1rem 3rem;
+    background: #606060;
     background-size: cover;
-    height: fit-content;
-    width: 430px;
-    color: white;
-    border-radius: 30px;
+    padding-top: 2rem;
+    border-radius: 20px;
+    border: 0;
+    box-shadow: 0 5px 30px 0 rgb(0 0 0 / 10%);
+    animation: fadeIn 1s ease both;
+}
+
+/*#insideModal{*/
+
+/*    display: flex;*/
+/*    flex-direction: column;*/
+/*    align-items: center;*/
+/*    justify-content: center;*/
+
+/*}*/
+
+dialog::backdrop {
+    animation: fadeIn 1.5s ease both;
+    background: rgb(0 0 0 / 40%);
+    z-index: 2;
+    backdrop-filter: blur(20px);
+}
+
+dialog .x {
+    filter: grayscale(1);
     border: none;
-    box-shadow: rgba(240, 46, 170, 0.4) 0px 5px, rgba(240, 46, 170, 0.3) 0px 10px, rgba(240, 46, 170, 0.2) 0px 15px, rgba(240, 46, 170, 0.1) 0px 20px, rgba(240, 46, 170, 0.05) 0px 25px;
-    padding: 5em;
-}
-
-#insideModal{
-
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-
-}
-#bandEvent{
-    background: url("../img/event.png");
-    background-size: contain;
-    background-repeat: no-repeat;
-    height: fit-content;
-    width: 420px;
-    color: black;
-    border-radius: 30px;
-    border: none;
-    box-shadow: rgba(240, 46, 170, 0.4) 0px 5px, rgba(240, 46, 170, 0.3) 0px 10px, rgba(240, 46, 170, 0.2) 0px 15px, rgba(240, 46, 170, 0.1) 0px 20px, rgba(240, 46, 170, 0.05) 0px 25px;
-    padding: 4em;
-}
-#insideEvent{
-
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-}
-.band-post-btn{
-    font-size: 2em;
-
-    display: inline-block;
+    background: none;
+    position: absolute;
+    top: 15px;
+    right: 10px;
+    transition: ease filter, transform 0.3s;
     cursor: pointer;
-    text-decoration: none;
-    color: var(--clr-neon);
-    border: var(--clr-neon) 4px solid;
-    padding: 0.25em 1em;
-    border-radius: 0.25em;
-
-    text-shadow: 0 0 0.125em rgba(255, 255, 255, 0.55), 0 0 0.5em currentColor;
-
-    box-shadow: inset 0 0 0.5em 0 var(--clr-neon), 0 0 0.5em 0 var(--clr-neon);
-
-    position: relative;
+    transform-origin: center;
 }
 
-:root {
-    --clr-neon: rgba(245, 128, 253, 1);
-    --clr-bg: rgba(1, 1, 1, 1);
-    --clr-white: rgba(255, 255, 255, 1);
+dialog:hover .x {
+    filter: grayscale(0);
+    transform: scale(1.1);
 }
 
-.band-post-btn::before {
-    pointer-events: none;
-    content: "";
-    position: absolute;
-    background: var(--clr-neon);
-    top: 120%;
-    left: 0;
-    width: 100%;
-    height: 100%;
-
-    transform: perspective(1.2em) rotateX(40deg) scale(1.5, 0.5);
-    filter: blur(1.15em);
-    opacity: 0.7;
-
-    transition: transform 0.5s linear;
+#bandEventDialog{
+    background-image: url("../img/platypus.png");
+    background-size: cover;
+    background-position: center;
+    color: black;
 }
 
-.band-post-btn::after {
-    content: "";
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    box-shadow: 0 0 4em 0.6em var(--clr-neon), 0 0 1em 0.2em var(--clr-white);
-    opacity: 0;
-    background: var(--clr-neon);
-    z-index: -1;
-    transition: opacity 0.5s linear;
+#bandposts-container{
+    margin-top: 2em;
+    margin-bottom: 5em;
 }
 
-.band-post-btn:hover,
-.band-post-btn:focus {
-    color: var(--clr-bg);
-    text-shadow: none;
+.card-layout{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 20px;
 }
 
-.band-post-btn:hover::before,
-.band-post-btn:focus::before {
-    opacity: 1;
-    transform: perspective(1em) rotateX(40deg) scale(1.5, 0.6);
-    transition: transform 0.5s linear;
-}
+/*#insideEvent{*/
 
-.band-post-btn:hover::after,
-.band-post-btn:focus::after {
-    opacity: 1;
-}
+/*    display: flex;*/
+/*    flex-direction: column;*/
+/*    align-items: center;*/
+/*    justify-content: center;*/
+/*}*/
+/*.band-post-btn{*/
+/*    font-size: 2em;*/
 
+/*    display: inline-block;*/
+/*    cursor: pointer;*/
+/*    text-decoration: none;*/
+/*    color: var(--clr-neon);*/
+/*    border: var(--clr-neon) 4px solid;*/
+/*    padding: 0.25em 1em;*/
+/*    border-radius: 0.25em;*/
+
+/*    text-shadow: 0 0 0.125em rgba(255, 255, 255, 0.55), 0 0 0.5em currentColor;*/
+
+/*    box-shadow: inset 0 0 0.5em 0 var(--clr-neon), 0 0 0.5em 0 var(--clr-neon);*/
+
+/*    position: relative;*/
+/*}*/
+
+/*:root {*/
+/*    --clr-neon: rgba(245, 128, 253, 1);*/
+/*    --clr-bg: rgba(1, 1, 1, 1);*/
+/*    --clr-white: rgba(255, 255, 255, 1);*/
+/*}*/
+
+/*.band-post-btn::before {*/
+/*    pointer-events: none;*/
+/*    content: "";*/
+/*    position: absolute;*/
+/*    background: var(--clr-neon);*/
+/*    top: 120%;*/
+/*    left: 0;*/
+/*    width: 100%;*/
+/*    height: 100%;*/
+
+/*    transform: perspective(1.2em) rotateX(40deg) scale(1.5, 0.5);*/
+/*    filter: blur(1.15em);*/
+/*    opacity: 0.7;*/
+
+/*    transition: transform 0.5s linear;*/
+/*}*/
+
+/*.band-post-btn::after {*/
+/*    content: "";*/
+/*    position: absolute;*/
+/*    top: 0;*/
+/*    bottom: 0;*/
+/*    left: 0;*/
+/*    right: 0;*/
+/*    box-shadow: 0 0 4em 0.6em var(--clr-neon), 0 0 1em 0.2em var(--clr-white);*/
+/*    opacity: 0;*/
+/*    background: var(--clr-neon);*/
+/*    z-index: -1;*/
+/*    transition: opacity 0.5s linear;*/
+/*}*/
+
+/*.band-post-btn:hover,*/
+/*.band-post-btn:focus {*/
+/*    color: var(--clr-bg);*/
+/*    text-shadow: none;*/
+/*}*/
+
+/*.band-post-btn:hover::before,*/
+/*.band-post-btn:focus::before {*/
+/*    opacity: 1;*/
+/*    transform: perspective(1em) rotateX(40deg) scale(1.5, 0.6);*/
+/*    transition: transform 0.5s linear;*/
+/*}*/
+
+/*.band-post-btn:hover::after,*/
+/*.band-post-btn:focus::after {*/
+/*    opacity: 1;*/
+/*}*/
