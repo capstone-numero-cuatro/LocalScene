@@ -114,6 +114,7 @@
                 <div th:each="post : ${posts}">
                     <div class="card" style="width:20rem;">
                         <div class="card-body">
+<!--                            <img th:src="${user.profileImage}">-->
                             <p >User: <span th:each="user : ${users}" th:if="${user.id == post.user.id}" th:text="${user.username}"></span></p>
                             <h5 class="card-title" th:text="${post.title}"></h5>
                             <!--                <h6 class="card-subtitle mb-2 text-body-secondary" th:text="${post.user}"></h6>-->
