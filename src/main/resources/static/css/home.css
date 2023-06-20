@@ -481,13 +481,32 @@ position: absolute;
     }
 
     .user-card {
-        margin-bottom: 20px;
+
+        margin: 3em;
     }
 
     .people-card{
         display: flex;
         flex-wrap: wrap;
+        margin-left: 15%;
+        margin-top: 15%;
+        margin-right: 15%;
+        margin-bottom: 10%;
     }
-    /* Adjust other styles as needed */
-    /* ... */
+
+    #PostsContainer .card{
+        border-radius: 50px;
+        background-color: #9528da;
+        color: white;
+    }
+
+    .card-body{
+        padding: 1em;
+    }
+    .card-body img{
+        display: flex;
+        margin: auto;
+        max-width: 300px;
+    }
+
 }
